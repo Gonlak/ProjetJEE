@@ -20,7 +20,6 @@ public class Article_Vendu {
 	
 	public Article_Vendu(int no_article, String nom_article, String description, Date date_debut_encheres,
 			Date date_fin_encheres, int prix_initial, int prix_vente, int no_utilisateur, int no_categorie) {
-		super();
 		this.no_article = no_article;
 		this.nom_article = nom_article;
 		this.description = description;

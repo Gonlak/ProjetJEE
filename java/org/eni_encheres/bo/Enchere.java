@@ -14,7 +14,6 @@ public class Enchere {
 	public Enchere() {}
 	
 	public Enchere(int no_utilisateur, int no_article, Date date_enchere, int montant_enchere) {
-		super();
 		this.no_utilisateur = no_utilisateur;
 		this.no_article = no_article;
 		this.date_enchere = date_enchere;
