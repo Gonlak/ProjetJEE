@@ -15,7 +15,7 @@
 		<nav class="navbar bg-body-tertiary">
 			<div class="container-fluid">
 				<a class="navbar-brand">ENI-Enchères</a>
-				<a class="d-flex">S'inscrire / Se connecter</a>
+				<a href="#" class="d-flex">S'inscrire / Se connecter</a>
 			</div>
 		</nav>
 	</header>
