@@ -36,6 +36,11 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 
+	public Utilisateur(String pseudo, String mot_de_passe) {
+		this.pseudo = pseudo;
+		this.mot_de_passe = mot_de_passe;
+	}
+
 	//getters et setters
 	public int getNo_utilisateur() {
 		return no_utilisateur;
