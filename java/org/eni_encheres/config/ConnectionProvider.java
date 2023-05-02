@@ -1,4 +1,4 @@
-package config;
+package org.eni_encheres.config;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
