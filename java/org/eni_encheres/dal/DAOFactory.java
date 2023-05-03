@@ -1,6 +1,6 @@
 package org.eni_encheres.dal;
 
-public class DAOFactoryx {
+public class DAOFactory {
 
 	public static ArticleVenduDAO getArticleVenduDAO() {
 		//return new articleVenduDAOImpl();
