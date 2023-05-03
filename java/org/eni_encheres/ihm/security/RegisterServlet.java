@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.eni_encheres.bll.SecurityService;
+import org.eni_encheres.bo.Utilisateur;
 
 import java.io.IOException;
 
@@ -16,7 +18,22 @@ public class RegisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pseudo = request.getParameter("pseudo");
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String email = request.getParameter("email");
+        String telephone = request.getParameter("telephone");
+        String rue = request.getParameter("rue");
+        String codePostal = request.getParameter("codePostal");
+        String ville = request.getParameter("ville");
+        String mdp = request.getParameter("mdp");
+        String mdpConf = request.getParameter("mdpConf");
+
+        if (mdp.equals(mdpConf)){
+            Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, false);
+            response.sendRedirect(request.getContextPath()+"/connexion");
+            SecurityService.getInstance().addUser(utilisateur);
+        }
     }
 }

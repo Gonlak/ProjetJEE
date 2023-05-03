@@ -43,4 +43,10 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 		
 	}
 
+	@Override
+	public Utilisateur selectByUsername(String pseudo) {
+		// TODO
+		return null;
+	}
+
 }
