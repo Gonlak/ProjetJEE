@@ -5,28 +5,35 @@ import java.sql.Date;
 public class Enchere {
 
 	//attributs
-	private int no_utilisateur;
+	private int no_user;
 	private int no_article;
-	private Date date_enchere;
-	private int montant_enchere;
+	private Date auction_date;
+	private int auction_price;
 	
 	//constructeurs
 	public Enchere() {}
 	
-	public Enchere(int no_utilisateur, int no_article, Date date_enchere, int montant_enchere) {
-		this.no_utilisateur = no_utilisateur;
+	public Enchere(int no_user, int no_article, Date auction_date, int auction_price) {
+		this.no_user = no_user;
 		this.no_article = no_article;
-		this.date_enchere = date_enchere;
-		this.montant_enchere = montant_enchere;
+		this.auction_date = auction_date;
+		this.auction_price = auction_price;
 	}
+	
+	public Enchere(Date auction_date, int auction_price) {
+		this.auction_date = auction_date;
+		this.auction_price = auction_price;
+	}
+	
+	
 
 	//getters et setters
-	public int getNo_utilisateur() {
-		return no_utilisateur;
+	public int getNoUser() {
+		return no_user;
 	}
 
-	public void setNo_utilisateur(int no_utilisateur) {
-		this.no_utilisateur = no_utilisateur;
+	public void setNoUser(int no_user) {
+		this.no_user = no_user;
 	}
 
 	public int getNo_article() {
@@ -37,20 +44,20 @@ public class Enchere {
 		this.no_article = no_article;
 	}
 
-	public Date getDate_enchere() {
-		return date_enchere;
+	public Date getAuctionDate() {
+		return auction_date;
 	}
 
-	public void setDate_enchere(Date date_enchere) {
-		this.date_enchere = date_enchere;
+	public void setAuctionDate(Date auction_date) {
+		this.auction_date = auction_date;
 	}
 
-	public int getMontant_enchere() {
-		return montant_enchere;
+	public int getAuctionPrice() {
+		return auction_price;
 	}
 
-	public void setMontant_enchere(int montant_enchere) {
-		this.montant_enchere = montant_enchere;
+	public void setAuctionPrice(int auction_price) {
+		this.auction_price = auction_price;
 	}
 	
 	
