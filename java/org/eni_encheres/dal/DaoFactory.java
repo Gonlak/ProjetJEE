@@ -12,7 +12,7 @@ public class DAOFactory {
 		return null;
 	}
 	
-	public static EncheresDAO enchereDAO() {
+	public static EnchereDAO enchereDAO() {
 		//return new enchereDAOImpl();
 		return null;
 	}
