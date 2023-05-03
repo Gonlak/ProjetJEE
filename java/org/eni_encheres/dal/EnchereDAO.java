@@ -6,7 +6,7 @@ import org.eni_encheres.bo.Enchere;
 
 
 
-public interface EncheresDAO extends DAO<Enchere> {
+public interface EnchereDAO extends DAO<Enchere> {
 	
 	List<Enchere> selectByKeyWord(String key);
 	
