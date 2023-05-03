@@ -10,4 +10,24 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MonProfilServlet</display-name>
+    <servlet-name>MonProfilServlet</servlet-name>
+    <servlet-class>org.eni_encheres.ihm.MonProfilServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MonProfilServlet</servlet-name>
+    <url-pattern>/MonProfilServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NewSellServlet</display-name>
+    <servlet-name>NewSellServlet</servlet-name>
+    <servlet-class>org.eni_encheres.ihm.NewSellServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewSellServlet</servlet-name>
+    <url-pattern>/NewSellServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
