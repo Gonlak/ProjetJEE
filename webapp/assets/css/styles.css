@@ -1,5 +1,19 @@
 @charset "UTF-8";
 
+
+.btn-lg {
+	width: 120%;
+	height: 100%;
+}
+
 .display{
-	margin-top: 20px
+	margin-top: 10%;
+}
+
+.card-title{
+	text-decoration: underline;
+}
+
+.row-form{
+	margin:2%;
 }
