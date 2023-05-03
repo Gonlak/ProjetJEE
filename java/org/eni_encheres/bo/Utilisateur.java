@@ -3,70 +3,85 @@ package org.eni_encheres.bo;
 public class Utilisateur {
 
 	//attributs
-	private int no_utilisateur;
-	private String pseudo;
-	private String nom;
-	private String prenom;
+	private int no_user;
+	private String username;
+	private String lastname;
+	private String firstname;
 	private String email;
-	private String telephone;
-	private String rue;
-	private String code_postal;
-	private String ville;
-	private String mot_de_passe;
+	private String phone_number;
+	private String street;
+	private String zip_code;
+	private String town;
+	private String password;
 	private int credit;
-	private Boolean administrateur;
+	private Boolean administrator;
 	
 	
 	//constructeurs
 	public Utilisateur() {}
 	
-	public Utilisateur(int no_utilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String code_postal, String ville, String mot_de_passe, int credit, Boolean administrateur) {
-		this.no_utilisateur = no_utilisateur;
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
+	public Utilisateur(int no_user, String username, String lastname, String firstname, String email, String phone_number,
+			String street, String zip_code, String town, String password, int credit, Boolean administrator) {
+		this.no_user = no_user;
+		this.username = username;
+		this.lastname = lastname;
+		this.firstname = firstname;
 		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.code_postal = code_postal;
-		this.ville = ville;
-		this.mot_de_passe = mot_de_passe;
+		this.phone_number = phone_number;
+		this.street = street;
+		this.zip_code = zip_code;
+		this.town = town;
+		this.password = password;
 		this.credit = credit;
-		this.administrateur = administrateur;
+		this.administrator = administrator;
+	}
+	
+	public Utilisateur(String username, String lastname, String firstname, String email, String phone_number,
+			String street, String zip_code, String town, String password, int credit, Boolean administrator) {
+		this.username = username;
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.email = email;
+		this.phone_number = phone_number;
+		this.street = street;
+		this.zip_code = zip_code;
+		this.town = town;
+		this.password = password;
+		this.credit = credit;
+		this.administrator = administrator;
 	}
 
 	//getters et setters
-	public int getNo_utilisateur() {
-		return no_utilisateur;
+	public int getNo_user() {
+		return no_user;
 	}
 
-	public void setNo_utilisateur(int no_utilisateur) {
-		this.no_utilisateur = no_utilisateur;
+	public void setNo_user(int no_user) {
+		this.no_user = no_user;
 	}
 
-	public String getPseudo() {
-		return pseudo;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
-	public String getPrenom() {
-		return prenom;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getEmail() {
@@ -77,44 +92,44 @@ public class Utilisateur {
 		this.email = email;
 	}
 
-	public String getTelephone() {
-		return telephone;
+	public String getPhoneNumber() {
+		return phone_number;
 	}
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public void setPhoneNumber(String phone_number) {
+		this.phone_number = phone_number;
 	}
 
-	public String getRue() {
-		return rue;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setRue(String rue) {
-		this.rue = rue;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
-	public String getCode_postal() {
-		return code_postal;
+	public String getZipCode() {
+		return zip_code;
 	}
 
-	public void setCode_postal(String code_postal) {
-		this.code_postal = code_postal;
+	public void setZipCode(String zip_code) {
+		this.zip_code = zip_code;
 	}
 
-	public String getVille() {
-		return ville;
+	public String getTown() {
+		return town;
 	}
 
-	public void setVille(String ville) {
-		this.ville = ville;
+	public void setVille(String town) {
+		this.town = town;
 	}
 
-	public String getMot_de_passe() {
-		return mot_de_passe;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setMot_de_passe(String mot_de_passe) {
-		this.mot_de_passe = mot_de_passe;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public int getCredit() {
@@ -125,12 +140,12 @@ public class Utilisateur {
 		this.credit = credit;
 	}
 
-	public Boolean getAdministrateur() {
-		return administrateur;
+	public Boolean getAdministrator() {
+		return administrator;
 	}
 
-	public void setAdministrateur(Boolean administrateur) {
-		this.administrateur = administrateur;
+	public void setAdministrator(Boolean administrator) {
+		this.administrator = administrator;
 	}
 	
 	

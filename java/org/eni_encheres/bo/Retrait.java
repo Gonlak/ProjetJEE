@@ -4,18 +4,24 @@ public class Retrait {
 
 	//attributs
 	private int no_article;
-	private String rue;
-	private String code_postal;
-	private String ville;
+	private String street;
+	private String zip_code;
+	private String town;
 	
 	//constructeurs
 	public Retrait() {}
 	
-	public Retrait(int no_article, String rue, String code_postal, String ville) {
+	public Retrait(int no_article, String street, String zip_code, String town) {
 		this.no_article = no_article;
-		this.rue = rue;
-		this.code_postal = code_postal;
-		this.ville = ville;
+		this.street = street;
+		this.zip_code = zip_code;
+		this.town = town;
+	}
+	
+	public Retrait(String rue, String zip_code, String town) {
+		this.street = rue;
+		this.zip_code = zip_code;
+		this.town = town;
 	}
 	
 	//getters et setters
@@ -28,27 +34,27 @@ public class Retrait {
 	}
 
 	public String getRue() {
-		return rue;
+		return street;
 	}
 
-	public void setRue(String rue) {
-		this.rue = rue;
+	public void setRue(String street) {
+		this.street = street;
 	}
 
-	public String getCode_postal() {
-		return code_postal;
+	public String getZipCode() {
+		return zip_code;
 	}
 
-	public void setCode_postal(String code_postal) {
-		this.code_postal = code_postal;
+	public void setZipCode(String zip_code) {
+		this.zip_code = zip_code;
 	}
 
-	public String getVille() {
-		return ville;
+	public String getTown() {
+		return town;
 	}
 
-	public void setVille(String ville) {
-		this.ville = ville;
+	public void setTown(String town) {
+		this.town = town;
 	}
 	
 	
