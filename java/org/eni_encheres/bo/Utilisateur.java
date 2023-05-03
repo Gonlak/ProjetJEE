@@ -51,7 +51,7 @@ public class Utilisateur {
 		this.administrator = administrator;
 	}
 
-	public Utilisateur(String pseudo, String mot_de_passe) {
+	public Utilisateur(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
