@@ -34,8 +34,8 @@
                 </div>
                 <div class="col-4">
                     <div class="form-out mb-4">
-                        <label class="form-label" for="pseudo">Pseudo: </label>
-                        <input type="text" id="pseudo" name="pseudo" class="form-control" />
+                        <label class="form-label" for="test">Pseudo: </label>
+                        <input type="text" id="test" name="test" class="form-control" />
                     </div>
                 </div>
             </div>
