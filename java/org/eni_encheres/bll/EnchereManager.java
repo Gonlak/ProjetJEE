@@ -21,14 +21,14 @@ public class EnchereManager {
 
     // get all enchere
     public List<Enchere> getAllEnchere(){
-        //return DaoFactory.getEncheresDao().selectAll();
+        //return DaoFactory.getEnchereDao().selectAll();
         // Seb a remplasser le return null par celui de haut dessus
         return null;
     }
 
     // recup un enchere
     public Enchere getEnchere(int id){
-        //return DaoFactory.getEncheresDao().selectOne(id);
+        //return DaoFactory.getEnchereDao().selectOne(id);
         // Seb a remplasser le return null par celui de haut dessus
         return null;
     }
@@ -37,7 +37,7 @@ public class EnchereManager {
     public void addEnchere(Enchere enchere) throws BLLException {
         // check all fields
         // verifAddArticle(enchere);
-        //DaoFactory.getEncheresDao().insert(enchere);
+        //DaoFactory.getEnchereDao().insert(enchere);
     }
 
 }

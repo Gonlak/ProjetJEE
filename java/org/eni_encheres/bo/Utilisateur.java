@@ -51,9 +51,9 @@ public class Utilisateur {
 		this.administrator = administrator;
 	}
 
-	public Utilisateur(String pseudo, String mot_de_passe) {
-		this.pseudo = pseudo;
-		this.mot_de_passe = mot_de_passe;
+	public Utilisateur(String username, String password) {
+		this.username = username;
+		this.password = password;
 	}
 
 	//getters et setters
