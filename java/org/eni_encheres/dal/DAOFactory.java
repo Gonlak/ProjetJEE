@@ -1,30 +1,27 @@
 package org.eni_encheres.dal;
 
+import org.eni_encheres.dal.jdbc.*;
+
 public class DAOFactory {
 
 	public static ArticleVenduDAO getArticleVenduDAO() {
-		//return new articleVenduDAOImpl();
-		return null;
+		return new ArticleVenduDAOImpl();
 	}
 	
 	public static CategorieDAO getCategorieDAO() {
-		//return new categorieDAOImpl();
-		return null;
+		return new CategorieDAOImpl();
 	}
 	
-	public static EnchereDAO enchereDAO() {
-		//return new enchereDAOImpl();
-		return null;
+	public static EnchereDAO getEnchereDAO() {
+		return new EnchereDAOImpl();
 	}
 	
-	public static RetraitDAO retraitDAO() {
-		//return new retraitDAOImpl();
-		return null;
+	public static RetraitDAO getRetraitDAO() {
+		return new RetraitDAOImpl();
 	}
 	
-	public static UtilisateurDAO utilisateurDAO() {
-		//return new utilisateurDAOImpl();
-		return null;
+	public static UtilisateurDAO getUtilisateurDAO() {
+		return new UtilisateurDAOImpl();
 	}
 	
 }
