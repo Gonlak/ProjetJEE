@@ -2,6 +2,7 @@ package org.eni_encheres.bll;
 
 import org.eni_encheres.bll.exception.BLLException;
 import org.eni_encheres.bo.Article_Vendu;
+import org.eni_encheres.dal.DAOFactory;
 
 import java.util.List;
 
@@ -21,23 +22,19 @@ public class Article_VenduManager {
 
     // get all articles
     public List<Article_Vendu> getAllArticles(){
-        //return DaoFactory.getArticleDao().selectAll();
-        // Seb a remplasser le return null par celui de haut dessus
-        return null;
+        return DAOFactory.getArticleVenduDAO().selectAll();
     }
 
     // recup un article
     public Article_Vendu getArticle(int id){
-        //return DaoFactory.getArticleDao().selectOne(id);
-        // Seb a remplasser le return null par celui de haut dessus
-        return null;
+        return DAOFactory.getArticleVenduDAO().selectById(id);
     }
 
     // ajoute un article
     public void addArticle(Article_Vendu article_vendu) throws BLLException {
         // check all fields
         // verifAddArticle(article_vendu);
-        //DaoFactory.getArticleDao().insert(article_vendu);
+        DAOFactory.getArticleVenduDAO().insert(article_vendu);
     }
 
 }

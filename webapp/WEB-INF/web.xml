@@ -12,6 +12,7 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+<<<<<<< HEAD
     <display-name>MonProfilServlet</display-name>
     <servlet-name>MonProfilServlet</servlet-name>
     <servlet-class>org.eni_encheres.ihm.MonProfilServlet</servlet-class>
@@ -29,5 +30,14 @@
   <servlet-mapping>
     <servlet-name>NewSellServlet</servlet-name>
     <url-pattern>/NewSellServlet</url-pattern>
+=======
+    <display-name>ProfileServlet</display-name>
+    <servlet-name>ProfileServlet</servlet-name>
+    <servlet-class>org.eni_encheres.ihm.ProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfileServlet</servlet-name>
+    <url-pattern>/ProfileServlet</url-pattern>
+>>>>>>> 5486947cfd6f8521a95fd8e39e3e52fd0af3de90
   </servlet-mapping>
 </web-app>

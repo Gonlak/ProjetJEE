@@ -2,6 +2,7 @@ package org.eni_encheres.bll;
 
 import org.eni_encheres.bll.exception.BLLException;
 import org.eni_encheres.bo.Retrait;
+import org.eni_encheres.dal.DAOFactory;
 
 import java.util.List;
 
@@ -21,23 +22,19 @@ public class RetraitManager {
 
     // get all retrait
     public List<Retrait> getAllRetrait(){
-        //return DaoFactory.getRetraitDao().selectAll();
-        // Seb a remplasser le return null par celui de haut dessus
-        return null;
+        return DAOFactory.getRetraitDAO().selectAll();
     }
 
     // recup un retrait
     public Retrait getRetrait(int id){
-        //return DaoFactory.getRetraitDao().selectOne(id);
-        // Seb a remplasser le return null par celui de haut dessus
-        return null;
+        return DAOFactory.getRetraitDAO().selectById(id);
     }
 
     // ajoute un retrait
     public void addRetrait(Retrait retrait) throws BLLException {
         // check all fields
         // verifAddRetrait(retrait);
-        //DaoFactory.getRetraitDao().insert(retrait);
+        DAOFactory.getRetraitDAO().insert(retrait);
     }
 
 }
