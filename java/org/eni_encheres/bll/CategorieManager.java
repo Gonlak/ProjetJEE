@@ -1,6 +1,7 @@
 package org.eni_encheres.bll;
 
 import org.eni_encheres.bo.Categorie;
+import org.eni_encheres.dal.DAOFactory;
 
 import java.util.List;
 
@@ -20,16 +21,12 @@ public class CategorieManager {
 
     // get all Categorie
     public List<Categorie> getAllCategorie(){
-        //return DaoFactory.getCategorieDao().selectAll();
-        // Seb a remplasser le return null par celui de haut dessus
-        return null;
+        return DAOFactory.getCategorieDAO().selectAll();
     }
 
     // recup une Categorie
     public Categorie getCategorie(int id){
-        //return DaoFactory.getCategorieDao().selectOne(id);
-        // Seb a remplasser le return null par celui de haut dessus
-        return null;
+        return DAOFactory.getCategorieDAO().selectById(id);
     }
 
 }

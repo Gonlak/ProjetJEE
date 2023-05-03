@@ -2,6 +2,7 @@ package org.eni_encheres.bll;
 
 import org.eni_encheres.bll.exception.BLLException;
 import org.eni_encheres.bo.Enchere;
+import org.eni_encheres.dal.DAOFactory;
 
 import java.util.List;
 
@@ -21,23 +22,19 @@ public class EnchereManager {
 
     // get all enchere
     public List<Enchere> getAllEnchere(){
-        //return DaoFactory.getEnchereDao().selectAll();
-        // Seb a remplasser le return null par celui de haut dessus
-        return null;
+        return DAOFactory.getEnchereDAO().selectAll();
     }
 
     // recup un enchere
     public Enchere getEnchere(int id){
-        //return DaoFactory.getEnchereDao().selectOne(id);
-        // Seb a remplasser le return null par celui de haut dessus
-        return null;
+        return DAOFactory.getEnchereDAO().selectById(id);
     }
 
     // ajoute un enchere
     public void addEnchere(Enchere enchere) throws BLLException {
         // check all fields
         // verifAddArticle(enchere);
-        //DaoFactory.getEnchereDao().insert(enchere);
+        DAOFactory.getEnchereDAO().insert(enchere);
     }
 
 }
