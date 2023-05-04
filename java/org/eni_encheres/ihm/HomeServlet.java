@@ -5,14 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.eni_encheres.bo.Utilisateur;
+
 import java.io.IOException;
-import java.util.List;
-
-import org.eni_encheres.bll.Article_VenduManager;
-import org.eni_encheres.bll.EnchereManager;
-import org.eni_encheres.bo.Article_Vendu;
-import org.eni_encheres.bo.Enchere;
-
 
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
@@ -20,10 +16,15 @@ public class HomeServlet extends HttpServlet {
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Enchere> encheres = EnchereManager.getInstance().getAllEnchere();
-		List<Article_Vendu> articles = Article_VenduManager.getInstance().getAllArticles();
-		request.setAttribute("encheres", encheres);
-		request.setAttribute("articles", articles);
+		boolean sessionUtilisateur = false;
+
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+		if(utilisateur!=null){
+			sessionUtilisateur = true;
+		}
+		request.setAttribute("sessionUtilisateur", sessionUtilisateur);
+
 		request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 	}
 
