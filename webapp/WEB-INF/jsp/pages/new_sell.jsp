@@ -23,8 +23,8 @@
 			<div class="row text-center">
 				<h1>Nouvelle vente</h1>
 			</div>
+			<!-- Robin revoir pour l'image -->
 			<div class="col-5 offset-1">
-
 				<div class="row g-0">
 					<div class="col-md-4">
 						<img src="assets/img/radio.jpg" class="img-fluid rounded-start"

@@ -1,22 +1,19 @@
 package org.eni_encheres.bo;
 
 import java.sql.Date;
-import java.util.List;
-
-
 
 public class Enchere {
 
 	//attributs
-	private List<Utilisateur> user;
-	private List<Article_Vendu> article;
+	private Utilisateur user;
+	private Article_Vendu article;
 	private Date auction_date;
 	private int auction_price;
 	
 	//constructeurs
 	public Enchere() {}
 	
-	public Enchere(List<Utilisateur> user,List<Article_Vendu> article, Date auction_date, int auction_price) {
+	public Enchere(Utilisateur user,Article_Vendu article, Date auction_date, int auction_price) {
 		this.user = user;
 		this.article = article;
 		this.auction_date = auction_date;
@@ -31,19 +28,19 @@ public class Enchere {
 	
 
 	//getters et setters
-	public List<Utilisateur> getUser() {
+	public Utilisateur getUser() {
 		return user;
 	}
 
-	public void setUser(List<Utilisateur> user) {
+	public void setUser(Utilisateur user) {
 		this.user = user;
 	}
 
-	public List<Article_Vendu> getArticle() {
+	public Article_Vendu getArticle() {
 		return article;
 	}
 
-	public void setArticle(List<Article_Vendu> article) {
+	public void setArticle(Article_Vendu article) {
 		this.article = article;
 	}
 
