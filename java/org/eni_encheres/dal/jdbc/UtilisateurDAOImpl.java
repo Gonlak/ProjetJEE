@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Utilisateur;
 import org.eni_encheres.config.ConnectionProvider;
 import org.eni_encheres.dal.UtilisateurDAO;
@@ -11,6 +12,7 @@ import org.eni_encheres.dal.UtilisateurDAO;
 public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	private final static String INSERT_UTILISATEUR ="INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
 
 	@Override
 	public List<Utilisateur> selectByKeyWord(String key) {
@@ -68,7 +70,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	@Override
 	public Utilisateur selectByUsername(String pseudo) {
-		// TODO
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_USERNAME);
+			pStmt.setString(1, pseudo);
+			ResultSet rs = pStmt.executeQuery();
+			if (rs.next())
+				return new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
+						rs.getString("nom"), rs.getString("prenom"),
+						rs.getString("email"),rs.getString("telephone"),
+						rs.getString("rue"),rs.getString("code_postal"),
+						rs.getString("ville"),rs.getString("mot_de_passe"),
+						rs.getInt("credit"),rs.getBoolean("administrateur"));
+		} catch (SQLException e) {//DalException
+			e.printStackTrace();
+		}
 		return null;
 	}
 

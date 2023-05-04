@@ -1,22 +1,27 @@
 package org.eni_encheres.bo;
 
+import java.util.List;
+
 public class Categorie {
 
 	//attributs
 	private int no_category;
 	private String libelle;
+	private List<Article_Vendu> articles;
 	
 	
 	//constructeurs
 	public Categorie() {}
 	
-	public Categorie(int no_category, String libelle) {
+	public Categorie(int no_category, String libelle,List<Article_Vendu> articles) {
 		this.no_category = no_category;
 		this.libelle = libelle;
+		this.articles = articles;
 	}
 	
-	public Categorie(String libelle) {
+	public Categorie(String libelle,List<Article_Vendu> articles) {
 		this.libelle = libelle;
+		this.articles = articles;
 	}
 
 	
@@ -35,6 +40,14 @@ public class Categorie {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public List<Article_Vendu> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Article_Vendu> articles) {
+		this.articles = articles;
 	}
 	
 	

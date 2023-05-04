@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.List" %>
+<% List<String> erreurs = (List<String>) request.getAttribute("erreurs");%>
+<% String username = request.getParameter("username");
+    String password = request.getParameter("password");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +28,11 @@
         <main class="col-10 offset-2">
             <form action="" method="post">
                 <div class="row row-form">
+                    <% if (erreurs != null) for (String erreur : erreurs) { %>
+                    <div class="alert alert-danger">
+                        <%= erreur %>
+                    </div>
+                    <% } %>
                     <div class="col-5">
                         <label for="username">Identifiant :</label>
                     </div>
@@ -32,7 +41,8 @@
                         modification id username -> pseudo comme dans la bo, change type text en type password pour password et rajout de placeholder
                         -->
                     <div class="col-5">
-                        <input type="text" name="username" id="username" placeholder="pseudo">
+                        <input type="text" name="username" id="username" placeholder="pseudo"
+                               value="<%=(username!=null)?username:""%>">
                     </div>
                 </div>
                 <div class="row row-form">
@@ -40,7 +50,8 @@
                         <label for="username">Mot de passe :</label>
                     </div>
                     <div class="col-5">
-                        <input type="password" name="password" id="password" placeholder="mot de passe">
+                        <input type="password" name="password" id="password" placeholder="mot de passe"
+                               value="<%=(password!=null)?password:""%>">
                     </div>
                 </div>
                 <div class="row row-form">
@@ -73,7 +84,7 @@
                 <a href="#">Mot de passe oublié</a>
             </div>
             <div class="row row-form">
-                <button type="button" class="btn btn-success">Créer un compte</button>
+                <a class="btn btn-success" href="<%= request.getContextPath()%>/inscription">Créer un compte</a>
             </div>
         </main>
 

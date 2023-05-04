@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.eni_encheres.bll.SecurityService;
+import org.eni_encheres.bll.exception.BLLException;
 import org.eni_encheres.bo.Utilisateur;
 
 import java.io.IOException;
@@ -22,16 +24,19 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // récup data dans le login.jsp
-            String pseudo = request.getParameter("pseudo");
+            String pseudo = request.getParameter("username");
             String password = request.getParameter("password");
-            Utilisateur utilisateur = new Utilisateur(pseudo, password);
+            Utilisateur utilisateur = SecurityService.getInstance().login(pseudo, password);
+            System.out.println(utilisateur);
 
             // Création session
             HttpSession session = request.getSession();
-            session.setAttribute("pseudo", pseudo);
-            response.sendRedirect(request.getContextPath() + "/mon-compte");
-        } catch (Exception e){
-            e.getMessage();
+            session.setAttribute("utilisateur", utilisateur);
+
+            response.sendRedirect(request.getContextPath() + "/");
+        } catch (BLLException e){
+            request.setAttribute("erreurs",e.getErreurs());
+            doGet(request,response);
         }
     }
 }

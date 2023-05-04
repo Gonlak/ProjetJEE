@@ -6,6 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<% List<String> erreurs = (List<String>) request.getAttribute("erreurs");%>
+<%  String pseudo = request.getParameter("pseudo");
+    String nom = request.getParameter("nom");
+    String prenom = request.getParameter("prenom");
+    String email = request.getParameter("email");
+    String telephone = request.getParameter("telephone");
+    String rue = request.getParameter("rue");
+    String codePostal = request.getParameter("codePostal");
+    String ville = request.getParameter("ville");
+%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -24,6 +35,11 @@
         </nav>
     </header>
     <main class="mx-5">
+        <% if (erreurs != null) for (String erreur : erreurs) { %>
+        <div class="alert alert-danger">
+            <%= erreur %>
+        </div>
+        <% } %>
         <form action="" method="post">
             <div class="row mb-4 mx-5">
                 <div class="col">
@@ -35,6 +51,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="pseudo" name="pseudo"
+                                value="<%=(pseudo!=null)?pseudo:""%>"
                         />
                     </div>
                 </div>
@@ -47,6 +64,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="nom" name="nom"
+                                value="<%=(nom!=null)?nom:""%>"
                         />
                     </div>
                 </div>
@@ -61,6 +79,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="prenom" name="prenom"
+                                value="<%=(prenom!=null)?prenom:""%>"
                         />
                     </div>
                 </div>
@@ -73,6 +92,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="email" name="email"
+                                value="<%=(email!=null)?email:""%>"
                         />
                     </div>
                 </div>
@@ -87,6 +107,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="telephone" name="telephone"
+                                value="<%=(telephone!=null)?telephone:""%>"
                         />
                     </div>
                 </div>
@@ -99,6 +120,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="rue" name="rue"
+                                value="<%=(rue!=null)?rue:""%>"
                         />
                     </div>
                 </div>
@@ -113,6 +135,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="codePostal" name="codePostal"
+                                value="<%=(codePostal!=null)?codePostal:""%>"
                         />
                     </div>
                 </div>
@@ -125,6 +148,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="ville" name="ville"
+                                value="<%=(ville!=null)?ville:""%>"
                         />
                     </div>
                 </div>
@@ -159,7 +183,7 @@
                         <button type="submit" class="btn btn-primary">Créer</button>
                     </div>
                     <div class="col">
-                        <a href="<%= request.getContextPath()%>">
+                        <a href="<%= request.getContextPath()%>/connection">
                             <button type="button" class="btn btn-primary">Annuler</button>
                         </a>
                     </div>

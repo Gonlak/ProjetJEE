@@ -5,9 +5,9 @@ INSERT INTO CATEGORIES (libelle) VALUES ('Vêtement');
 INSERT INTO CATEGORIES (libelle) VALUES ('Sport&Loisirs');
 
 -- Insertion des utilisateurs
-INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('johndoe', 'Doe', 'John', 'johndoe@example.com', '0606060606', '1 rue des Lilas', '75001', 'Paris', '1234', 1000, 0);
-INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('janedoe', 'Doe', 'Jane', 'janedoe@example.com', '0707070707', '2 rue des Roses', '75002', 'Paris', '1234', 1200, 0);
-INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('admin', 'Ad', 'Mine', 'admin@example.com', '0123456789', '1 rue des Admin', '29000', 'Quimper', 'admin', 1200, 1);
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('johndoe', 'Doe', 'John', 'johndoe@example.com', '0606060606', '1 rue des Lilas', '75001', 'Paris', '$2a$12$k7wE1Z7xm1x4VOY7WolknOWT8A0naaRpPAnYMZcOVy6ZuFrncYWJC', 800, 0);
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('janedoe', 'Doe', 'Jane', 'janedoe@example.com', '0707070707', '2 rue des Roses', '75002', 'Paris', '$2a$12$k7wE1Z7xm1x4VOY7WolknOWT8A0naaRpPAnYMZcOVy6ZuFrncYWJC', 1200, 0);
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('admin', 'Ad', 'Mine', 'admin@example.com', '0123456789', '1 rue des Admin', '29000', 'Quimper', '$2a$12$k7wE1Z7xm1x4VOY7WolknOWT8A0naaRpPAnYMZcOVy6ZuFrncYWJC', 999999, 1);
 
 -- Insertion des articles vendus
 -- Informatique
