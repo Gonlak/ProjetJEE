@@ -1,5 +1,7 @@
 package org.eni_encheres.bo;
 
+import java.util.List;
+
 public class Utilisateur {
 
 	//attributs
@@ -15,13 +17,15 @@ public class Utilisateur {
 	private String password;
 	private int credit;
 	private Boolean administrator;
+	private List<Article_Vendu> articles;
 	
 	
 	//constructeurs
 	public Utilisateur() {}
 	
-	public Utilisateur(int no_user, String username, String lastname, String firstname, String email, String phone_number,
-			String street, String zip_code, String town, String password, int credit, Boolean administrator) {
+	public Utilisateur(int no_user, String username, String lastname, String firstname, String email,
+			String phone_number, String street, String zip_code, String town, String password, int credit,
+			Boolean administrator, List<Article_Vendu> articles) {
 		this.no_user = no_user;
 		this.username = username;
 		this.lastname = lastname;
@@ -34,10 +38,13 @@ public class Utilisateur {
 		this.password = password;
 		this.credit = credit;
 		this.administrator = administrator;
+		this.setArticles(articles);
 	}
-	
+
 	public Utilisateur(String username, String lastname, String firstname, String email, String phone_number,
-			String street, String zip_code, String town, String password, int credit, Boolean administrator) {
+			String street, String zip_code, String town, String password, int credit, Boolean administrator,
+			List<Article_Vendu> articles) {
+		super();
 		this.username = username;
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -49,6 +56,7 @@ public class Utilisateur {
 		this.password = password;
 		this.credit = credit;
 		this.administrator = administrator;
+		this.setArticles(articles);
 	}
 
 	public Utilisateur(String username, String password) {
@@ -151,6 +159,14 @@ public class Utilisateur {
 
 	public void setAdministrator(Boolean administrator) {
 		this.administrator = administrator;
+	}
+
+	public List<Article_Vendu> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Article_Vendu> articles) {
+		this.articles = articles;
 	}
 	
 	

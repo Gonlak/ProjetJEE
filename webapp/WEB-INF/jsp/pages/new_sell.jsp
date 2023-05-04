@@ -20,9 +20,20 @@
 			</nav>
 		</header>
 		<main class="row">
-			<div class="row text-center mt-7">
+			<div class="row text-center">
 				<h1>Nouvelle vente</h1>
 			</div>
+			<div class="col-5 offset-1">
+
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img src="assets/img/radio.jpg" class="img-fluid rounded-start"
+							alt="...">
+					</div>
+				</div>
+			</div>
+
+			<!--  Robin revoir la marge top du formulaire  -->
 			<div class="col-3 offset-4">
 				<form>
 					<div class="form-group">
@@ -37,6 +48,7 @@
 					<div class="form-group">
 						<label for="categorie" class="form-label mt-2">Catégorie</label> <select
 							class="form-select" id="categorie">
+							<!-- Robin revoir pour integrer les catégories -->
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -49,8 +61,8 @@
 							l'article</label> <input type="file" class="form-control" id="customFile" />
 					</div>
 					<div class="form-group">
-						<label for="miseaprix" class="form-label mt-2">Mise à prix</label> <input
-							type="number" class="form-control" id="miseaprix">
+						<label for="miseaprix" class="form-label mt-2">Mise à prix</label>
+						<input type="number" class="form-control" id="miseaprix">
 					</div>
 					<div class="form-group">
 						<label for="debutenchere" class="form-label mt-2">Début de
@@ -62,10 +74,11 @@
 							l'enchère</label> <input type="date" class="form-control" id="finenchere">
 					</div>
 					<fieldset>
+						<!--  Robin revoir le fieldset il ne marche pas -->
 						<legend>Retrait</legend>
 						<div class="form-group">
-							<label for="street">Rue :</label> <input
-								type="text" class="form-control" id="street">
+							<label for="street">Rue :</label> <input type="text"
+								class="form-control" id="street">
 						</div>
 						<div class="form-group">
 							<label for="zipcode" class="form-label">Code Postal :</label> <input
@@ -76,11 +89,11 @@
 								type="text" class="form-control" id="town">
 						</div>
 					</fieldset>
-					<div class="col-4">
-					<button type="button" class="btn btn-success">Enregistrer</button>
-					<button type="button" class="btn btn-success">Annuler</button>
-				</div>
-				
+					<div class="mt-3">
+						<button type="button" class="btn btn-success">Enregistrer</button>
+						<button type="button" class="btn btn-success">Annuler</button>
+					</div>
+					
 				</form>
 			</div>
 		</main>

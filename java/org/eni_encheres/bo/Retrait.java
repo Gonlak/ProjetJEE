@@ -3,7 +3,7 @@ package org.eni_encheres.bo;
 public class Retrait {
 
 	//attributs
-	private int no_article;
+	private Article_Vendu article;
 	private String street;
 	private String zip_code;
 	private String town;
@@ -11,8 +11,8 @@ public class Retrait {
 	//constructeurs
 	public Retrait() {}
 	
-	public Retrait(int no_article, String street, String zip_code, String town) {
-		this.no_article = no_article;
+	public Retrait(Article_Vendu article, String street, String zip_code, String town) {
+		this.article = article;
 		this.street = street;
 		this.zip_code = zip_code;
 		this.town = town;
@@ -25,12 +25,12 @@ public class Retrait {
 	}
 	
 	//getters et setters
-	public int getNo_article() {
-		return no_article;
+	public Article_Vendu getArticle() {
+		return article;
 	}
 
-	public void setNo_article(int no_article) {
-		this.no_article = no_article;
+	public void setArticle(Article_Vendu article) {
+		this.article = article;
 	}
 
 	public String getRue() {

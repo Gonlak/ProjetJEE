@@ -1,6 +1,7 @@
 package org.eni_encheres.bo;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Article_Vendu {
 
@@ -12,26 +13,16 @@ public class Article_Vendu {
 	private Date end_auction_date;
 	private int original_price;
 	private int sell_price;
-	private int no_user;
-	private int no_category;
+	private int sale_status; //0 = terminé, 1 = en cours, 2 = annulé
+	private List<Utilisateur> user;
+	private List<Categorie> categories;
 	
 	//constructeurs
 	public Article_Vendu() {}
 	
-	public Article_Vendu(String article_name, String description, Date start_auction_date,
-			Date end_auction_date, int original_price, int sell_price, int no_user, int no_category) {
-		this.article_name = article_name;
-		this.description = description;
-		this.start_auction_date = start_auction_date;
-		this.end_auction_date = end_auction_date;
-		this.original_price = original_price;
-		this.sell_price = sell_price;
-		this.no_user = no_user;
-		this.no_category = no_category;
-	}
-	
 	public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
-			Date end_auction_date, int original_price, int sell_price, int no_user, int no_category) {
+			Date end_auction_date, int original_price, int sell_price, int sale_status, List<Utilisateur>  user,
+			List<Categorie> categories) {
 		this.no_article = no_article;
 		this.article_name = article_name;
 		this.description = description;
@@ -39,9 +30,25 @@ public class Article_Vendu {
 		this.end_auction_date = end_auction_date;
 		this.original_price = original_price;
 		this.sell_price = sell_price;
-		this.no_user = no_user;
-		this.no_category = no_category;
+		this.setSale_status(sale_status);
+		this.user = user;
+		this.categories = categories;
 	}
+
+	public Article_Vendu(String article_name, String description, Date start_auction_date,
+			Date end_auction_date, int original_price, int sell_price, int sale_status, List<Utilisateur>  user,
+			List<Categorie> categories) {
+		this.article_name = article_name;
+		this.description = description;
+		this.start_auction_date = start_auction_date;
+		this.end_auction_date = end_auction_date;
+		this.original_price = original_price;
+		this.sell_price = sell_price;
+		this.setSale_status(sale_status);
+		this.user = user;
+		this.categories = categories;
+	}
+
 
 	//getters et setters
 	public int getNo_article() {
@@ -100,20 +107,28 @@ public class Article_Vendu {
 		this.sell_price = sell_price;
 	}
 
-	public int getNo_utilisateur() {
-		return no_user;
+	public List<Utilisateur>  getUser() {
+		return user;
 	}
 
-	public void setNo_user(int no_user) {
-		this.no_user = no_user;
+	public void setUser(List<Utilisateur>  user) {
+		this.user = user;
 	}
 
-	public int getNo_category() {
-		return no_category;
+	public List<Categorie> getCategories() {
+		return categories;
 	}
 
-	public void setNo_category(int no_category) {
-		this.no_category = no_category;
+	public void setCategories(List<Categorie> categories) {
+		this.categories = categories;
+	}
+
+	public int getSale_status() {
+		return sale_status;
+	}
+
+	public void setSale_status(int sale_status) {
+		this.sale_status = sale_status;
 	}
 	
 	
