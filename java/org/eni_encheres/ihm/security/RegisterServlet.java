@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eni_encheres.bll.SecurityService;
+import org.eni_encheres.bll.exception.BLLException;
 import org.eni_encheres.bo.Utilisateur;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
         String pseudo = request.getParameter("pseudo");
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
@@ -30,10 +32,15 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String mdpConf = request.getParameter("passwordConf");
 
-        if (password.equals(mdpConf)){
-            Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password, 0, false);
-            response.sendRedirect(request.getContextPath()+"/connexion");
-            SecurityService.getInstance().addUser(utilisateur);
+        Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password, 0, false);
+
+
+        SecurityService.getInstance().addUser(utilisateur);
+
+        response.sendRedirect(request.getContextPath()+"/connection");
+        } catch (BLLException e) {
+            request.setAttribute("erreurs",e.getErreurs());
+            doGet(request,response);
         }
     }
 }
