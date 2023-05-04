@@ -17,6 +17,7 @@ public class Article_Vendu {
 	private List<Utilisateur> user;
 	private List<Categorie> categories;
 	
+	
 	//constructeurs
 	public Article_Vendu() {}
 	
