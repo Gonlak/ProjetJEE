@@ -20,13 +20,14 @@ public class SecurityService {
     }
 
     public void addUser(Utilisateur utilisateur) throws BLLException {
-        utilisateur.setPassword(BCrypt.withDefaults().hashToString(12, utilisateur.getPassword().toCharArray()));
         checkAddUtilisateur(utilisateur);
+        utilisateur.setPassword(BCrypt.withDefaults().hashToString(12, utilisateur.getPassword().toCharArray()));
         DAOFactory.getUtilisateurDAO().insert(utilisateur);
     }
 
 
     public Utilisateur login(String pseudo, String password) throws BLLException {
+        checkUtilisateur(pseudo, password);
         Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().selectByUsername(pseudo);
         if(utilisateur == null){
             throw new BLLException("Utilisateur non trouvé!");
@@ -45,11 +46,20 @@ public class SecurityService {
         checkFiled(utilisateur.getFirstname(),"Prénom",bll);
         checkFiled(utilisateur.getEmail(),"Email",bll);
         checkFiled(utilisateur.getPhoneNumber(),"Téléphone",bll);
-        checkFiled(utilisateur.getStreet(),"",bll);
-        checkFiled(utilisateur.getZipCode(),"",bll);
-        checkFiled(utilisateur.getTown(),"",bll);
-        checkFiled(utilisateur.getPassword(),"",bll);
+        checkFiled(utilisateur.getStreet(),"Ville",bll);
+        checkFiled(utilisateur.getZipCode(),"Code Postale",bll);
+        checkFiled(utilisateur.getTown(),"Rue",bll);
+        checkFiled(utilisateur.getPassword(),"Mot de passe",bll);
         if (bll.getErreurs().size()>0){
+            throw bll;
+        }
+    }
+    private void checkUtilisateur(String pseudo, String password) throws BLLException {
+        BLLException bll = new BLLException("Utilisateur non trouvé!");
+        checkFiled(pseudo,"Pseudo",bll);
+        checkFiled(password,"Mot de passe",bll);
+        if (bll.getErreurs().size()>0){
+            System.out.println("cc");
             throw bll;
         }
     }

@@ -34,7 +34,6 @@ public class RegisterServlet extends HttpServlet {
 
         Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password, 0, false);
 
-
         SecurityService.getInstance().addUser(utilisateur);
 
         response.sendRedirect(request.getContextPath()+"/connection");

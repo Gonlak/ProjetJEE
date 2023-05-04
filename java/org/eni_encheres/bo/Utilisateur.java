@@ -76,6 +76,23 @@ public class Utilisateur {
         this.administrator = administrator;
     }
 
+    public Utilisateur(int no_user, String username, String lastname, String firstname, String email,
+                       String phone_number, String street, String zip_code, String town, String password, int credit,
+                       Boolean administrator) {
+        this.no_user = no_user;
+        this.username = username;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.street = street;
+        this.zip_code = zip_code;
+        this.town = town;
+        this.password = password;
+        this.credit = credit;
+        this.administrator = administrator;
+    }
+
     public Utilisateur(String username, String password) {
         this.username = username;
         this.password = password;
