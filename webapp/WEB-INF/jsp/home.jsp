@@ -1,5 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="org.eni_encheres.bo.Article_Vendu"%>
+<%@page import="org.eni_encheres.bo.Enchere"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% Enchere enchere = (Enchere) request.getAttribute("encheres"); %>
+<% Article_Vendu article = (Article_Vendu) request.getAttribute("articles"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +77,7 @@
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title">Card title</h5>
+									<h5 class="card-title"><%= article.getArticleName() %></h5>
 									<p class="card-text">Prix :</p>
 									<p class="card-text">Fin de l'enchère :	</p>
 									<p class="card-text">Vendeur :	</p>

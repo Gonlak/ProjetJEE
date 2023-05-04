@@ -14,15 +14,17 @@ public class Article_Vendu {
 	private int original_price;
 	private int sell_price;
 	private int sale_status; //0 = terminé, 1 = en cours, 2 = annulé
-	private List<Utilisateur> user;
-	private List<Categorie> categories;
+	private Utilisateur user;
+	private Categorie categories;
+	private List<Enchere> encheres;
+	private Retrait retrait;
 	
 	//constructeurs
 	public Article_Vendu() {}
 	
 	public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
-			Date end_auction_date, int original_price, int sell_price, int sale_status, List<Utilisateur>  user,
-			List<Categorie> categories) {
+			Date end_auction_date, int original_price, int sell_price, int sale_status,Utilisateur  user,
+			Categorie categories,List<Enchere> encheres,Retrait retrait) {
 		this.no_article = no_article;
 		this.article_name = article_name;
 		this.description = description;
@@ -30,23 +32,27 @@ public class Article_Vendu {
 		this.end_auction_date = end_auction_date;
 		this.original_price = original_price;
 		this.sell_price = sell_price;
-		this.setSale_status(sale_status);
+		this.sale_status = sale_status;
 		this.user = user;
 		this.categories = categories;
+		this.encheres = encheres;
+		this.retrait = retrait;
 	}
 
 	public Article_Vendu(String article_name, String description, Date start_auction_date,
-			Date end_auction_date, int original_price, int sell_price, int sale_status, List<Utilisateur>  user,
-			List<Categorie> categories) {
+			Date end_auction_date, int original_price, int sell_price, int sale_status,Utilisateur user,
+			Categorie categories,List<Enchere> encheres,Retrait retrait) {
 		this.article_name = article_name;
 		this.description = description;
 		this.start_auction_date = start_auction_date;
 		this.end_auction_date = end_auction_date;
 		this.original_price = original_price;
 		this.sell_price = sell_price;
-		this.setSale_status(sale_status);
+		this.sale_status = sale_status;
 		this.user = user;
 		this.categories = categories;
+		this.encheres = encheres;
+		this.retrait = retrait;
 	}
 
 
@@ -107,19 +113,19 @@ public class Article_Vendu {
 		this.sell_price = sell_price;
 	}
 
-	public List<Utilisateur>  getUser() {
+	public Utilisateur getUser() {
 		return user;
 	}
 
-	public void setUser(List<Utilisateur>  user) {
+	public void setUser(Utilisateur  user) {
 		this.user = user;
 	}
 
-	public List<Categorie> getCategories() {
+	public Categorie getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<Categorie> categories) {
+	public void setCategories(Categorie categories) {
 		this.categories = categories;
 	}
 
@@ -129,6 +135,22 @@ public class Article_Vendu {
 
 	public void setSale_status(int sale_status) {
 		this.sale_status = sale_status;
+	}
+
+	public List<Enchere> getEncheres() {
+		return encheres;
+	}
+
+	public void setEncheres(List<Enchere> encheres) {
+		this.encheres = encheres;
+	}
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
 	}
 	
 	
