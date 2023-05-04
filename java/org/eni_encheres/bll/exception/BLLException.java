@@ -10,7 +10,11 @@ import java.util.List;
 public class BLLException extends Exception{
     private List<String> erreurs = new ArrayList<>();
 
-    public BLLException(String message) {
+    public List<String> getErreurs() {
+		return erreurs;
+	}
+
+	public BLLException(String message) {
         super(message);
     }
 
