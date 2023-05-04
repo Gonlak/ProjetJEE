@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="org.eni_encheres.bo.Utilisateur" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,28 +26,28 @@
             <!-- Section Affichage profil -->
             <div class="col-4 offset-4">
                 <div>
-                    <p>Pseudo :</p>
+                    <p>Pseudo : <%=utilisateur.getUsername()%></p>
                 </div>
                 <div>
-                    <p>Nom :</p>
+                    <p>Nom : <%=utilisateur.getLastname()%></p>
                 </div>
                 <div>
-                    <p>Prénom :</p>
+                    <p>Prénom : <%=utilisateur.getFirstname()%></p>
                 </div>
                 <div>
-                    <p>Email :</p>
+                    <p>Email : <%=utilisateur.getEmail()%></p>
                 </div>
                 <div>
-                    <p>Téléphone :</p>
+                    <p>Téléphone : <%=utilisateur.getPhoneNumber()%></p>
                 </div>
                 <div>
-                    <p>Rue :</p>
+                    <p>Rue : <%=utilisateur.getTown()%></p>
                 </div>
                 <div>
-                    <p>Code Postal :</p>
+                    <p>Code Postal : <%=utilisateur.getZipCode()%></p>
                 </div>
                 <div>
-                    <p>Ville :</p>
+                    <p>Ville : <%=utilisateur.getStreet()%></p>
                 </div>
                 <div class="text-center">
                     <button type="button" class="btn btn-success">Modifier</button>
