@@ -1,11 +1,16 @@
 package org.eni_encheres.dal.jdbc;
 
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.eni_encheres.bo.Utilisateur;
+import org.eni_encheres.config.ConnectionProvider;
 import org.eni_encheres.dal.UtilisateurDAO;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO{
+
+	private final static String INSERT_UTILISATEUR ="INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 	@Override
 	public List<Utilisateur> selectByKeyWord(String key) {
@@ -21,8 +26,26 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	@Override
 	public void insert(Utilisateur utilisateur) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("coucou1");
+		try(Connection connection = ConnectionProvider.getConnection()) {
+			System.out.println(utilisateur.getPassword());
+			PreparedStatement statement = connection.prepareStatement(INSERT_UTILISATEUR);
+			statement.setString(1, utilisateur.getUsername());
+			statement.setString(2, utilisateur.getLastname());
+			statement.setString(3, utilisateur.getFirstname());
+			statement.setString(4, utilisateur.getEmail());
+			statement.setString(5, utilisateur.getPhoneNumber());
+			statement.setString(6, utilisateur.getStreet());
+			statement.setString(7, utilisateur.getZipCode());
+			statement.setString(8, utilisateur.getTown());
+			statement.setString(9, utilisateur.getPassword());
+			statement.setInt(10, 0);
+			statement.setBoolean(11, false);
+			statement.executeUpdate();
+
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override

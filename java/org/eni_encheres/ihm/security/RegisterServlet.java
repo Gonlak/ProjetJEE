@@ -27,11 +27,11 @@ public class RegisterServlet extends HttpServlet {
         String rue = request.getParameter("rue");
         String codePostal = request.getParameter("codePostal");
         String ville = request.getParameter("ville");
-        String mdp = request.getParameter("mdp");
-        String mdpConf = request.getParameter("mdpConf");
+        String password = request.getParameter("password");
+        String mdpConf = request.getParameter("passwordConf");
 
-        if (mdp.equals(mdpConf)){
-            Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, false);
+        if (password.equals(mdpConf)){
+            Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password, 0, false);
             response.sendRedirect(request.getContextPath()+"/connexion");
             SecurityService.getInstance().addUser(utilisateur);
         }
