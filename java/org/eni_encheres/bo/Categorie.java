@@ -9,7 +9,6 @@ public class Categorie {
 	private String libelle;
 	private List<Article_Vendu> articles;
 	
-	
 	//constructeurs
 	public Categorie() {}
 	
@@ -24,7 +23,11 @@ public class Categorie {
 		this.articles = articles;
 	}
 
-	
+	public Categorie(int no_category, String libelle) {
+		this.no_category = no_category;
+		this.libelle = libelle;
+	}
+
 	//getters et setters
 	public int getNo_categorie() {
 		return no_category;

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tomcat.jni.User;
 import org.eni_encheres.bo.Enchere;
 import org.eni_encheres.dal.DAOFactory;
 import org.eni_encheres.dal.EnchereDAO;
@@ -41,7 +42,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				
+			
 				
 			}
 			return encheres;

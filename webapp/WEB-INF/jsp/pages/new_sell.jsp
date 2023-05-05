@@ -1,5 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="org.eni_encheres.bo.Categorie"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%
+List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,12 +32,11 @@
 			<div class="col-5 offset-1">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="assets/img/radio.jpg" class="img-fluid rounded-start"
+						<img src="assets/img/camera.jpg" class="img-fluid rounded-start"
 							alt="...">
 					</div>
 				</div>
 			</div>
-
 			<!--  Robin revoir la marge top du formulaire  -->
 			<div class="col-3 offset-4">
 				<form>
@@ -48,12 +52,13 @@
 					<div class="form-group">
 						<label for="categorie" class="form-label mt-2">Catégorie</label> <select
 							class="form-select" id="categorie">
-							<!-- Robin revoir pour integrer les catégories -->
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							<%
+							for (Categorie categorie : categories) {
+							%>
+							<option><%=categorie.getLibelle()%></option>
+							<%
+							}
+							%>
 						</select>
 					</div>
 					<div class="form-group">
@@ -73,28 +78,33 @@
 						<label for="finenchere" class="form-label mt-2">Fin de
 							l'enchère</label> <input type="date" class="form-control" id="finenchere">
 					</div>
-					<fieldset>
-						<!--  Robin revoir le fieldset il ne marche pas -->
-						<legend>Retrait</legend>
-						<div class="form-group">
-							<label for="street">Rue :</label> <input type="text"
-								class="form-control" id="street">
-						</div>
-						<div class="form-group">
-							<label for="zipcode" class="form-label">Code Postal :</label> <input
-								type="text" class="form-control" id="zipcode">
-						</div>
-						<div class="form-group">
-							<label for="town" class="form-label">Ville :</label> <input
-								type="text" class="form-control" id="town">
-						</div>
-					</fieldset>
-					<div class="mt-3">
-						<button type="button" class="btn btn-success">Enregistrer</button>
-						<button type="button" class="btn btn-success">Annuler</button>
+					<div>
+						<fieldset>
+							<!--  Robin revoir le fieldset il ne marche pas -->
+							<legend>Retrait</legend>
+							<div class="form-group">
+								<label for="street">Rue :</label> <input type="text"
+									class="form-control" id="street">
+							</div>
+							<div class="form-group">
+								<label for="zipcode" class="form-label">Code Postal :</label> <input
+									type="text" class="form-control" id="zipcode">
+							</div>
+							<div class="form-group">
+								<label for="town" class="form-label">Ville :</label> <input
+									type="text" class="form-control" id="town">
+							</div>
+						</fieldset>
 					</div>
-					
+					<div class="mt-3 d-flex justify-content-around">
+						<button type="button" class="btn btn-success">Enregistrer</button>
+						<button type="button" class="btn btn-danger" >Annuler</button>
+						<button
+							onclick="return confirm('Voulez-vous vraiment annuler la vente?');"
+							type="button" class="btn btn-danger">Annuler la vente</button>
+					</div>
 				</form>
+
 			</div>
 		</main>
 	</div>
