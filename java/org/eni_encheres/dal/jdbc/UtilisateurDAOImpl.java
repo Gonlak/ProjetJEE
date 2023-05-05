@@ -28,7 +28,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	@Override
 	public void insert(Utilisateur utilisateur) {
-		System.out.println("coucou1");
 		try(Connection connection = ConnectionProvider.getConnection()) {
 			System.out.println(utilisateur.getPassword());
 			PreparedStatement statement = connection.prepareStatement(INSERT_UTILISATEUR);

@@ -16,14 +16,10 @@ public class HomeServlet extends HttpServlet {
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean sessionUtilisateur = false;
 
 		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-		if(utilisateur!=null){
-			sessionUtilisateur = true;
-		}
-		request.setAttribute("sessionUtilisateur", sessionUtilisateur);
+		Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
+		request.setAttribute("utilisateurC",utilisateurC);
 
 		request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 	}

@@ -26,12 +26,12 @@ public class LoginServlet extends HttpServlet {
             // récup data dans le login.jsp
             String pseudo = request.getParameter("username");
             String password = request.getParameter("password");
-            Utilisateur utilisateur = SecurityService.getInstance().login(pseudo, password);
-            System.out.println(utilisateur);
+            Utilisateur utilisateurC = SecurityService.getInstance().login(pseudo, password);
+            System.out.println(utilisateurC);
 
             // Création session
             HttpSession session = request.getSession();
-            session.setAttribute("utilisateur", utilisateur);
+            session.setAttribute("utilisateurC", utilisateurC);
 
             response.sendRedirect(request.getContextPath() + "/");
         } catch (BLLException e){

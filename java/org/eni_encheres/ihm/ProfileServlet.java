@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.eni_encheres.bll.UtilisateurManager;
 import org.eni_encheres.bo.Utilisateur;
 import org.eni_encheres.dal.DAOFactory;
@@ -17,6 +18,10 @@ public class ProfileServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
+		request.setAttribute("utilisateurC",utilisateurC);
+
 		String params = request.getPathInfo();
 		String pseudo = params.substring(1);
 		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().selectByUsername(pseudo);

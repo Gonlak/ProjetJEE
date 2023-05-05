@@ -1,17 +1,18 @@
 <%@page import="java.util.List" %>
 <%@page import="org.eni_encheres.bo.Article_Vendu" %>
 <%@page import="org.eni_encheres.bo.Enchere" %>
+<%@ page import="org.eni_encheres.bo.Utilisateur" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    boolean sessionUtilisateur = (boolean) request.getAttribute("sessionUtilisateur");
+    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
 %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/assets/css/styles.css">
     <title>Liste des enchères</title>
 </head>
 <body>
@@ -20,11 +21,11 @@
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand">ENI-Enchères</a>
-                <%if (sessionUtilisateur) {%>
+                <%if (utilisateurC!=null) {%>
                 <div class="d-flex align-items-center">
                     <a href="<%= request.getContextPath()%>/connection" class="mx-2">Enchères</a>
                     <a href="<%= request.getContextPath()%>/connection" class="mx-2">Vendre un article</a>
-                    <a href="<%= request.getContextPath()%>/profil" class="mx-2">Mon profil</a>
+                    <a href="<%= request.getContextPath()%>/profil/<%=utilisateurC.getUsername()%>" class="mx-2">Mon profil</a>
                     <a href="<%= request.getContextPath()%>/connection" class="mx-2">Déconnexion</a>
                 </div>
                 <%} else {%>
@@ -113,8 +114,6 @@
                 </div>
             </div>
         </section>
-
-
     </main>
 </div>
 
