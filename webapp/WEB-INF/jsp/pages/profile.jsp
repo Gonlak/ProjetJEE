@@ -101,7 +101,7 @@
 
             <% if (utilisateurC != null && utilisateurC.getUsername().equals(utilisateur.getUsername())) {%>
         <div class="text-center">
-            <button type="button" class="btn btn-success">Modifier</button>
+            <a class="btn btn-success" href="<%= request.getContextPath()%>/modification">Modifier</a>
         </div>
             <%}%>
 </div>

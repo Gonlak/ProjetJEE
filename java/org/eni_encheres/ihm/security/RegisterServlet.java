@@ -30,11 +30,11 @@ public class RegisterServlet extends HttpServlet {
         String codePostal = request.getParameter("codePostal");
         String ville = request.getParameter("ville");
         String password = request.getParameter("password");
-        String mdpConf = request.getParameter("passwordConf");
+        String passwordConf = request.getParameter("passwordConf");
 
         Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password, 0, false);
 
-        SecurityService.getInstance().addUser(utilisateur);
+        SecurityService.getInstance().addUser(utilisateur, passwordConf);
 
         response.sendRedirect(request.getContextPath()+"/connection");
         } catch (BLLException e) {

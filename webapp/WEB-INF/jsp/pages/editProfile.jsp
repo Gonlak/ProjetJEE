@@ -7,8 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.eni_encheres.bo.Utilisateur" %>
 <% List<String> erreurs = (List<String>) request.getAttribute("erreurs");%>
-<%  String pseudo = request.getParameter("pseudo");
+<%
+    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
+
+    String pseudo = request.getParameter("pseudo");
     String nom = request.getParameter("nom");
     String prenom = request.getParameter("prenom");
     String email = request.getParameter("email");
@@ -51,7 +55,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="pseudo" name="pseudo"
-                                value="<%=(pseudo!=null)?pseudo:""%>"
+                                value="<%=(pseudo!=null)?pseudo:utilisateurC.getUsername()%>"
                         />
                     </div>
                 </div>
@@ -64,7 +68,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="nom" name="nom"
-                                value="<%=(nom!=null)?nom:""%>"
+                                value="<%=(nom!=null)?nom:utilisateurC.getLastname()%>"
                         />
                     </div>
                 </div>
@@ -79,7 +83,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="prenom" name="prenom"
-                                value="<%=(prenom!=null)?prenom:""%>"
+                                value="<%=(prenom!=null)?prenom:utilisateurC.getFirstname()%>"
                         />
                     </div>
                 </div>
@@ -92,7 +96,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="email" name="email"
-                                value="<%=(email!=null)?email:""%>"
+                                value="<%=(email!=null)?email:utilisateurC.getEmail()%>"
                         />
                     </div>
                 </div>
@@ -107,7 +111,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="telephone" name="telephone"
-                                value="<%=(telephone!=null)?telephone:""%>"
+                                value="<%=(telephone!=null)?telephone:utilisateurC.getPhoneNumber()%>"
                         />
                     </div>
                 </div>
@@ -120,7 +124,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="rue" name="rue"
-                                value="<%=(rue!=null)?rue:""%>"
+                                value="<%=(rue!=null)?rue:utilisateurC.getStreet()%>"
                         />
                     </div>
                 </div>
@@ -135,7 +139,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="codePostal" name="codePostal"
-                                value="<%=(codePostal!=null)?codePostal:""%>"
+                                value="<%=(codePostal!=null)?codePostal:utilisateurC.getZipCode()%>"
                         />
                     </div>
                 </div>
@@ -148,7 +152,7 @@
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 id="ville" name="ville"
-                                value="<%=(ville!=null)?ville:""%>"
+                                value="<%=(ville!=null)?ville:utilisateurC.getTown()%>"
                         />
                     </div>
                 </div>
@@ -167,6 +171,23 @@
                     </div>
                 </div>
                 <div class="col">
+
+                </div>
+            </div>
+            <div class="row mb-4 mx-5">
+                <div class="col">
+                    <div class="input-group mb-3 form-outline">
+                        <span class="input-group-text">Confirme :</span>
+                        <input
+                                type="password"
+                                class="form-control"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                                id="passwordModif" name="passwordModif"
+                        />
+                    </div>
+                </div>
+                <div class="col">
                     <div class="input-group mb-3 form-outline">
                         <span class="input-group-text">Confirme :</span>
                         <input
@@ -178,6 +199,12 @@
                         />
                     </div>
                 </div>
+                <div class="row mb-4 mx-5">
+                    <div class="col">
+                        <p>Credit : <%=utilisateurC.getCredit()%></p>
+                    </div>
+                    <div class="col">
+                    </div>
                 <div class="row mb-4 mx-5">
                     <div class="col">
                         <button type="submit" class="btn btn-primary">Créer</button>

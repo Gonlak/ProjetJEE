@@ -15,7 +15,7 @@ public interface UtilisateurDAO extends DAO<Utilisateur>{
 
 	Utilisateur selectById(int id);
 
-	void update(Utilisateur utilisateur);
+	void update(Utilisateur utilisateur, String pseudoC);
 
 	void delete(int id);
 
