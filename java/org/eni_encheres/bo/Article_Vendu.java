@@ -19,7 +19,6 @@ public class Article_Vendu {
 	private List<Enchere> encheres;
 	private Retrait retrait;
 	
-	
 	//constructeurs
 	public Article_Vendu() {}
 	
@@ -60,7 +59,7 @@ public class Article_Vendu {
 	
 	public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
 			Date end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
-			Categorie categories) {
+			Categorie categories,List<Enchere> encheres) {
 		this.no_article = no_article;
 		this.article_name = article_name;
 		this.description = description;
@@ -71,6 +70,7 @@ public class Article_Vendu {
 		this.sale_status = sale_status;
 		this.user = user;
 		this.categories = categories;
+		this.encheres = encheres;
 	}
 	
 	
@@ -184,6 +184,8 @@ public class Article_Vendu {
 	public void setRetrait(Retrait retrait) {
 		this.retrait = retrait;
 	}
+
+	
 	
 	
 	

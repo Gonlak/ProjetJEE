@@ -23,8 +23,14 @@ public class Categorie {
 		this.libelle = libelle;
 		this.articles = articles;
 	}
-
 	
+	
+	public Categorie(int no_category, String libelle) {
+		super();
+		this.no_category = no_category;
+		this.libelle = libelle;
+	}
+
 	//getters et setters
 	public int getNo_categorie() {
 		return no_category;

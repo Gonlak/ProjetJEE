@@ -100,8 +100,17 @@ public class Utilisateur {
         this.username = username;
         this.password = password;
     }
+  
+	public Utilisateur(String username, String street, String zip_code, String town, int credit) {
+		super();
+		this.username = username;
+		this.street = street;
+		this.zip_code = zip_code;
+		this.town = town;
+		this.credit = credit;
+	}
 
-    //getters et setters
+	//getters et setters
     public int getNo_user() {
         return no_user;
     }
