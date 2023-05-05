@@ -11,8 +11,9 @@ import org.eni_encheres.dal.UtilisateurDAO;
 
 public class UtilisateurDAOImpl implements UtilisateurDAO{
 
-	private final static String INSERT_UTILISATEUR ="INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	private final static String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
+	private final static String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ?, administrateur = ? WHERE pseudo = ?;";
 
 	@Override
 	public List<Utilisateur> selectByKeyWord(String key) {
@@ -24,6 +25,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	public List<Utilisateur> selectAll() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void update(Utilisateur a) {
+
 	}
 
 	@Override
@@ -40,7 +46,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			statement.setString(7, utilisateur.getZipCode());
 			statement.setString(8, utilisateur.getTown());
 			statement.setString(9, utilisateur.getPassword());
-			statement.setInt(10, 0);
+			statement.setInt(10, 100);
 			statement.setBoolean(11, false);
 			statement.executeUpdate();
 
@@ -56,9 +62,30 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	}
 
 	@Override
-	public void update(Utilisateur utilisateur) {
-		// TODO Auto-generated method stub
-		
+	public void update(Utilisateur utilisateur, String pseudoC) {
+		try(Connection connection = ConnectionProvider.getConnection()) {
+			System.out.println(utilisateur.getUsername());
+
+			PreparedStatement statement = connection.prepareStatement(UPDATE_UTILISATEUR);
+			statement.setString(1, utilisateur.getUsername());
+			statement.setString(2, utilisateur.getLastname());
+			statement.setString(3, utilisateur.getFirstname());
+			statement.setString(4, utilisateur.getEmail());
+			statement.setString(5, utilisateur.getPhoneNumber());
+			statement.setString(6, utilisateur.getStreet());
+			statement.setString(7, utilisateur.getZipCode());
+			statement.setString(8, utilisateur.getTown());
+			statement.setString(9, utilisateur.getPassword());
+			statement.setInt(10, utilisateur.getCredit());
+			statement.setBoolean(11, utilisateur.getAdministrator());
+			statement.setString(12, pseudoC);
+
+			statement.executeUpdate();
+
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
