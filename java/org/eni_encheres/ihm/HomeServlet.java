@@ -49,9 +49,32 @@ public class HomeServlet extends HttpServlet {
 //		        }
 //		    }
 //		}
+
+		// Créer une HashMap pour stocker l'article avec le plus grand auction_price pour chaque article
+		Map<Integer, Article_Vendu> highestAuctionPriceMap = new HashMap<>();
+
+		// Parcourir la liste des articles vendus
+		for (Article_Vendu articleVendu : articles) {
+			int highestAuctionPrice = 0;
+
+			// Parcourir la liste des enchères pour chaque article
+			for (Enchere enchere : articleVendu.getEncheres()) {
+				int currentAuctionPrice = enchere.getAuctionPrice();
+
+				// Si l'enchère actuelle a un prix plus élevé que le prix d'enchère précédent,
+				// mettez à jour la valeur de highestAuctionPrice et l'article correspondant dans la HashMap
+				if (currentAuctionPrice > highestAuctionPrice) {
+					highestAuctionPrice = currentAuctionPrice;
+					highestAuctionPriceMap.put(articleVendu.getNo_article(), articleVendu);
+				}
+			}
+		}
+
+		// Créer une liste à partir des valeurs de la HashMap
+		List<Article_Vendu> articlesWithHighestAuctionPrice = new ArrayList<>(highestAuctionPriceMap.values());
 		
 		
-		request.setAttribute("articles", articles);
+		request.setAttribute("articles", articlesWithHighestAuctionPrice);
 
 		request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 	}

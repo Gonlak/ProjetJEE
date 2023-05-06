@@ -5,9 +5,9 @@ INSERT INTO CATEGORIES (libelle) VALUES ('Vêtement');
 INSERT INTO CATEGORIES (libelle) VALUES ('Sport&Loisirs');
 
 -- Insertion des utilisateurs
-INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('johndoe', 'Doe', 'John', 'johndoe@example.com', '0606060606', '1 rue des Lilas', '75001', 'Paris', '$2a$12$k7wE1Z7xm1x4VOY7WolknOWT8A0naaRpPAnYMZcOVy6ZuFrncYWJC', 800, 0);
-INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('janedoe', 'Doe', 'Jane', 'janedoe@example.com', '0707070707', '2 rue des Roses', '75002', 'Paris', '$2a$12$k7wE1Z7xm1x4VOY7WolknOWT8A0naaRpPAnYMZcOVy6ZuFrncYWJC', 1200, 0);
-INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('admin', 'Ad', 'Mine', 'admin@example.com', '0123456789', '1 rue des Admin', '29000', 'Quimper', '$2a$12$k7wE1Z7xm1x4VOY7WolknOWT8A0naaRpPAnYMZcOVy6ZuFrncYWJC', 999999, 1);
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('johndoe', 'Doe', 'John', 'johndoe@example.com', '0606060606', '1 rue des Lilas', '75001', 'Paris', '1234', 1000, 0);
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('janedoe', 'Doe', 'Jane', 'janedoe@example.com', '0707070707', '2 rue des Roses', '75002', 'Paris', '1234', 1200, 0);
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES ('admin', 'Ad', 'Mine', 'admin@example.com', '0123456789', '1 rue des Admin', '29000', 'Quimper', 'admin', 1200, 1);
 
 -- Insertion des articles vendus
 -- Informatique
@@ -42,11 +42,60 @@ INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date
 INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Set de fléchettes', 'Set de fléchettes avec cible', '2023-05-01', '2023-05-07', 40, 60, 2, 4, 1);
 INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES ('Piscine gonflable', 'Piscine gonflable familiale', '2023-05-01', '2023-05-11', 80, 120, 2, 4, 1);
 
+
 -- Insertion des enchères
-INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 1, '2023-05-02', 600);
-INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 1, '2023-05-03', 700);
-INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 2, '2023-05-02', 25);
-INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 2, '2023-05-03', 30);
+-- Informatique
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 1, '2023-05-02', 550);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 1, '2023-05-03', 650);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 1, '2023-05-05', 700);
+
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 2, '2023-05-04', 25);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 2, '2023-05-05', 40);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 2, '2023-05-07', 30);
+
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 3, '2023-05-06', 85);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 3, '2023-05-08', 95);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 3, '2023-05-09', 100);
+
+-- Ameublement
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 4, '2023-05-03', 180);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 4, '2023-05-06', 220);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 4, '2023-05-08', 400);
+
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 5, '2023-05-04', 300);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 5, '2023-05-05', 350);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 5, '2023-05-06', 400);
+
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 6, '2023-05-10', 120);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 6, '2023-05-11', 135);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 6, '2023-05-12', 140);
+
+-- Vêtement
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 7, '2023-05-03', 100);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 7, '2023-05-05', 120);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 7, '2023-05-08', 140);
+
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 8, '2023-05-04', 50);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 8, '2023-05-06', 60);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 8, '2023-05-10', 70);
+
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 9, '2023-05-02', 35);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 9, '2023-05-03', 40);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 9, '2023-05-09', 45);
+
+-- Sport & Loisirs
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 10, '2023-05-05', 350);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 10, '2023-05-06', 400);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 10, '2023-05-09', 450);
+
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 11, '2023-05-03', 25);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 11, '2023-05-05', 35);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 11, '2023-05-08', 50);
+
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 12, '2023-05-04', 90);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (1, 12, '2023-05-06', 120);
+INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (2, 12, '2023-05-10', 150);
+
 
 -- Insertion des retraits
 INSERT INTO RETRAITS (no_article, rue, code_postal, ville) VALUES (1, '1 rue des Lilas', '75001', 'Paris');
