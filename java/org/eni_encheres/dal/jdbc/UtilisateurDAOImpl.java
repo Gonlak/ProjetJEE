@@ -13,6 +13,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	private final static String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
 	private final static String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ?, administrateur = ? WHERE pseudo = ?;";
 
 	@Override
@@ -35,7 +36,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	@Override
 	public void insert(Utilisateur utilisateur) {
 		try(Connection connection = ConnectionProvider.getConnection()) {
-			System.out.println(utilisateur.getPassword());
 			PreparedStatement statement = connection.prepareStatement(INSERT_UTILISATEUR);
 			statement.setString(1, utilisateur.getUsername());
 			statement.setString(2, utilisateur.getLastname());
@@ -64,7 +64,6 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 	@Override
 	public void update(Utilisateur utilisateur, String pseudoC) {
 		try(Connection connection = ConnectionProvider.getConnection()) {
-			System.out.println(utilisateur.getUsername());
 
 			PreparedStatement statement = connection.prepareStatement(UPDATE_UTILISATEUR);
 			statement.setString(1, utilisateur.getUsername());
@@ -100,6 +99,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_USERNAME);
 			pStmt.setString(1, pseudo);
 			ResultSet rs = pStmt.executeQuery();
+			if(!rs.isBeforeFirst()){
+				pStmt = connection.prepareStatement(SELECT_BY_EMAIL);
+				pStmt.setString(1, pseudo);
+				rs = pStmt.executeQuery();
+			}
+
 			if (rs.next())
 				return new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
 						rs.getString("nom"), rs.getString("prenom"),

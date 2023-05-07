@@ -30,7 +30,9 @@ public class SecurityService {
         Utilisateur utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(pseudoC);
         BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), utilisateurCheck.getPassword());
         if (!result.verified) {
-            throw new BLLException("Le mot de passe est eronné");
+            BLLException bll = new BLLException("Le mot de passe est eronné!");
+            bll.ajouterErreur("Le mot de passe est eronné!");
+            throw bll;
         }
         utilisateur.setPassword(BCrypt.withDefaults().hashToString(12, passwordModif.toCharArray()));
         DAOFactory.getUtilisateurDAO().update(utilisateur, pseudoC);
@@ -41,17 +43,29 @@ public class SecurityService {
         checkUtilisateur(pseudo, password);
         Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().selectByUsername(pseudo);
         if (utilisateur == null) {
-            throw new BLLException("Utilisateur non trouvé!");
+            BLLException bll = new BLLException("Utilisateur non trouvé!");
+            bll.ajouterErreur("Utilisateur non trouvé!");
+            throw bll;
         }
         BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), utilisateur.getPassword());
         if (!result.verified) {
-            throw new BLLException("Le mot de passe est eronné");
+            BLLException bll = new BLLException("Le mot de passe est eronné!");
+            bll.ajouterErreur("Le mot de passe est eronné!");
+            throw bll;
         }
         return utilisateur;
     }
 
     private void checkAddUtilisateur(Utilisateur utilisateur, String passwordConf) throws BLLException {
         BLLException bll = new BLLException("Utilisateur non trouvé!");
+        Utilisateur utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getUsername());
+        if (utilisateurCheck != null){
+            bll.ajouterErreur("Le pseudo est déjà pris!");
+        }
+        utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getEmail());
+        if (utilisateurCheck != null){
+            bll.ajouterErreur("L'Email est déjà pris!");
+        }
         checkFiled(utilisateur.getUsername(), "Pseudo", bll);
         checkFiled(utilisateur.getLastname(), "Nom", bll);
         checkFiled(utilisateur.getFirstname(), "Prénom", bll);
@@ -89,7 +103,6 @@ public class SecurityService {
         checkFiled(pseudo, "Pseudo", bll);
         checkFiled(password, "Mot de passe", bll);
         if (bll.getErreurs().size() > 0) {
-            System.out.println("cc");
             throw bll;
         }
     }
