@@ -164,7 +164,10 @@
         <!-- Affichage -->
         <section class="display mt-6 col-12">
             <div class="row ">
-                <%for (Article_Vendu article : articles) { %>
+                <%
+                    int i = 0;
+                    for (Article_Vendu article : articles) {
+                %>
 
                 <div class="col-4">
                     <div class="card mb-3" style="max-width: 540px;">
@@ -177,14 +180,16 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><%=article.getArticleName()%>
                                     </h5>
-                                    <p class="card-text">Prix : points</p>
+                                    <p class="card-text">Prix : <%=article.getEnchersMax(article.getNo_article())%>
+                                    </p>
                                     <p class="card-text">
                                         Fin de l'enchère :
                                         <%=article.getEnd_auction_date()%>
                                     </p>
                                     <p class="card-text">
                                         Vendeur :
-                                        <%=article.getUser().getUsername()%>
+                                        <a href="<%= request.getContextPath()%>/profil/<%=article.getUser().getUsername()%>"><%=article.getUser().getUsername()%>
+                                        </a>
                                     </p>
                                 </div>
                             </div>

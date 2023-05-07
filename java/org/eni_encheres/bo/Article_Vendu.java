@@ -1,6 +1,7 @@
 package org.eni_encheres.bo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Article_Vendu {
@@ -185,8 +186,28 @@ public class Article_Vendu {
 		this.retrait = retrait;
 	}
 
-	
-	
+
+
+	public List<Enchere> getEncheresL(int no_article) {
+		List<Enchere> result = new ArrayList<>();
+		for (Enchere enchere : encheres) {
+			if (enchere.getArticle() == no_article) {
+				result.add(enchere);
+			}
+		}
+		return result;
+	}
+
+	public int getEnchersMax(int no_article){
+		List<Enchere> encheresL = getEncheresL(no_article);
+		int price = 0;
+		for (Enchere enchere : encheresL){
+			if(enchere.getAuctionPrice() > price){
+				price = enchere.getAuctionPrice();
+			}
+		}
+		return price;
+	}
 	
 	
 }
