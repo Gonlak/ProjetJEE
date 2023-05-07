@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import jakarta.servlet.http.HttpSession;
 import org.eni_encheres.bll.Article_VenduManager;
 import org.eni_encheres.bll.EnchereManager;
 import org.eni_encheres.bo.Article_Vendu;
@@ -20,5 +21,12 @@ public class DetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/jsp/pages/detail.jsp")
 		.forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.setAttribute("utilisateurC", null);
+		response.sendRedirect(request.getContextPath());
 	}
 }

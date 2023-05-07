@@ -3,9 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%
+    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
     Enchere enchere = (Enchere) request.getAttribute("enchere");
-%>
-<%
     Article_Vendu article = (Article_Vendu) request.getAttribute("article");
 %>
 <!DOCTYPE html>
@@ -18,14 +17,10 @@
     <title>Detail</title>
 </head>
 <body>
+<header class="container-fluid row">
+    <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
+</header>
 <div class="container-fluid">
-    <header class="row">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand">ENI-Enchères</a>
-            </div>
-        </nav>
-    </header>
     <main class="row">
         <div class="row text-center">
             <h1>Détail vente</h1>

@@ -3,13 +3,11 @@
 <%@page import="org.eni_encheres.bo.Enchere" %>
 <%@ page import="org.eni_encheres.bo.Utilisateur" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
-%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
+    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
     List<Article_Vendu> articlesData = (List<Article_Vendu>) request.getAttribute("articlesData");
     List<Article_Vendu> articles = (List<Article_Vendu>) request.getAttribute("articles");
 %>
@@ -25,33 +23,10 @@
     <title>Liste des enchères</title>
 </head>
 <body>
+<header class="container-fluid row">
+    <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
+</header>
 <div class="container-fluid">
-    <header class="row">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand">ENI-Enchères</a>
-                <%if (utilisateurC != null) {%>
-                <div class="d-flex align-items-center">
-                    <a href="<%= request.getContextPath()%>/connection" class="mx-2">Enchères</a>
-                    <a href="<%= request.getContextPath()%>/connection" class="mx-2">Vendre un article</a>
-                    <a href="<%= request.getContextPath()%>/profil/<%=utilisateurC.getUsername()%>" class="mx-2">Mon
-                        profil</a>
-
-                    <form action="" method="post">
-                        <a href="<%= request.getContextPath()%>" class="mx-2">
-                            <button type="submit" class="btn btn-link">Déconnexion</button>
-                        </a>
-                    </form>
-                </div>
-                <%} else {%>
-                <a href="<%= request.getContextPath()%>/connection">
-                    <button type="submit" name="btn" value="2" class="btn">Déconnexion</button>
-                </a>
-                <a href="<%= request.getContextPath()%>/connection" class="d-flex">S'inscrire / Se connecter</a>
-                <%}%>
-            </div>
-        </nav>
-    </header>
 
     <main class="row">
         <div class="row text-center mt-6">

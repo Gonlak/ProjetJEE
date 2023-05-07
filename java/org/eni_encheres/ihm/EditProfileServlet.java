@@ -30,6 +30,11 @@ public class EditProfileServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
 
+            if (request.getParameter("deco").equals("true")){
+                session.setAttribute("utilisateurC", null);
+                response.sendRedirect(request.getContextPath());
+                return;
+            }
             // button enregistrer
             if(request.getParameter("btn").equals("1")){
                 String pseudo = request.getParameter("pseudo");

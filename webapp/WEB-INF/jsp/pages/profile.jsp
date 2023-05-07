@@ -15,14 +15,10 @@
     <title>Profil utilisateur</title>
 </head>
 <body>
+<header class="container-fluid row">
+    <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
+</header>
 <div class="container-fluid">
-    <header class="row">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand">ENI-Enchères</a>
-            </div>
-        </nav>
-    </header>
 
     <main>
         <!-- Section Affichage profil -->

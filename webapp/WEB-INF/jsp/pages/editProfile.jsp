@@ -5,7 +5,7 @@
   Time: 11:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.eni_encheres.bo.Utilisateur" %>
 <% List<String> erreurs = (List<String>) request.getAttribute("erreurs");%>
@@ -27,17 +27,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/assets/css/styles.css">
-    <title>Inscription</title>
+    <title>Modification</title>
 </head>
 <body>
+<header class="container-fluid row">
+    <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
+</header>
 <div class="container-fluid text-center">
-    <header class="row mt-6 m-5">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand">ENI-Enchères</a>
-            </div>
-        </nav>
-    </header>
     <main class="mx-5">
         <% if (erreurs != null) for (String erreur : erreurs) { %>
         <div class="alert alert-danger">
@@ -212,7 +208,9 @@
                         </div>
                         <div class="col">
                             <a href="<%= request.getContextPath()%>/connection">
-                                <button type="submit" name="btn" value="2" class="btn btn-primary">Supprimer mon compte</button>
+                                <button type="submit" name="btn" value="2" class="btn btn-primary">Supprimer mon
+                                    compte
+                                </button>
                             </a>
                         </div>
                     </div>
