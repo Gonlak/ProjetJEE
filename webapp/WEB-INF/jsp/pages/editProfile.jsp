@@ -201,18 +201,20 @@
                 </div>
                 <div class="row mb-4 mx-5">
                     <div class="col">
-                        <p>Credit : <%=utilisateurC.getCredit()%></p>
+                        <p>Credit : <%=utilisateurC.getCredit()%>
+                        </p>
                     </div>
                     <div class="col">
                     </div>
-                <div class="row mb-4 mx-5">
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary">Créer</button>
-                    </div>
-                    <div class="col">
-                        <a href="<%= request.getContextPath()%>/connection">
-                            <button type="button" class="btn btn-primary">Annuler</button>
-                        </a>
+                    <div class="row mb-4 mx-5">
+                        <div class="col">
+                            <button type="submit" name="btn" value="1" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                        <div class="col">
+                            <a href="<%= request.getContextPath()%>/connection">
+                                <button type="submit" name="btn" value="2" class="btn btn-primary">Supprimer mon compte</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

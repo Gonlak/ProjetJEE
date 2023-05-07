@@ -20,8 +20,13 @@ public class Article_VenduManager {
         return instance;
     }
 
-    // get all articles
-    public List<Article_Vendu> getAllArticles(){
+    // get all articles Data
+    public List<Article_Vendu> getAllArticlesData(){
+        return DAOFactory.getArticleVenduDAO().selectAllData();
+    }
+
+    // get all articles Data
+    public List<Article_Vendu> getAllArticle(){
         return DAOFactory.getArticleVenduDAO().selectAll();
     }
 

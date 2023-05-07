@@ -9,6 +9,7 @@ public interface ArticleVenduDAO extends DAO<Article_Vendu>{
 	List<Article_Vendu> selectByKeyWord(String key);
 	
 	List<Article_Vendu> selectAll();
+	List<Article_Vendu> selectAllData();
 	
 	void insert(Article_Vendu article);
 

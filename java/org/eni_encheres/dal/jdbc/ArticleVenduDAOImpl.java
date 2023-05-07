@@ -35,8 +35,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     // permete de récupérer celle qui non pas d'enchère
     private final static String SELECT_ALL_CURRENT = "SELECT av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, "
-            + "prix_vente, etat_vente, pseudo, rue, code_postal, ville, credit, c.no_categorie, libelle, u.no_utilisateur, date_enchere, "
-            + "MAX(montant_enchere) AS montant_max "
+            + "prix_vente, etat_vente, pseudo, rue, code_postal, ville, credit, c.no_categorie, libelle, u.no_utilisateur, date_enchere, montant_enchere "
             + "FROM ARTICLES_VENDUS av "
             + "LEFT OUTER JOIN ENCHERES e "
             + "ON av.no_article = e.no_article "
@@ -46,7 +45,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             + "ON av.no_categorie = c.no_categorie "
             + "WHERE etat_vente = ? "
             + "GROUP BY av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, "
-            + "prix_vente, etat_vente, pseudo, rue, code_postal, ville, credit, c.no_categorie, libelle, u.no_utilisateur, date_enchere;";
+            + "prix_vente, etat_vente, pseudo, rue, code_postal, ville, credit, c.no_categorie, libelle, u.no_utilisateur, date_enchere, montant_enchere;";
+
+    private final static String SELECT_ALL_ARTICLE = "SELECT * "
+            + "FROM ARTICLES_VENDUS av "
+            + "INNER JOIN UTILISATEURS U on U.no_utilisateur = av.no_utilisateur;";
 
     @Override
     public List<Article_Vendu> selectByKeyWord(String key) {
@@ -56,11 +59,48 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     @Override
     public List<Article_Vendu> selectAll() {
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            List<Article_Vendu> articles = new ArrayList<>();
 
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SELECT_ALL_ARTICLE);
+
+            while (resultSet.next()){
+                articles.add(new Article_Vendu(resultSet.getInt("no_article"),
+                        resultSet.getString("nom_article"),
+                        resultSet.getString("description"),
+                        resultSet.getDate("date_debut_encheres"),
+                        resultSet.getDate("date_fin_encheres"),
+                        resultSet.getInt("prix_initial"),
+                        resultSet.getInt("prix_vente"),
+                        resultSet.getInt("etat_vente"),
+                        new Utilisateur(resultSet.getInt("no_utilisateur"),
+                                resultSet.getString("pseudo"),
+                                resultSet.getString("nom"),
+                                resultSet.getString("prenom"),
+                                resultSet.getString("email"),
+                                resultSet.getString("telephone"),
+                                resultSet.getString("rue"),
+                                resultSet.getString("code_postal"),
+                                resultSet.getString("ville"),
+                                resultSet.getString("mot_de_passe"),
+                                resultSet.getInt("credit"),
+                                resultSet.getBoolean("administrateur"))));
+            }
+            return articles;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    @Override
+    public List<Article_Vendu> selectAllData() {
         try (Connection connection = ConnectionProvider.getConnection()) {
             List<Article_Vendu> articles = new ArrayList<>();
             List<Enchere> encheres = new ArrayList<>();
-
 
             PreparedStatement stmt = connection.prepareStatement(SELECT_ALL_CURRENT);
 
@@ -69,7 +109,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                encheres.add(new Enchere(rs.getInt("no_utilisateur"), rs.getInt("no_article"), rs.getDate("date_enchere"), rs.getInt("montant_max")));
+                encheres.add(new Enchere(rs.getInt("no_utilisateur"), rs.getInt("no_article"), rs.getDate("date_enchere"), rs.getInt("montant_enchere")));
                 articles.add(new Article_Vendu(
                         rs.getInt("no_article"),
                         rs.getString("nom_article"),
@@ -90,6 +130,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
                                 rs.getString("libelle")),
                         encheres));
             }
+
             return articles;
 
         } catch (SQLException e) {

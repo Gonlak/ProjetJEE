@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.eni_encheres.bll.SecurityService;
+import org.eni_encheres.bll.UtilisateurManager;
 import org.eni_encheres.bll.exception.BLLException;
 import org.eni_encheres.bo.Utilisateur;
 
@@ -28,28 +29,34 @@ public class EditProfileServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
-            String pseudoC = utilisateurC.getUsername();
 
-            String pseudo = request.getParameter("pseudo");
-            String nom = request.getParameter("nom");
-            String prenom = request.getParameter("prenom");
-            String email = request.getParameter("email");
-            String telephone = request.getParameter("telephone");
-            String rue = request.getParameter("rue");
-            String codePostal = request.getParameter("codePostal");
-            String ville = request.getParameter("ville");
-            String password = request.getParameter("password");
-            String passwordModif = request.getParameter("passwordModif");
-            String mdpConf = request.getParameter("passwordConf");
+            // button enregistrer
+            if(request.getParameter("btn").equals("1")){
+                String pseudo = request.getParameter("pseudo");
+                String nom = request.getParameter("nom");
+                String prenom = request.getParameter("prenom");
+                String email = request.getParameter("email");
+                String telephone = request.getParameter("telephone");
+                String rue = request.getParameter("rue");
+                String codePostal = request.getParameter("codePostal");
+                String ville = request.getParameter("ville");
+                String password = request.getParameter("password");
+                String passwordModif = request.getParameter("passwordModif");
+                String mdpConf = request.getParameter("passwordConf");
 
-            Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password, utilisateurC.getCredit(), utilisateurC.getAdministrator());
+                Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, password, utilisateurC.getCredit(), utilisateurC.getAdministrator());
 
+                session.setAttribute("utilisateurC", utilisateur);
 
-            SecurityService.getInstance().editUser(utilisateur, pseudoC, password, passwordModif, mdpConf);
+                SecurityService.getInstance().editUser(utilisateur, passwordModif, mdpConf, utilisateurC);
 
-            session.setAttribute("utilisateurC", utilisateur);
+                //button supp
+            }else if(request.getParameter("btn").equals("2")) {
+                SecurityService.getInstance().deleteUser(utilisateurC);
+                session.setAttribute("utilisateurC", null);
+            }
 
-            response.sendRedirect(request.getContextPath() + "/connection");
+            response.sendRedirect(request.getContextPath());
         } catch (BLLException e) {
             request.setAttribute("erreurs", e.getErreurs());
             doGet(request, response);

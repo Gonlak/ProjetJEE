@@ -13,6 +13,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	private final static String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String SELECT_BY_ID = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
 	private final static String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ?, administrateur = ? WHERE pseudo = ?;";
 
@@ -89,8 +90,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_ID);
+			pStmt.setInt(1, id);
+
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -112,7 +119,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 						rs.getString("rue"),rs.getString("code_postal"),
 						rs.getString("ville"),rs.getString("mot_de_passe"),
 						rs.getInt("credit"),rs.getBoolean("administrateur"));
-		} catch (SQLException e) {//DalException
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;

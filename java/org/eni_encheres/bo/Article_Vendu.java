@@ -73,11 +73,9 @@ public class Article_Vendu {
 		this.categories = categories;
 		this.encheres = encheres;
 	}
-	
-	
-	
+
 	public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
-			Date end_auction_date, int original_price, int sell_price, int sale_status, Categorie categories) {
+						 Date end_auction_date, int original_price, int sell_price, int sale_status) {
 		this.no_article = no_article;
 		this.article_name = article_name;
 		this.description = description;
@@ -86,7 +84,21 @@ public class Article_Vendu {
 		this.original_price = original_price;
 		this.sell_price = sell_price;
 		this.sale_status = sale_status;
-		this.categories = categories;
+	}
+	
+	
+	
+	public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
+			Date end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user) {
+		this.no_article = no_article;
+		this.article_name = article_name;
+		this.description = description;
+		this.start_auction_date = start_auction_date;
+		this.end_auction_date = end_auction_date;
+		this.original_price = original_price;
+		this.sell_price = sell_price;
+		this.sale_status = sale_status;
+		this.user = user;
 	}
 
 	//getters et setters
