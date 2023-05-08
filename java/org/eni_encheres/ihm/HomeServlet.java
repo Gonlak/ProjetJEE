@@ -22,7 +22,7 @@ import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Enchere;
 
 
-@WebServlet("")
+@WebServlet(name = "home", urlPatterns = {"","/encheres"})
 public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -37,28 +37,16 @@ public class HomeServlet extends HttpServlet {
         List<Article_Vendu> articlesData = Article_VenduManager.getInstance().getAllArticlesData();
         List<Article_Vendu> articles = Article_VenduManager.getInstance().getAllArticle();
 
-//		for (Article_Vendu article : articles) {
-//		    List<Enchere> encheres = article.getEncheres();
-//		    if (!encheres.isEmpty()) {
-//		        int maxAuctionPrice = Collections.max(encheres, Comparator.comparing(Enchere::getAuctionPrice)).getAuctionPrice();
-//		        for (Enchere enchere : encheres) {
-//		            if (enchere.getAuctionPrice() == maxAuctionPrice) {
-//		                enchere.setAuctionPrice(maxAuctionPrice);
-//		            }
-//		        }
-//		    }
-//		}
-
         // Créer une HashMap pour stocker l'article qui vas utiliser le No_article pour ne plus avoir de doublon
-        Map<Integer, Article_Vendu> highestAuctionPriceMap = new HashMap<>();
+        Map<Integer, Article_Vendu> maxAuctionMap = new HashMap<>();
 
         // Parcourir la liste des articles vendus
         for (Article_Vendu articleVendu : articlesData) {
-            highestAuctionPriceMap.put(articleVendu.getNo_article(), articleVendu);
+        	maxAuctionMap.put(articleVendu.getNo_article(), articleVendu);
         }
 
         // Créer une liste à partir des valeurs de la HashMap
-        List<Article_Vendu> articleTotal = new ArrayList<>(highestAuctionPriceMap.values());
+        List<Article_Vendu> articleTotal = new ArrayList<>(maxAuctionMap.values());
 
         request.setAttribute("articlesData", articleTotal);
         request.setAttribute("articles", articles);

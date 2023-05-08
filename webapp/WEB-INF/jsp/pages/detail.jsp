@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%
-    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
+    /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
     Enchere enchere = (Enchere) request.getAttribute("enchere");
     Article_Vendu article = (Article_Vendu) request.getAttribute("article");
 %>

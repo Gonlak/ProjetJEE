@@ -17,19 +17,16 @@
 
 <div class="container-fluid">
     <div class="container">
-        <header class="row mt-6">
-            <nav class="navbar bg-body-tertiary">
-                <div class="container-fluid">
-                    <a class="navbar-brand">ENI-Enchères</a>
-                </div>
-            </nav>
-        </header>
+        <header class="container-fluid row">
+    <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
+</header>
+
         <!-- formulaire de connexion -->
         <main class="col-10 offset-2">
             <form action="" method="post">
                 <div class="row row-form">
                     <% if (erreurs != null) for (String erreur : erreurs) { %>
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger col-4 offset-4 text-center">
                         <%= erreur %>
                     </div>
                     <% } %>

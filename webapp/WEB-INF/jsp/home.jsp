@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
-    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
+    /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
     List<Article_Vendu> articlesData = (List<Article_Vendu>) request.getAttribute("articlesData");
     List<Article_Vendu> articles = (List<Article_Vendu>) request.getAttribute("articles");
 %>
@@ -88,8 +88,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><%=article.getArticleName()%>
                                     </h5>
-                                    <p class="card-text">Prix : <%=article.getEnchersMax(article.getNo_article())%>
-                                    </p>
+                                    <p class="card-text">Prix : <%=(article.getEnchersMax(article.getNo_article())>0)? article.getEnchersMax(article.getNo_article()): article.getOriginal_price()%>
+                                     points </p>
                                     <p class="card-text">
                                         Fin de l'enchère :
                                         <%=article.getEnd_auction_date()%>

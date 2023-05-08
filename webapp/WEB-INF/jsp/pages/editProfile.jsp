@@ -10,7 +10,7 @@
 <%@ page import="org.eni_encheres.bo.Utilisateur" %>
 <% List<String> erreurs = (List<String>) request.getAttribute("erreurs");%>
 <%
-    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
+    /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
 
     String pseudo = request.getParameter("pseudo");
     String nom = request.getParameter("nom");

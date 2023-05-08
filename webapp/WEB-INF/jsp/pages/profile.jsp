@@ -1,7 +1,7 @@
 <%@ page import="org.eni_encheres.bo.Utilisateur" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
+   /*  Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
     Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 
 %>

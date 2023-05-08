@@ -2,6 +2,7 @@ package org.eni_encheres.ihm.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,6 +32,8 @@ public class LoginServlet extends HttpServlet {
             // Création session
             HttpSession session = request.getSession();
             session.setAttribute("utilisateurC", utilisateurC);
+            
+            session.setMaxInactiveInterval(300);
 
             response.sendRedirect(request.getContextPath() + "/");
         } catch (BLLException e){

@@ -27,16 +27,12 @@
 </head>
 <body>
 <div class="container-fluid text-center">
-    <header class="row mt-6 m-5">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand">ENI-Enchères</a>
-            </div>
-        </nav>
-    </header>
+    <header class="container-fluid row">
+    <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
+</header>
     <main class="mx-5">
         <% if (erreurs != null) for (String erreur : erreurs) { %>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger  col-4 offset-4 text-center">
             <%= erreur %>
         </div>
         <% } %>

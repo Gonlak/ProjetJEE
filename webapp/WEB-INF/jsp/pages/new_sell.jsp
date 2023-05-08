@@ -2,7 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
+    /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
     List<Categorie> categories = (List<Categorie>) request.getAttribute("Categories");
 %>
 <!DOCTYPE html>

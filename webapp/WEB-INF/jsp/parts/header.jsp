@@ -1,18 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="org.eni_encheres.bo.Utilisateur" %>
-
+<%
+	Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
+%>
 <nav class="navbar bg-body-tertiary">
     <div class="container-fluid">
 
-        <a href="<%= request.getContextPath()%>" class="navbar-brand">ENI-Enchères</a>
+        <a href="<%= request.getContextPath()%>/" class="navbar-brand">ENI-Enchères</a>
 
 
         <%if (utilisateurC != null) {%>
         <div class="d-flex align-items-center">
-            <a href="<%= request.getContextPath()%>/nouvelle-vente" class="mx-2">
+            <a href="<%= request.getContextPath()%>/encheres" class="mx-2">
                 <button type="submit" class="btn btn-link">Enchères</button>
             </a>
-            <a href="<%= request.getContextPath()%>/connection" class="mx-2">
+            <a href="<%= request.getContextPath()%>/nouvelle-vente" class="mx-2">
                 <button type="submit" class="btn btn-link">Vendre un article</button>
             </a>
             <a href="<%= request.getContextPath()%>/profil/<%=utilisateurC.getUsername()%>" class="mx-2">Mon
@@ -23,8 +25,6 @@
                     <button type="submit" name="deco" value="true" class="btn btn-link">Déconnexion</button>
                 </a>
             </form>
-
-
         </div>
         <%} else {%>
         <a href="<%= request.getContextPath()%>/connection">
