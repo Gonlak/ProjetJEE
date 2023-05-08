@@ -1,5 +1,6 @@
 package org.eni_encheres.bll;
 
+import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Categorie;
 import org.eni_encheres.dal.DAOFactory;
 
@@ -28,5 +29,9 @@ public class CategorieManager {
     public Categorie getCategorie(int id){
         return DAOFactory.getCategorieDAO().selectById(id);
     }
-
+    
+    //recup articles selon categorie
+    public List<Article_Vendu> getArticlesByCategorieId(int id){
+        return DAOFactory.getCategorieDAO().getArticlesByCategorieId(id);
+    }
 }

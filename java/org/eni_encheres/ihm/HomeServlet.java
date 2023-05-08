@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.eni_encheres.bo.Utilisateur;
+import org.eni_encheres.dal.DAOFactory;
 
 import java.io.IOException;
 
@@ -18,7 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.eni_encheres.bll.Article_VenduManager;
+import org.eni_encheres.bll.CategorieManager;
 import org.eni_encheres.bo.Article_Vendu;
+import org.eni_encheres.bo.Categorie;
 import org.eni_encheres.bo.Enchere;
 
 
@@ -36,6 +39,7 @@ public class HomeServlet extends HttpServlet {
 
         List<Article_Vendu> articlesData = Article_VenduManager.getInstance().getAllArticlesData();
         List<Article_Vendu> articles = Article_VenduManager.getInstance().getAllArticle();
+        List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
 
         // Créer une HashMap pour stocker l'article qui vas utiliser le No_article pour ne plus avoir de doublon
         Map<Integer, Article_Vendu> maxAuctionMap = new HashMap<>();
@@ -50,6 +54,7 @@ public class HomeServlet extends HttpServlet {
 
         request.setAttribute("articlesData", articleTotal);
         request.setAttribute("articles", articles);
+        request.setAttribute("Categories", categories);
 
         request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
     }
@@ -57,7 +62,17 @@ public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute("utilisateurC", null);
+        
+        int categorieId = Integer.parseInt(request.getParameter("categorieId"));
+        List<Article_Vendu> articles = getArticles(categorieId);
+        request.setAttribute("articles", articles);
+        request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 
         doGet(request, response);
     }
+
+	private List<Article_Vendu> getArticles(int categorieId) {
+		List<Article_Vendu> articlesByCategorie = CategorieManager.getInstance().getArticlesByCategorieId(categorieId);
+		return articlesByCategorie;
+	}
 }
