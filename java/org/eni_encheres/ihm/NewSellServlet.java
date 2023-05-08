@@ -55,12 +55,19 @@ public class NewSellServlet extends HttpServlet {
             String photo = request.getParameter("photo");
             int miseaprix = Integer.parseInt(request.getParameter("miseaprix"));
             String debutenchere = request.getParameter("debutenchere");
+            System.out.println(debutenchere);
+            if (debutenchere==null){
+                debutenchere="2000-01-01";
+            }
+            System.out.println(debutenchere);
             String finenchere = request.getParameter("finenchere");
+            if (finenchere==null){
+                debutenchere="2000-01-01";
+            }
             String street = request.getParameter("street");
             String zipcode = request.getParameter("zipcode");
             String town = request.getParameter("town");
 
-            System.out.println(categoriePara);
 
             for (Categorie categorie: categories){
                 if (categorie.getLibelle().equals(categoriePara)){

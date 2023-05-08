@@ -4,6 +4,18 @@
 <%
     /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
     List<Categorie> categories = (List<Categorie>) request.getAttribute("Categories");
+
+    String article = request.getParameter("article");
+    String description = request.getParameter("description");
+    String oneCategorie = request.getParameter("categorie");
+    String photo = request.getParameter("photo");
+    String miseaprix = request.getParameter("miseaprix");
+    String debutenchere = request.getParameter("debutenchere");
+    String finenchere = request.getParameter("finenchere");
+    String street = request.getParameter("street");
+    String zipcode = request.getParameter("zipecode");
+    String town = request.getParameter("town");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -34,12 +46,12 @@
             <form action="" method="post">
                 <div class="form-group">
                     <label for="article" class="form-label">Article :</label>
-                    <input type="text" class="form-control" name="article" id="article">
+                    <input type="text" class="form-control" name="article" id="article" value="<%=(article!=null)?article:""%>">
                 </div>
 
                 <div class="form-group">
                     <label for="description" class="form-label mt-2">Description :</label>
-                    <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                    <textarea class="form-control" name="description" id="description" rows="3" value="<%=(description!=null)?Integer.parseInt(description):0%>"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -55,22 +67,22 @@
 
                 <div class="form-group">
                     <label for="photo" class="form-label mt-2">Photo de l'article :</label>
-                    <input type="file" class="form-control" name="photo" id="photo">
+                    <input type="file" class="form-control" name="photo" id="photo" value="<%=(photo!=null)?photo:""%>">
                 </div>
 
                 <div class="form-group">
                     <label for="miseaprix" class="form-label mt-2">Mise à prix :</label>
-                    <input type="number" class="form-control" name="miseaprix" id="miseaprix">
+                    <input type="number" class="form-control" name="miseaprix" id="miseaprix" value="<%=(miseaprix!=null)?miseaprix:0%>">
                 </div>
 
                 <div class="form-group">
                     <label for="debutenchere" class="form-label mt-2">Début de l'enchère :</label>
-                    <input type="date" class="form-control" name="debutenchere" id="debutenchere">
+                    <input type="date" class="form-control" name="debutenchere" id="debutenchere" value="<%=(debutenchere!=null)?debutenchere:""%>">
                 </div>
 
                 <div class="form-group">
                     <label for="finenchere" class="form-label mt-2">Fin de l'enchère :</label>
-                    <input type="date" class="form-control" name="finenchere" id="finenchere">
+                    <input type="date" class="form-control" name="finenchere" id="finenchere" value="<%=(finenchere!=null)?finenchere:""%>">
                 </div>
 
                 <fieldset>
@@ -78,17 +90,17 @@
 
                     <div class="form-group">
                         <label for="street" class="form-label">Rue :</label>
-                        <input type="text" class="form-control" name="street" id="street">
+                        <input type="text" class="form-control" name="street" id="street"  value="<%=(street!=null)?street:utilisateurC.getStreet()%>">
                     </div>
 
                     <div class="form-group">
                         <label for="zipcode" class="form-label">Code Postal :</label>
-                        <input type="text" class="form-control" name="zipcode" id="zipcode">
+                        <input type="text" class="form-control" name="zipcode" id="zipcode" value="<%=(zipcode!=null)?zipcode:utilisateurC.getZipCode()%>">
                     </div>
 
                     <div class="form-group">
                         <label for="town" class="form-label">Ville :</label>
-                        <input type="text" class="form-control" name="town" id="town">
+                        <input type="text" class="form-control" name="town" id="town" value="<%=(town!=null)?town:utilisateurC.getTown()%>">
                     </div>
                 </fieldset>
 
