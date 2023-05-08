@@ -73,7 +73,8 @@
             <div class="row ">
                 <%
                     for (Article_Vendu article : articlesData) {
-                        int i = article.getNo_article() - 1;
+                        int noArticle = article.getNo_article();
+                        Article_Vendu vendeurArticle = null;
                 %>
 
                 <div class="col-4">
@@ -95,8 +96,16 @@
                                     </p>
                                     <p class="card-text">
                                         Vendeur :
-                                        <%if (i >= 0 && i < articles.size()) { %>
-                                        <a href="<%= request.getContextPath()%>/profil/<%=articles.get(i).getUser().getUsername()%>"><%=articles.get(i).getUser().getUsername()%>
+                                        <% // Affichage du vendeur
+                                            for (Article_Vendu article_vendu : articles) {
+                                                if (article_vendu.getNo_article() == noArticle) {
+                                                    vendeurArticle = article_vendu;
+                                                    break;
+                                                }
+                                            }
+                                            if (vendeurArticle != null) {
+                                        %>
+                                        <a href="<%= request.getContextPath()%>/profil/<%=vendeurArticle.getUser().getUsername()%>"><%=vendeurArticle.getUser().getUsername()%>
                                         </a>
                                         <% } %>
                                     </p>
@@ -108,11 +117,7 @@
                 <% } %>
                 <!-- fin boucle -->
             </div>
-
-
         </section>
-
-
     </main>
 </div>
 

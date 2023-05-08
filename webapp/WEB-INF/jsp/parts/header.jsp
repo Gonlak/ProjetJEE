@@ -9,7 +9,7 @@
 
         <%if (utilisateurC != null) {%>
         <div class="d-flex align-items-center">
-            <a href="<%= request.getContextPath()%>/connection" class="mx-2">
+            <a href="<%= request.getContextPath()%>/nouvelle-vente" class="mx-2">
                 <button type="submit" class="btn btn-link">Enchères</button>
             </a>
             <a href="<%= request.getContextPath()%>/connection" class="mx-2">

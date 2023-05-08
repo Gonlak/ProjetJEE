@@ -47,9 +47,10 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             + "GROUP BY av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, "
             + "prix_vente, etat_vente, pseudo, rue, code_postal, ville, credit, c.no_categorie, libelle, u.no_utilisateur, date_enchere, montant_enchere;";
 
-    private final static String SELECT_ALL_ARTICLE = "SELECT * "
-            + "FROM ARTICLES_VENDUS av "
-            + "INNER JOIN UTILISATEURS U on U.no_utilisateur = av.no_utilisateur;";
+    private final static String SELECT_ALL_ARTICLE = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS U on U.no_utilisateur = av.no_utilisateur;";
+
+    private final static String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, "
+            + "prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES(?,?,?,?,?,?,?,?,?);";
 
     @Override
     public List<Article_Vendu> selectByKeyWord(String key) {
@@ -65,7 +66,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL_ARTICLE);
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 articles.add(new Article_Vendu(resultSet.getInt("no_article"),
                         resultSet.getString("nom_article"),
                         resultSet.getString("description"),
@@ -142,8 +143,28 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     @Override
     public void insert(Article_Vendu article) {
-        // TODO Auto-generated method stub
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setString(1,article.getArticleName());
+            statement.setString(2,article.getDescription());
+            statement.setDate(3,article.getStart_auction_date());
+            statement.setDate(4,article.getEnd_auction_date());
+            statement.setInt(5,article.getOriginal_price());
+            statement.setInt(6,article.getSell_price());
+            statement.setInt(7,article.getUser().getNo_user());
+            statement.setInt(8,article.getCategories().getNo_categorie());
+            statement.setInt(9, article.getSale_status());
 
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            System.out.println("cc3");
+            if (resultSet.next()){
+                article.setNo_article(resultSet.getInt(1)); // pour la redirection
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

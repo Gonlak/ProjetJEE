@@ -23,7 +23,10 @@ public class Categorie {
 		this.libelle = libelle;
 		this.articles = articles;
 	}
-	
+
+	public Categorie(String libelle) {
+		this.libelle = libelle;
+	}
 	
 	public Categorie(int no_category, String libelle) {
 		super();

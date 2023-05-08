@@ -27,7 +27,6 @@ public class LoginServlet extends HttpServlet {
             String pseudo = request.getParameter("username");
             String password = request.getParameter("password");
             Utilisateur utilisateurC = SecurityService.getInstance().login(pseudo, password);
-            System.out.println(utilisateurC);
 
             // Création session
             HttpSession session = request.getSession();

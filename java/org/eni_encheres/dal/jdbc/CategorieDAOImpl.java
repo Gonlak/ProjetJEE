@@ -1,11 +1,16 @@
 package org.eni_encheres.dal.jdbc;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eni_encheres.bo.Categorie;
+import org.eni_encheres.config.ConnectionProvider;
 import org.eni_encheres.dal.CategorieDAO;
 
 public class CategorieDAOImpl implements CategorieDAO{
+
+	private final static String SELECT_ALL_CATEGORIE = "SELECT * FROM CATEGORIES;";
 
 	@Override
 	public List<Categorie> selectByKeyWord(String key) {
@@ -15,7 +20,21 @@ public class CategorieDAOImpl implements CategorieDAO{
 
 	@Override
 	public List<Categorie> selectAll() {
-		// TODO Auto-generated method stub
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			List<Categorie> categories = new ArrayList<>();
+
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(SELECT_ALL_CATEGORIE);
+
+			while (resultSet.next()){
+				categories.add(new Categorie(resultSet.getInt("no_categorie"),
+						resultSet.getString("libelle")));
+			}
+			return categories;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
