@@ -4,6 +4,7 @@
 <%
     /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
     List<Categorie> categories = (List<Categorie>) request.getAttribute("Categories");
+    List<String> erreurs = (List<String>) request.getAttribute("erreurs");
 
     String article = request.getParameter("article");
     String description = request.getParameter("description");
@@ -31,6 +32,11 @@
     <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
 </header>
 <div class="container-fluid">
+    <% if (erreurs != null) for (String erreur : erreurs) { %>
+    <div class="alert alert-danger">
+        <%= erreur %>
+    </div>
+    <% } %>
     <div class="row">
         <div class="col-md-12 text-center">
             <h1>Nouvelle vente</h1>
@@ -46,21 +52,25 @@
             <form action="" method="post">
                 <div class="form-group">
                     <label for="article" class="form-label">Article :</label>
-                    <input type="text" class="form-control" name="article" id="article" value="<%=(article!=null)?article:""%>">
+                    <input type="text" class="form-control" name="article" id="article"
+                           value="<%=(article!=null)?article:""%>">
                 </div>
 
                 <div class="form-group">
                     <label for="description" class="form-label mt-2">Description :</label>
-                    <textarea class="form-control" name="description" id="description" rows="3" value="<%=(description!=null)?Integer.parseInt(description):0%>"></textarea>
+                    <textarea class="form-control" name="description" id="description" rows="3"
+                              value="<%=(description!=null)?description:""%>"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="categorie" class="form-label mt-2">Catégorie :</label>
                     <select class="form-select" name="categorie" id="categorie">
+                        <option value="-1"></option>
                         <%
-                            for(Categorie categorie : categories){
+                            for (Categorie categorie : categories) {
                         %>
-                        <option><%=categorie.getLibelle()%></option>
+                        <option value="<%=categorie.getNo_categorie()%>"><%=categorie.getLibelle()%>
+                        </option>
                         <%}%>
                     </select>
                 </div>
@@ -72,17 +82,20 @@
 
                 <div class="form-group">
                     <label for="miseaprix" class="form-label mt-2">Mise à prix :</label>
-                    <input type="number" class="form-control" name="miseaprix" id="miseaprix" value="<%=(miseaprix!=null)?miseaprix:0%>">
+                    <input type="number" class="form-control" name="miseaprix" id="miseaprix"
+                           value="<%=(miseaprix!=null)?miseaprix:0%>">
                 </div>
 
                 <div class="form-group">
                     <label for="debutenchere" class="form-label mt-2">Début de l'enchère :</label>
-                    <input type="date" class="form-control" name="debutenchere" id="debutenchere" value="<%=(debutenchere!=null)?debutenchere:""%>">
+                    <input type="date" class="form-control" name="debutenchere" id="debutenchere"
+                           value="<%=(debutenchere!=null)?debutenchere:""%>">
                 </div>
 
                 <div class="form-group">
                     <label for="finenchere" class="form-label mt-2">Fin de l'enchère :</label>
-                    <input type="date" class="form-control" name="finenchere" id="finenchere" value="<%=(finenchere!=null)?finenchere:""%>">
+                    <input type="date" class="form-control" name="finenchere" id="finenchere"
+                           value="<%=(finenchere!=null)?finenchere:""%>">
                 </div>
 
                 <fieldset>
@@ -90,17 +103,20 @@
 
                     <div class="form-group">
                         <label for="street" class="form-label">Rue :</label>
-                        <input type="text" class="form-control" name="street" id="street"  value="<%=(street!=null)?street:utilisateurC.getStreet()%>">
+                        <input type="text" class="form-control" name="street" id="street"
+                               value="<%=(street!=null)?street:utilisateurC.getStreet()%>">
                     </div>
 
                     <div class="form-group">
                         <label for="zipcode" class="form-label">Code Postal :</label>
-                        <input type="text" class="form-control" name="zipcode" id="zipcode" value="<%=(zipcode!=null)?zipcode:utilisateurC.getZipCode()%>">
+                        <input type="text" class="form-control" name="zipcode" id="zipcode"
+                               value="<%=(zipcode!=null)?zipcode:utilisateurC.getZipCode()%>">
                     </div>
 
                     <div class="form-group">
                         <label for="town" class="form-label">Ville :</label>
-                        <input type="text" class="form-control" name="town" id="town" value="<%=(town!=null)?town:utilisateurC.getTown()%>">
+                        <input type="text" class="form-control" name="town" id="town"
+                               value="<%=(town!=null)?town:utilisateurC.getTown()%>">
                     </div>
                 </fieldset>
 

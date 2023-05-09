@@ -41,9 +41,7 @@ public class NewSellServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
 
-            List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
-
-            if (request.getParameter("deco")!=null) {
+            if (request.getParameter("deco") != null) {
                 session.setAttribute("utilisateurC", null);
                 response.sendRedirect(request.getContextPath());
                 return;
@@ -51,42 +49,36 @@ public class NewSellServlet extends HttpServlet {
 
             String article = request.getParameter("article");
             String description = request.getParameter("description");
-            String categoriePara = request.getParameter("categorie");
+            int categoriePara = Integer.parseInt(request.getParameter("categorie"));
             String photo = request.getParameter("photo");
             int miseaprix = Integer.parseInt(request.getParameter("miseaprix"));
             String debutenchere = request.getParameter("debutenchere");
-            System.out.println(debutenchere);
-            if (debutenchere==null){
-                debutenchere="2000-01-01";
+            if (debutenchere.isBlank()) {
+                debutenchere = "2000-01-01";
             }
-            System.out.println(debutenchere);
             String finenchere = request.getParameter("finenchere");
-            if (finenchere==null){
-                debutenchere="2000-01-01";
+            if (finenchere.isBlank()) {
+                finenchere = "2000-01-01";
             }
             String street = request.getParameter("street");
             String zipcode = request.getParameter("zipcode");
             String town = request.getParameter("town");
 
+            Categorie categorie = CategorieManager.getInstance().getCategorie(categoriePara);
 
-            for (Categorie categorie: categories){
-                if (categorie.getLibelle().equals(categoriePara)){
+            Article_Vendu article_vendu = new Article_Vendu(article, description, Date.valueOf(debutenchere), Date.valueOf(finenchere), miseaprix, 0, 1, utilisateurC, categorie);
+            Article_VenduManager.getInstance().addArticle(article_vendu);
 
-                    Article_Vendu article_vendu = new Article_Vendu(article, description, Date.valueOf(debutenchere), Date.valueOf(finenchere), miseaprix, 0, 1, utilisateurC, categorie);
-                    Article_VenduManager.getInstance().addArticle(article_vendu);
-
-                    if (article_vendu.getNo_article() > 0) {
-                        Retrait retrait = new Retrait(article_vendu, street, zipcode, town);
-                        RetraitManager.getInstance().addRetrait(retrait);
-                    }
-                }
+            if (article_vendu.getNo_article() > 0) {
+                Retrait retrait = new Retrait(article_vendu, street, zipcode, town);
+                RetraitManager.getInstance().addRetrait(retrait);
             }
+
+            response.sendRedirect(request.getContextPath());
 
         } catch (BLLException e) {
             request.setAttribute("erreurs", e.getErreurs());
             doGet(request, response);
         }
-
-        response.sendRedirect(request.getContextPath());
     }
 }

@@ -11,6 +11,7 @@ import org.eni_encheres.dal.CategorieDAO;
 public class CategorieDAOImpl implements CategorieDAO{
 
 	private final static String SELECT_ALL_CATEGORIE = "SELECT * FROM CATEGORIES;";
+	private final static String SELECT_BY_ID_CATEGORIE = "SELECT * FROM CATEGORIES WHERE no_categorie = ?;";
 
 	@Override
 	public List<Categorie> selectByKeyWord(String key) {
@@ -46,7 +47,19 @@ public class CategorieDAOImpl implements CategorieDAO{
 
 	@Override
 	public Categorie selectById(int id) {
-		// TODO Auto-generated method stub
+		try (Connection connection = ConnectionProvider.getConnection()) {
+
+			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID_CATEGORIE);
+			preparedStatement.setInt(1,id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()){
+				return new Categorie(resultSet.getInt("no_categorie"),resultSet.getString("libelle"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
