@@ -12,8 +12,6 @@ import org.eni_encheres.dal.DAOFactory;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,17 +20,10 @@ import org.eni_encheres.bll.Article_VenduManager;
 import org.eni_encheres.bll.CategorieManager;
 import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Categorie;
-import org.eni_encheres.bo.Enchere;
 
 
-/**
- * @author dfonsat2021
- *
- */
-/**
- * @author dfonsat2021
- *
- */
+
+
 /**
  * @author dfonsat2021
  *
@@ -55,8 +46,9 @@ public class HomeServlet extends HttpServlet {
 
         // Créer une liste à partir des valeurs de la HashMap
         List<Article_Vendu> articleTotal = getMaxAuction(articlesData);
-
-        request.setAttribute("articlesData", articleTotal);
+        
+        articles = articleTotal;
+        
         request.setAttribute("articles", articles);
         request.setAttribute("Categories", categories);
 
@@ -91,7 +83,6 @@ public class HomeServlet extends HttpServlet {
 	         }
 	     }
         
-        request.setAttribute("articlesData", articleTotal);
         request.setAttribute("articles", articles);
         request.setAttribute("Categories", categories);
         request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
