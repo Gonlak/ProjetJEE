@@ -3,9 +3,6 @@
 <%@page import="org.eni_encheres.bo.Enchere" %>
 <%@ page import="org.eni_encheres.bo.Utilisateur" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
     /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
     List<Article_Vendu> articlesData = (List<Article_Vendu>) request.getAttribute("articlesData");
