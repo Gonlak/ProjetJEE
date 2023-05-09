@@ -11,6 +11,7 @@ import java.util.List;
 import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Categorie;
 import org.eni_encheres.bo.Enchere;
+import org.eni_encheres.bo.Retrait;
 import org.eni_encheres.bo.Utilisateur;
 import org.eni_encheres.config.ConnectionProvider;
 import org.eni_encheres.dal.ArticleVenduDAO;
@@ -49,8 +50,22 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     private final static String SELECT_ALL_ARTICLE = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS U on U.no_utilisateur = av.no_utilisateur;";
 
+    private final static String SELECT_BY_ID = "SELECT * "
+    		+ "FROM RETRAITS r "
+    		+ "INNER JOIN ARTICLES_VENDUS av "
+    		+ "on r.no_article = av.no_article "
+    		+ "INNER JOIN CATEGORIES c "
+    		+ "on av.no_categorie = c.no_categorie "
+    		+ "INNER JOIN ENCHERES e "
+    		+ "on av.no_article = e.no_article "
+    		+ "INNER JOIN UTILISATEURS u "
+    		+ "on e.no_utilisateur = u.no_utilisateur "
+    		+ "WHERE av.no_article = ?;";
+    
     private final static String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, "
             + "prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES(?,?,?,?,?,?,?,?,?);";
+    
+    
 
     @Override
     public List<Article_Vendu> selectByKeyWord(String key) {
@@ -169,7 +184,38 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     @Override
     public Article_Vendu selectById(int id) {
-        // TODO Auto-generated method stub
+    	try (Connection connection = ConnectionProvider.getConnection()) {
+    		List<Enchere> encheres = new ArrayList<>();
+    		
+    		PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_ID);
+            pStmt.setInt(1, id);
+            ResultSet rs = pStmt.executeQuery();
+            if(rs.next()) {
+            	return new Article_Vendu(rs.getInt("no_article"),
+                        rs.getString("nom_article"),
+                        rs.getString("description"),
+                        rs.getDate("date_debut_encheres"),
+                        rs.getDate("date_fin_encheres"),
+                        rs.getInt("prix_initial"),
+                        rs.getInt("prix_vente"),
+                        rs.getInt("etat_vente"),
+            			new Utilisateur(rs.getString("pseudo"),
+                                rs.getString("rue"),
+                                rs.getString("code_postal"),
+                                rs.getString("ville"),
+                                rs.getInt("credit")),
+            				new Categorie(
+                                rs.getInt("no_categorie"),
+                                rs.getString("libelle")),
+            						encheres,
+            								new Retrait(rs.getString("rue"),
+            											rs.getString("code_postal"),
+            											rs.getString("ville")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

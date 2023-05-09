@@ -14,7 +14,11 @@ import org.eni_encheres.dal.EnchereDAO;
 
 public class EnchereDAOImpl implements EnchereDAO {
 	
-	
+	private final static String UPDATE_ENCHERE = " UPDATE UTILISATEUR u, ENCHERES e "
+											   + " INNER JOIN UTILISATEUR ON u.no_utilisateur = e.no_utilisateur "
+											   + " SET credit = credit - ? "
+											   + "     montant_enchere = montant_enchere + ? "
+											   + " WHERE no_article = ?;";
 	
 	
 	@Override
