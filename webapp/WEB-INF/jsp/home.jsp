@@ -65,10 +65,68 @@
                     <button type="submit" class="btn btn-success">Rechercher</button>
                 </div>
             </div>
+            <div class="row mt-3">
+       			<div class="col-4">
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="purchases" id="flexRadioDefault1">
+						 	<label class="form-check-label" for="purchases">
+								Achats
+							</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled">
+							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+								Enchères ouvertes
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="purchases"  value="" id="flexCheckCheckedDisabled">
+							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+								Mes enchères en cours
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="purchases"  value="" id="flexCheckCheckedDisabled">
+							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+								Mes enchères remportées
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="sells" id="flexRadioDefault1">
+						 	<label class="form-check-label" for="purchases">
+								Mes ventes
+							</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="sells" value="" id="flexCheckCheckedDisabled">
+							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+								Mes ventes en cours
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="sells" value="" id="flexCheckCheckedDisabled">
+							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+								Ventes non débutées
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" name="sells" value="" id="flexCheckCheckedDisabled">
+							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+								Ventes terminées
+							</label>
+						</div>
+					</div>
+				</div>
+				
+            </div>
+            
             </form>
         </section>
-
-        <!-- Affichage -->
+		
+		
+		
+        <!-- Affichage de enchères -->
         <section class="display mt-6 col-12">
             <div class="row ">
             <% if (articles != null && !articles.isEmpty() ) { %>
