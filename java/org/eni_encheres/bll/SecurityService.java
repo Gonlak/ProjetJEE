@@ -149,10 +149,7 @@ public class SecurityService {
 
     public Utilisateur cookieC(String cookieCID, String cookieCPass) throws BLLException {
         BLLException bll = new BLLException("Utilisateur non trouvé!");
-        System.out.println(cookieCID);
         Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().selectByUsername(cookieCID);
-        System.out.println(utilisateur.getPassword());
-        System.out.println(cookieCPass);
         if (utilisateur == null) {
             bll.ajouterErreur("Erreur Cookie");
             throw bll;
