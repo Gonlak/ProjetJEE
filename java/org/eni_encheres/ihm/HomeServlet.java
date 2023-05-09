@@ -10,8 +10,6 @@ import org.eni_encheres.bo.Utilisateur;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +18,7 @@ import org.eni_encheres.bll.Article_VenduManager;
 import org.eni_encheres.bll.CategorieManager;
 import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Categorie;
-import org.eni_encheres.bo.Enchere;
+
 
 
 @WebServlet(name = "home", urlPatterns = {"", "/encheres"})
@@ -67,8 +65,9 @@ public class HomeServlet extends HttpServlet {
 
         // Créer une liste à partir des valeurs de la HashMap
         List<Article_Vendu> articleTotal = getMaxAuction(articlesData);
-
-        request.setAttribute("articlesData", articleTotal);
+        
+        articles = articleTotal;
+        
         request.setAttribute("articles", articles);
         request.setAttribute("Categories", categories);
 
@@ -97,21 +96,22 @@ public class HomeServlet extends HttpServlet {
         //on récupère le mot de recherche
         String keyWord = request.getParameter("keyword");
 
-        // Filtre les articles en fonction de la catégorie et du mot clé
-        List<Article_Vendu> articles = new ArrayList<>();
-        if (categorieId == -1 && keyWord.isEmpty()) {
-            // Affiche tous les articles si aucune catégorie ni mot clé n'est spécifié
-            articles.addAll(articleTotal);
-        } else {
-            for (Article_Vendu article : articleTotal) {
-                if ((categorieId == -1 || article.getCategories().getNo_categorie() == categorieId)
-                        && (keyWord.isEmpty() || article.getArticleName().toLowerCase().contains(keyWord.toLowerCase()))) {
-                    articles.add(article);
-                }
-            }
-        }
 
-        request.setAttribute("articlesData", articleTotal);
+     // Filtre les articles en fonction de la catégorie et du mot clé
+	     List<Article_Vendu> articles = new ArrayList<>();
+	     if (categorieId == -1 && keyWord.isEmpty()) {
+     // Affiche tous les articles si aucune catégorie ni mot clé n'est spécifié
+	         articles.addAll(articleTotal);
+	     } else {
+	         for (Article_Vendu article : articleTotal) {
+	             if ((categorieId == -1 || article.getCategories().getNo_categorie() == categorieId)
+	                     && (keyWord.isEmpty() || article.getArticleName().toLowerCase().contains(keyWord.toLowerCase()))) {
+	                 articles.add(article);
+	             }
+	         }
+	     }
+        
+
         request.setAttribute("articles", articles);
         request.setAttribute("Categories", categories);
         request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
