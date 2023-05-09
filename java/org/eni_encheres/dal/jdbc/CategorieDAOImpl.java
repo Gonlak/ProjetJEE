@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Categorie;
 import org.eni_encheres.config.ConnectionProvider;
 import org.eni_encheres.dal.CategorieDAO;
@@ -11,7 +12,9 @@ import org.eni_encheres.dal.CategorieDAO;
 public class CategorieDAOImpl implements CategorieDAO{
 
 	private final static String SELECT_ALL_CATEGORIE = "SELECT * FROM CATEGORIES;";
+
 	private final static String SELECT_BY_ID_CATEGORIE = "SELECT * FROM CATEGORIES WHERE no_categorie = ?;";
+
 
 	@Override
 	public List<Categorie> selectByKeyWord(String key) {
@@ -74,5 +77,5 @@ public class CategorieDAOImpl implements CategorieDAO{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

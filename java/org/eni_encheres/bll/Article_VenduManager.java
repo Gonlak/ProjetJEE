@@ -44,6 +44,7 @@ public class Article_VenduManager {
         DAOFactory.getArticleVenduDAO().insert(article_vendu);
     }
 
+
     private void verifAddArticle(Article_Vendu article_vendu) throws BLLException {
         Date date = new Date(2000,1,1);
         BLLException bll = new BLLException("Utilisateur non trouvé!");
@@ -87,4 +88,5 @@ public class Article_VenduManager {
             throw bll;
         }
     }
+
 }

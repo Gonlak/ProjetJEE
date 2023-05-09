@@ -51,13 +51,17 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     private final static String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, "
             + "prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES(?,?,?,?,?,?,?,?,?);";
+    
+    private final static String SELECT_BY_CATEGORY_AND_KEYWORD = "SELECT * FROM ARTICLES_VENDUS av "
+														    		+ "inner join UTILISATEURS u "
+														    		+ "on av.no_utilisateur = u.no_utilisateur "
+														    		+ "WHERE nom_article LIKE ? AND no_categorie=?";
 
-    @Override
-    public List<Article_Vendu> selectByKeyWord(String key) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    private final static String SELECT_BY_KEYWORD = "SELECT * FROM ARTICLES_VENDUS av "
+											    		+ "inner join UTILISATEURS u "
+											    		+ "on av.no_utilisateur = u.no_utilisateur "
+											    		+ "WHERE nom_article LIKE ?;";		
+    
     @Override
     public List<Article_Vendu> selectAll() {
         try (Connection connection = ConnectionProvider.getConnection()) {
@@ -184,5 +188,76 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         // TODO Auto-generated method stub
 
     }
+
+//	@Override
+//	public List<Article_Vendu> selectByKeyWordAndCategory(int noCategory, String key) {
+//		try (Connection connection = ConnectionProvider.getConnection()) {
+//	        List<Article_Vendu> articles = new ArrayList<>();
+//
+//	        PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_CATEGORY_AND_KEYWORD);
+//	        pStmt.setString(1, '%' + key + '%');
+//	        pStmt.setInt(2, noCategory);
+//	        
+//	        ResultSet resultSet = pStmt.executeQuery();
+//
+//	        while (resultSet.next()){
+//	        	articles.add(new Article_Vendu(resultSet.getInt("no_article"),
+//						                       resultSet.getString("nom_article"),
+//						                       resultSet.getString("description"),
+//						                       resultSet.getDate("date_debut_encheres"),
+//						                       resultSet.getDate("date_fin_encheres"),
+//						                       resultSet.getInt("prix_initial"),
+//						                       resultSet.getInt("prix_vente"),
+//						                       resultSet.getInt("etat_vente"),
+//                        new Utilisateur(resultSet.getString("pseudo"),
+//		                                resultSet.getString("rue"),
+//		                                resultSet.getString("code_postal"),
+//		                                resultSet.getString("ville"),
+//		                                resultSet.getInt("credit")
+//                                )));
+//	        }
+//	        return articles;
+//
+//	    } catch (SQLException e) {
+//	        e.printStackTrace();
+//	    }
+//	    return null;
+//	}
+
+
+//	@Override
+//	public List<Article_Vendu> selectByKewWord(String key) {
+//		try (Connection connection = ConnectionProvider.getConnection()) {
+//	        List<Article_Vendu> articles = new ArrayList<>();
+//
+//	        PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_KEYWORD);
+//	        pStmt.setString(1, '%' + key + '%');
+//	        
+//	        
+//	        ResultSet resultSet = pStmt.executeQuery();
+//
+//	        while (resultSet.next()){
+//	        	articles.add(new Article_Vendu(resultSet.getInt("no_article"),
+//						                       resultSet.getString("nom_article"),
+//						                       resultSet.getString("description"),
+//						                       resultSet.getDate("date_debut_encheres"),
+//						                       resultSet.getDate("date_fin_encheres"),
+//						                       resultSet.getInt("prix_initial"),
+//						                       resultSet.getInt("prix_vente"),
+//						                       resultSet.getInt("etat_vente"),
+//                        new Utilisateur(resultSet.getString("pseudo"),
+//		                                resultSet.getString("rue"),
+//		                                resultSet.getString("code_postal"),
+//		                                resultSet.getString("ville"),
+//		                                resultSet.getInt("credit")
+//                                )));
+//	        }
+//	        return articles;
+//
+//	    } catch (SQLException e) {
+//	        e.printStackTrace();
+//	    }
+//	    return null;
+//	}
 
 }
