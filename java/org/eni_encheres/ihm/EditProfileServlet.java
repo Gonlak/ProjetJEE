@@ -32,6 +32,7 @@ public class EditProfileServlet extends HttpServlet {
 
             if (request.getParameter("deco").equals("true")){
                 session.setAttribute("utilisateurC", null);
+                SecurityService.getInstance().cookieCDelete(response);
                 response.sendRedirect(request.getContextPath());
                 return;
             }

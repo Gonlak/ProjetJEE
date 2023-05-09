@@ -10,6 +10,7 @@ import java.io.IOException;
 import jakarta.servlet.http.HttpSession;
 import org.eni_encheres.bll.Article_VenduManager;
 import org.eni_encheres.bll.EnchereManager;
+import org.eni_encheres.bll.SecurityService;
 import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Enchere;
 
@@ -27,6 +28,7 @@ public class DetailServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("utilisateurC", null);
+		SecurityService.getInstance().cookieCDelete(response);
 		response.sendRedirect(request.getContextPath());
 	}
 }

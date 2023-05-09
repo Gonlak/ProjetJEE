@@ -2,6 +2,8 @@ package org.eni_encheres.bll;
 
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -143,5 +145,26 @@ public class SecurityService {
         if (bll.getErreurs().size() > 0) {
             throw bll;
         }
+    }
+
+    public Utilisateur cookieC(String cookieCID, String cookieCPass) throws BLLException {
+        BLLException bll = new BLLException("Utilisateur non trouvé!");
+        Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().selectByUsername(cookieCID);
+        if (utilisateur == null) {
+            bll.ajouterErreur("Erreur Cookie");
+            throw bll;
+        }
+        if (!utilisateur.getPassword().equals(cookieCPass)){
+            bll.ajouterErreur("Erreur Cookie");
+            throw bll;
+        }
+        messageError(bll);
+        return utilisateur;
+    }
+
+    public void cookieCDelete(HttpServletResponse response) {
+        Cookie cookieC = new Cookie("ProjetJEE", null);
+        cookieC.setMaxAge(1);
+        response.addCookie(cookieC);
     }
 }
