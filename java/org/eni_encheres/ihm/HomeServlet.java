@@ -77,7 +77,15 @@ public class HomeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.setAttribute("utilisateurC", null);
+        Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
+        request.setAttribute("utilisateurC", utilisateurC);
+
+        if (request.getParameter("deco")!=null) {
+            session.setAttribute("utilisateurC", null);
+            SecurityService.getInstance().cookieCDelete(response);
+            response.sendRedirect(request.getContextPath());
+            return;
+        }
         List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
         List<Article_Vendu> articlesData = Article_VenduManager.getInstance().getAllArticlesData();
 
@@ -107,7 +115,6 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("articles", articles);
         request.setAttribute("Categories", categories);
         request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
-        //SecurityService.getInstance().cookieCDelete(response);
     }
 
 
@@ -125,6 +132,4 @@ public class HomeServlet extends HttpServlet {
         List<Article_Vendu> articleTotal = new ArrayList<>(maxAuctionMap.values());
         return articleTotal;
     }
-
-
 }

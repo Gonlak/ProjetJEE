@@ -164,7 +164,7 @@ public class SecurityService {
 
     public void cookieCDelete(HttpServletResponse response) {
         Cookie cookieC = new Cookie("ProjetJEE", null);
-        cookieC.setMaxAge(1);
+        cookieC.setMaxAge(0);
         response.addCookie(cookieC);
     }
 }
