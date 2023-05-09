@@ -12,9 +12,7 @@ import org.eni_encheres.dal.CategorieDAO;
 public class CategorieDAOImpl implements CategorieDAO{
 
 	private final static String SELECT_ALL_CATEGORIE = "SELECT * FROM CATEGORIES;";
-	
-	private final static String SELECT_ARTICLE_BY_CATEGORIE = "SELECT * FROM articles WHERE no_categorie = ?;";
-	
+		
 	@Override
 	public List<Categorie> selectByKeyWord(String key) {
 		// TODO Auto-generated method stub
@@ -63,33 +61,6 @@ public class CategorieDAOImpl implements CategorieDAO{
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		
-	}
-	
-
-	@Override
-	public List<Article_Vendu> getArticlesByCategorieId(int id) {
-		 try (Connection connection = ConnectionProvider.getConnection()) {
-		        List<Article_Vendu> articles = new ArrayList<>();
-
-		        
-		        PreparedStatement statement = connection.prepareStatement(SELECT_ARTICLE_BY_CATEGORIE);
-		        statement.setInt(1, id);
-		        ResultSet resultSet = statement.executeQuery();
-
-		        while (resultSet.next()){
-		            Article_Vendu article = new Article_Vendu();
-		            article.setNo_article(resultSet.getInt("no_article"));
-		            article.setArticleName(resultSet.getString("nom_article"));
-		            article.setDescription(resultSet.getString("description"));
-		            
-		            articles.add(article);
-		        }
-		        return articles;
-
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
-		    return null;
 	}
 	
 }

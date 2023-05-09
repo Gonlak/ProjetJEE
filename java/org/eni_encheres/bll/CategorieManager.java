@@ -30,8 +30,4 @@ public class CategorieManager {
         return DAOFactory.getCategorieDAO().selectById(id);
     }
     
-    //recup articles selon categorie
-    public List<Article_Vendu> getArticlesByCategorieId(int id){
-        return DAOFactory.getCategorieDAO().getArticlesByCategorieId(id);
-    }
 }

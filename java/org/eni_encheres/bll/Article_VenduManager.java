@@ -41,5 +41,20 @@ public class Article_VenduManager {
         // verifAddArticle(article_vendu);
         DAOFactory.getArticleVenduDAO().insert(article_vendu);
     }
-
+    
+    //recup un article selon la categorie
+//    public List<Article_Vendu> getAllArticlesByCategorieAndKeyword(int no_category, String keyWord){
+//    	if (no_category>0) {
+//    		return DAOFactory.getArticleVenduDAO().selectByKeyWordAndCategory(no_category, keyWord);
+//		}else if (no_category == -1) {
+//			return DAOFactory.getArticleVenduDAO().selectByKewWord(keyWord);
+//		}
+//        return DAOFactory.getArticleVenduDAO().selectAll();
+//    }
+//    
+//    public List<Article_Vendu> getAllArticleByKeyword(String keyword){
+//    	
+//    	return DAOFactory.getArticleVenduDAO().selectByKewWord(keyword);
+//    }
+    
 }
