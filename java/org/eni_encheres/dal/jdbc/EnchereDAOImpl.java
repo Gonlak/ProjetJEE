@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.eni_encheres.bo.Enchere;
 import org.eni_encheres.dal.EnchereDAO;
 

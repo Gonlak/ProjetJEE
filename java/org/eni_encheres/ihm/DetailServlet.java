@@ -6,15 +6,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.List;
+
+
 import jakarta.servlet.http.HttpSession;
 import org.eni_encheres.bll.Article_VenduManager;
+import org.eni_encheres.bll.CategorieManager;
 import org.eni_encheres.bll.EnchereManager;
 import org.eni_encheres.bo.Article_Vendu;
+import org.eni_encheres.bo.Categorie;
 import org.eni_encheres.bo.Enchere;
 
 
@@ -24,6 +30,7 @@ public class DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String params = request.getPathInfo();		
 		int id = Integer.parseInt(params.substring(1));
 		Article_Vendu article = Article_VenduManager.getInstance().getArticle(id);
@@ -46,7 +53,10 @@ public class DetailServlet extends HttpServlet {
 	        article = maxAuctionMap.get(article.getNo_article());
 
 			request.setAttribute("article", article);
-	        
+
+		List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
+		request.setAttribute("categories", categories);
+
 		request.getRequestDispatcher("/WEB-INF/jsp/pages/detail.jsp")
 		.forward(request, response);
 	}
