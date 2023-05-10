@@ -16,40 +16,30 @@ import org.eni_encheres.bo.Retrait;
 import org.eni_encheres.bo.Utilisateur;
 
 import java.io.IOException;
-<<<<<<< HEAD
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-=======
+
 import java.util.List;
 
 import org.eni_encheres.bll.CategorieManager;
 import org.eni_encheres.bo.Categorie;
 
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
 
 @WebServlet("/nouvelle-vente")
 public class NewSellServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-<<<<<<< HEAD
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
         request.setAttribute("utilisateurC", utilisateurC);
-=======
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
 		request.setAttribute("categories", categories);
 		request.getRequestDispatcher("/WEB-INF/jsp/pages/new_sell.jsp").forward(request, response);
-	}
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
 
-        List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
-        request.setAttribute("Categories", categories);
-
-
-        request.getRequestDispatcher("/WEB-INF/jsp/pages/new_sell.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <%@ page import="org.eni_encheres.bo.Categorie" %>
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -17,16 +17,8 @@
     String street = request.getParameter("street");
     String zipcode = request.getParameter("zipecode");
     String town = request.getParameter("town");
-
-=======
-<%@page import="java.util.List"%>
-<%@page import="org.eni_encheres.bo.Categorie"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%
-List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +29,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
     <title>Nouvelle Vente</title>
 </head>
 <body>
-<<<<<<< HEAD
+
 <header class="container-fluid row">
     <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
 </header>
@@ -73,7 +65,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
                 </div>
 
                 <div class="form-group">
-                    <label for="categorie" class="form-label mt-2">Catégorie :</label>
+                    <label for="categorie" class="form-label mt-2">CatÃ©gorie :</label>
                     <select class="form-select" name="categorie" id="categorie">
                         <option value="-1"></option>
                         <%
@@ -91,19 +83,19 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
                 </div>
 
                 <div class="form-group">
-                    <label for="miseaprix" class="form-label mt-2">Mise à prix :</label>
+                    <label for="miseaprix" class="form-label mt-2">Mise Ã  prix :</label>
                     <input type="number" class="form-control" name="miseaprix" id="miseaprix"
                            value="<%=(miseaprix!=null)?miseaprix:0%>">
                 </div>
 
                 <div class="form-group">
-                    <label for="debutenchere" class="form-label mt-2">Début de l'enchère :</label>
+                    <label for="debutenchere" class="form-label mt-2">DÃ©but de l'enchÃ¨re :</label>
                     <input type="date" class="form-control" name="debutenchere" id="debutenchere"
                            value="<%=(debutenchere!=null)?debutenchere:""%>">
                 </div>
 
                 <div class="form-group">
-                    <label for="finenchere" class="form-label mt-2">Fin de l'enchère :</label>
+                    <label for="finenchere" class="form-label mt-2">Fin de l'enchÃ¨re :</label>
                     <input type="date" class="form-control" name="finenchere" id="finenchere"
                            value="<%=(finenchere!=null)?finenchere:""%>">
                 </div>
@@ -141,12 +133,11 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
     </div>
 </div>
 
-=======
 	<div class="container-fluid">
 		<header class="row">
 			<nav class="navbar bg-body-tertiary">
 				<div class="container-fluid">
-					<a class="navbar-brand">ENI-Ench�res</a>
+					<a class="navbar-brand">ENI-Enchères</a>
 				</div>
 			</nav>
 		</header>
@@ -176,7 +167,7 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 						<textarea class="form-control" id="description" rows="3"></textarea>
 					</div>
 					<div class="form-group">
-						<label for="categorie" class="form-label mt-2">Cat�gorie</label> <select
+						<label for="categorie" class="form-label mt-2">Catégorie</label> <select
 							class="form-select" id="categorie">
 							<%
 							for (Categorie categorie : categories) {
@@ -192,17 +183,17 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 							l'article</label> <input type="file" class="form-control" id="customFile" />
 					</div>
 					<div class="form-group">
-						<label for="miseaprix" class="form-label mt-2">Mise � prix</label>
+						<label for="miseaprix" class="form-label mt-2">Mise à prix</label>
 						<input type="number" class="form-control" id="miseaprix">
 					</div>
 					<div class="form-group">
-						<label for="debutenchere" class="form-label mt-2">D�but de
-							l'ench�re</label> <input type="date" class="form-control"
+						<label for="debutenchere" class="form-label mt-2">Début de
+							l'enchère</label> <input type="date" class="form-control"
 							id="debutenchere">
 					</div>
 					<div class="form-group">
 						<label for="finenchere" class="form-label mt-2">Fin de
-							l'ench�re</label> <input type="date" class="form-control" id="finenchere">
+							l'enchère</label> <input type="date" class="form-control" id="finenchere">
 					</div>
 					<div>
 						<fieldset>
@@ -234,6 +225,6 @@ List<Categorie> categories = (List<Categorie>) request.getAttribute("categories"
 			</div>
 		</main>
 	</div>
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
+
 </body>
 </html>

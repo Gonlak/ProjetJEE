@@ -1,16 +1,14 @@
+<%@page import="java.util.List"%>
 <%@page import="org.eni_encheres.bo.Article_Vendu" %>
 <%@page import="org.eni_encheres.bo.Enchere" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="ISO-8859-1" %>
 <%
-<<<<<<< HEAD
-    /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
-    Enchere enchere = (Enchere) request.getAttribute("enchere");
+     /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */ 
+    List<Utilisateur> utilisateurs = (List<Utilisateur>) request.getAttribute("utilisateurData");
+    Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
+   	List<Enchere> encheres = (List<Enchere>) request.getAttribute("encheres"); 
     Article_Vendu article = (Article_Vendu) request.getAttribute("article");
-    
-=======
-Article_Vendu article = (Article_Vendu) request.getAttribute("article");
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
 %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +20,7 @@ Article_Vendu article = (Article_Vendu) request.getAttribute("article");
     <title>Detail</title>
 </head>
 <body>
-<<<<<<< HEAD
+
 <header class="container-fluid row">
     <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
 </header>
@@ -51,7 +49,10 @@ Article_Vendu article = (Article_Vendu) request.getAttribute("article");
              <p>Catégorie : <%= article.getCategories().getLibelle() %></p>
             </div>
             <div class="mt-2">
-             <p>Meilleur offre : <%= article.getEnchersMax(article.getNo_article()) %> par <%= article.getUser().getUsername() %></p>
+             <p id="meilleurOffre">Meilleur offre : <%= article.getEnchersMax(article.getNo_article()) %> par 
+               <% if(utilisateurs.get(article.getUser().getNo_user()).getUsername() != "admin"){ %>
+              <%= utilisateur.getUsername() %></p>
+              <% } %>
             </div>
             <div class="mt-2">
              <p>Mise à prix : <%= article.getOriginal_price() %> points</p>
@@ -75,54 +76,7 @@ Article_Vendu article = (Article_Vendu) request.getAttribute("article");
         </div>
     </main>
 </div>
-=======
-	<div class="container-fluid">
-		<header class="row">
-			<nav class="navbar bg-body-tertiary">
-				<div class="container-fluid">
-					<a class="navbar-brand">ENI-Enchères</a>
-				</div>
-			</nav>
-		</header>
-		<main class="row">
-			<div class="row text-center">
-				<h1>Détail vente</h1>
-			</div>
-			<!-- Robin voir pour récuper l'image -->
-			<div class="col-5 offset-1">
-				<div class="row g-0">
-					<div class="col-md-4">
-						<img src="" class="img-fluid rounded-start" alt="...">
-					</div>
-				</div>
-			</div>
-			<div class="col-3 offset-4">
-				<div class="row text-center">
-					<p>Nom de l'article
-					<p>
-				</div>
-				<div class="form-group">
-					<label for="description" class="form-label mt-2">Description
-							:</label>
-						<textarea class="form-control" id="description" rows="3"></textarea>
-				</div>
-				<div class="form-group">
-					<div class="form-group">
-					<label for="categorie" class="form-label mt-2">Categorie</label>
-					<input type="text" class="form-control" id="categorie">
-					</div>
-					<p class="mt-2"> Meilleure offre :  points</p>
-					<p class="mt-2"> Mise à prix : </p>
-					<p class="mt-2"> Fin de l'enchère : </p>
-					<p class="mt-2"> Retrait : </p>
-					<p class="mt-2"> Vendeur : </p>
-					<label for="proposition" class="form-label mt-2">Ma proposition : </label>
-					<input type="number" class="form-control" id="proposition">
-					<button type="button" class="btn btn-primary mt-3">Encherir</button>
-				</div>
-			</div>
-		</main>
-	</div>
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
+
+	
 </body>
 </html>

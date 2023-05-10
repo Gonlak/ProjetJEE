@@ -2,20 +2,34 @@ package org.eni_encheres.dal.jdbc;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eni_encheres.bo.Article_Vendu;
+import org.eni_encheres.bo.Enchere;
 import org.eni_encheres.bo.Utilisateur;
 import org.eni_encheres.config.ConnectionProvider;
 import org.eni_encheres.dal.UtilisateurDAO;
 
-public class UtilisateurDAOImpl implements UtilisateurDAO{
+public class UtilisateurDAOImpl implements UtilisateurDAO {
 
+	private final static String SELECT_ALL_UTILISATEUR = "SELECT * FROM UTILISATEURS;";
+	private final static String SELECT_USERNAME_MO = "select umo.pseudo "
+			+ "from ENCHERES e "
+			+ "inner join UTILISATEURS uv "
+			+ "on e.no_utilisateur = uv.no_utilisateur "
+			+ "inner join UTILISATEURS umo "
+			+ "on e.no_utilisateur = umo.no_utilisateur "
+			+ "inner join ARTICLES_VENDUS av "
+			+ "on e.no_article = av.no_article "
+			+ "where av.no_article = ? and montant_enchere = ( select max(montant_enchere) from ENCHERES where no_article = ?);";
 	private final static String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String SELECT_BY_ID = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
 	private final static String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ?, administrateur = ? WHERE pseudo = ?;";
+	private final static String DEBITER_ACHETEUR = "UPDATE UTILISATEURS SET credit = credit - ? WHERE no_utilisateur = ?;";
+	private final static String CREDITER_VENDEUR = "UPDATE UTILISATEURS SET credit = credit + ? WHERE no_utilisateur = ?;";
 
 	@Override
 	public List<Utilisateur> selectByKeyWord(String key) {
@@ -25,7 +39,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	@Override
 	public List<Utilisateur> selectAll() {
-		// TODO Auto-generated method stub
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			List<Utilisateur> utilisateurs = new ArrayList<>();
+
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(SELECT_ALL_UTILISATEUR);
+
+			while (resultSet.next()) {
+				utilisateurs.add(new Utilisateur(resultSet.getInt("no_utilisateur"), resultSet.getString("pseudo"),
+						resultSet.getString("nom"), resultSet.getString("prenom"), resultSet.getString("email"),
+						resultSet.getString("telephone"), resultSet.getString("rue"),
+						resultSet.getString("code_postal"), resultSet.getString("ville"),
+						resultSet.getString("mot_de_passe"), resultSet.getInt("credit"),
+						resultSet.getBoolean("administrateur")));	
+			}
+			return utilisateurs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -36,7 +67,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 	@Override
 	public void insert(Utilisateur utilisateur) {
-		try(Connection connection = ConnectionProvider.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 			PreparedStatement statement = connection.prepareStatement(INSERT_UTILISATEUR);
 			statement.setString(1, utilisateur.getUsername());
 			statement.setString(2, utilisateur.getLastname());
@@ -51,20 +82,19 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			statement.setBoolean(11, false);
 			statement.executeUpdate();
 
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public Utilisateur selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+			return null;	
 	}
 
 	@Override
 	public void update(Utilisateur utilisateur, String pseudoC) {
-		try(Connection connection = ConnectionProvider.getConnection()) {
+		try (Connection connection = ConnectionProvider.getConnection()) {
 
 			PreparedStatement statement = connection.prepareStatement(UPDATE_UTILISATEUR);
 			statement.setString(1, utilisateur.getUsername());
@@ -82,7 +112,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 
 			statement.executeUpdate();
 
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -106,19 +136,64 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
 			PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_USERNAME);
 			pStmt.setString(1, pseudo);
 			ResultSet rs = pStmt.executeQuery();
-			if(!rs.isBeforeFirst()){
+			if (!rs.isBeforeFirst()) {
 				pStmt = connection.prepareStatement(SELECT_BY_EMAIL);
 				pStmt.setString(1, pseudo);
 				rs = pStmt.executeQuery();
 			}
 
 			if (rs.next())
-				return new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"),
-						rs.getString("nom"), rs.getString("prenom"),
-						rs.getString("email"),rs.getString("telephone"),
-						rs.getString("rue"),rs.getString("code_postal"),
-						rs.getString("ville"),rs.getString("mot_de_passe"),
-						rs.getInt("credit"),rs.getBoolean("administrateur"));
+				return new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"),
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
+						rs.getInt("credit"), rs.getBoolean("administrateur"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void debiter(Utilisateur id, int credit) {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pStmt = cnx.prepareStatement(DEBITER_ACHETEUR);
+			pStmt.setFloat(1, credit);
+			pStmt.setInt(2, id.getNo_user());
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void crediter(Utilisateur id, int credit) {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pStmt = cnx.prepareStatement(CREDITER_VENDEUR);
+			pStmt.setFloat(1, credit);
+			pStmt.setInt(2, id.getNo_user());
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Utilisateur selectUsernameMo(int id) {
+		try(Connection cnx = ConnectionProvider.getConnection()){
+
+			List<Enchere> encheres = new ArrayList<>();
+			List<Article_Vendu> articles = new ArrayList<>();
+			
+    		PreparedStatement pStmt = cnx.prepareStatement(SELECT_USERNAME_MO);
+            pStmt.setInt(1,id);
+            ResultSet rs = pStmt.executeQuery();
+			if(rs.next()) {
+				return new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"),
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
+						rs.getInt("credit"), rs.getBoolean("administrateur"),
+						articles,
+						encheres
+						);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

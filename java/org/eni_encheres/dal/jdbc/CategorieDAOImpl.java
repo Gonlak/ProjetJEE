@@ -1,13 +1,12 @@
 package org.eni_encheres.dal.jdbc;
 
-<<<<<<< HEAD
 import java.sql.*;
-=======
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +18,11 @@ import org.eni_encheres.config.ConnectionProvider;
 
 public class CategorieDAOImpl implements CategorieDAO{
 
-<<<<<<< HEAD
 	private final static String SELECT_ALL_CATEGORIE = "SELECT * FROM CATEGORIES;";
 	private final static String SELECT_BY_ID_CATEGORIE = "SELECT * FROM CATEGORIES WHERE no_categorie = ?;";
 
-=======
 	private final static String SELECT_ALL_CATEGORIES = "SELECT * FROM CATEGORIES;";
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
+
 	@Override
 	public List<Categorie> selectByKeyWord(String key) {
 		// TODO Auto-generated method stub
@@ -34,7 +31,7 @@ public class CategorieDAOImpl implements CategorieDAO{
 
 	@Override
 	public List<Categorie> selectAll() {
-<<<<<<< HEAD
+
 		try (Connection connection = ConnectionProvider.getConnection()) {
 			List<Categorie> categories = new ArrayList<>();
 
@@ -50,7 +47,7 @@ public class CategorieDAOImpl implements CategorieDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-=======
+
 		List<Categorie> categories = new ArrayList<>();
 		
 		try(Connection connection = ConnectionProvider.getConnection()){
@@ -66,7 +63,7 @@ public class CategorieDAOImpl implements CategorieDAO{
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}		
->>>>>>> 8dc6446707aa0cc2d577467d36867752f08eb772
+
 		return null;
 	}
 

@@ -50,7 +50,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     private final static String SELECT_ALL_ARTICLE = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS U on U.no_utilisateur = av.no_utilisateur;";
 
-    private final static String SELECT_BY_ID = "SELECT * "
+    private final static String SELECT_BY_ID = "SELECT *"
     		+ "FROM RETRAITS r "
     		+ "INNER JOIN ARTICLES_VENDUS av "
     		+ "on r.no_article = av.no_article "
