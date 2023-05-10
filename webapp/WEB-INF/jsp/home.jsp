@@ -67,52 +67,54 @@
             </div>
             <div class="row mt-3">
        			<div class="col-4">
+       			<!-- Groupe de boutons radios achats -->
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="purchases" id="flexRadioDefault1">
-						 	<label class="form-check-label" for="purchases">
+						<input class="form-check-input" type="radio" name="selection" value="achats" id="radioAchats">
+						 	<label class="form-check-label" for="radioAchats">
 								Achats
 							</label>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled">
-							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+							<input class="form-check-input" type="checkbox" name="enchereOuverte" value="enchereOuverte" id="checkboxEnchereOuverte">
+							 <label class="form-check-label" for="checkboxEnchereOuverte">
 								Enchères ouvertes
 							</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" name="purchases"  value="" id="flexCheckCheckedDisabled">
-							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+							<input class="form-check-input" type="checkbox" name="enchereEnCours" value="enchereEnCours" id="checkboxEnchereEnCours">
+							 <label class="form-check-label" for="checkboxEnchereEnCours">
 								Mes enchères en cours
 							</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" name="purchases"  value="" id="flexCheckCheckedDisabled">
-							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+							<input class="form-check-input" type="checkbox" name="enchereRemportee" value="enchereRemportee" id="checkboxEnchereRemportee">
+							 <label class="form-check-label" for="checkboxEnchereRemportee">
 								Mes enchères remportées
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="col-4">
+				<!-- Groupe de boutons pour ventes -->
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="sells" id="flexRadioDefault1">
-						 	<label class="form-check-label" for="purchases">
+						<input class="form-check-input" type="radio" name="selection" value="ventes" id="radioVentes">
+						 	<label class="form-check-label" for="radioVentes">
 								Mes ventes
 							</label>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" name="sells" value="" id="flexCheckCheckedDisabled">
-							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+							<input class="form-check-input" type="checkbox" name="venteEnCours" value="venteEnCours" id="checkboxVenteEnCours">
+							 <label class="form-check-label" for="checkboxVenteEnCours">
 								Mes ventes en cours
 							</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" name="sells" value="" id="flexCheckCheckedDisabled">
-							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+							<input class="form-check-input" type="checkbox" name="venteNonDebutee" value="venteNonDebutee" id="checkboxVenteNonDebutee">
+							 <label class="form-check-label" for="checkboxVenteNonDebutee">
 								Ventes non débutées
 							</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" name="sells" value="" id="flexCheckCheckedDisabled">
-							 <label class="form-check-label" for="flexCheckCheckedDisabled">
+							<input class="form-check-input" type="checkbox" name="venteTerminee" value="venteTerminee" id="checkboxVenteTerminee">
+							 <label class="form-check-label" for="checkboxVenteTerminee">
 								Ventes terminées
 							</label>
 						</div>

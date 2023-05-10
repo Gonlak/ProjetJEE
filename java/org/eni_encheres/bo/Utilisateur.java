@@ -109,6 +109,12 @@ public class Utilisateur {
 		this.town = town;
 		this.credit = credit;
 	}
+	
+
+	public Utilisateur(int no_user, String username) {
+		this.no_user = no_user;
+		this.username = username;
+	}
 
 	//getters et setters
     public int getNo_user() {
