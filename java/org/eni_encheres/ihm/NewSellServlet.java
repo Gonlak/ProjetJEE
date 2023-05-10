@@ -68,7 +68,7 @@ public class NewSellServlet extends HttpServlet {
 
             Categorie categorie = CategorieManager.getInstance().getCategorie(categoriePara);
 
-            Article_Vendu article_vendu = new Article_Vendu(article, description, Date.valueOf(debutenchere), Date.valueOf(finenchere), miseaprix, 0, 1, utilisateurC, categorie);
+            Article_Vendu article_vendu = new Article_Vendu(article, description, LocalDate.parse(debutenchere), LocalDate.parse(finenchere), miseaprix, 0, 1, utilisateurC, categorie);
             Article_VenduManager.getInstance().addArticle(article_vendu);
 
             if (article_vendu.getNo_article() > 0) {
