@@ -14,13 +14,13 @@ import org.eni_encheres.dal.ArticleVenduDAO;
 public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     // permete de récupérer celle qui non pas d'enchère
-    private final static String SELECT_ALL_CURRENT = "SELECT av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente, pseudo, rue, code_postal, ville, credit, c.no_categorie, libelle, u.no_utilisateur, date_enchere, montant_enchere "
+    private final static String SELECT_ALL_CURRENT = "SELECT av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, u.no_utilisateur, c.no_categorie, etat_vente, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, libelle, date_enchere, montant_enchere "
             + "FROM ARTICLES_VENDUS av "
             + "LEFT OUTER JOIN ENCHERES e ON av.no_article = e.no_article "
             + "INNER JOIN UTILISATEURS u ON u.no_utilisateur = e.no_utilisateur "
             + "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie "
             + "WHERE etat_vente = ? "
-            + "GROUP BY av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente, pseudo, rue, code_postal, ville, credit, c.no_categorie, libelle, u.no_utilisateur, date_enchere, montant_enchere;";
+            + "GROUP BY av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, u.no_utilisateur, c.no_categorie, etat_vente, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, libelle, date_enchere, montant_enchere;";
 
     private final static String SELECT_ALL_ARTICLE = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS U on U.no_utilisateur = av.no_utilisateur;";
 
@@ -102,15 +102,22 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
                         rs.getInt("prix_vente"),
                         rs.getInt("etat_vente"),
                         new Utilisateur(
+                                rs.getInt("no_utilisateur"),
                                 rs.getString("pseudo"),
+                                rs.getString("nom"),
+                                rs.getString("prenom"),
+                                rs.getString("email"),
+                                rs.getString("telephone"),
                                 rs.getString("rue"),
                                 rs.getString("code_postal"),
                                 rs.getString("ville"),
-                                rs.getInt("credit")),
-                        new Categorie(
-                                rs.getInt("no_categorie"),
-                                rs.getString("libelle")),
-                        encheres));
+                                rs.getString("mot_de_passe"),
+                                rs.getInt("credit"),
+                                rs.getBoolean("administrateur")),
+                                new Categorie(
+                                        rs.getInt("no_categorie"),
+                                        rs.getString("libelle")),
+                                encheres));
             }
 
             return articles;
