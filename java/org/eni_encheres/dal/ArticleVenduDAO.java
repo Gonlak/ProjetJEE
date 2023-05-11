@@ -13,6 +13,8 @@ public interface ArticleVenduDAO extends DAO<Article_Vendu>{
 	
 	void insert(Article_Vendu article);
 
+	List<Article_Vendu> selectAllByID(int id);
+
 	Article_Vendu selectById(int id);
 
 	void update(Article_Vendu article);

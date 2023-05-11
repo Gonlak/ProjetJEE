@@ -8,8 +8,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.eni_encheres.bll.exception.BLLException;
+import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Utilisateur;
 import org.eni_encheres.dal.DAOFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SecurityService {
@@ -29,17 +33,39 @@ public class SecurityService {
 
     public void editUser(Utilisateur utilisateur, String passwordModif, String passwordConf, Utilisateur utilisateurC) throws BLLException {
         checkEditUtilisateur(utilisateur, passwordModif, passwordConf, utilisateurC);
-        if (passwordModif != null){
+        if (passwordModif != null) {
             utilisateur.setPassword(BCrypt.withDefaults().hashToString(12, utilisateur.getPassword().toCharArray()));
             DAOFactory.getUtilisateurDAO().update(utilisateur, utilisateurC.getUsername());
-        }else {
+        } else {
             utilisateur.setPassword(BCrypt.withDefaults().hashToString(12, passwordModif.toCharArray()));
             DAOFactory.getUtilisateurDAO().update(utilisateur, utilisateurC.getUsername());
         }
     }
 
-    public void deleteUser(Utilisateur utilisateurC){
-        DAOFactory.getUtilisateurDAO().delete(utilisateurC.getNo_user());
+    public void deleteUser(Utilisateur utilisateurC) {
+        List<Article_Vendu> article_vendusAllData = new ArrayList<>();
+        List<Article_Vendu> articleVendusUtilisateurs = new ArrayList<>();
+        //récupérer tous les articles de l'utilisateur pour vérifier si il n'y a pas un enchère en cours ou qu'il a enchérie sur un enchere
+        article_vendusAllData = DAOFactory.getArticleVenduDAO().selectAllData();
+        System.out.println(article_vendusAllData);
+        System.out.println(utilisateurC.getNo_user());
+        articleVendusUtilisateurs = DAOFactory.getArticleVenduDAO().selectAllByID(utilisateurC.getNo_user());
+        System.out.println(articleVendusUtilisateurs);
+        checkDeleteUser(article_vendusAllData, articleVendusUtilisateurs);
+
+        //DAOFactory.getUtilisateurDAO().delete(utilisateurC.getNo_user());
+    }
+
+    private void checkDeleteUser(List<Article_Vendu> article_vendusAllData, List<Article_Vendu> articleVendusUtilisateurs) {
+        for (Article_Vendu articleVendu : article_vendusAllData) {
+            System.out.println(articleVendu.getUser().getNo_user());
+        }
+        for (Article_Vendu articleVendusUtilisateur : articleVendusUtilisateurs) {
+            //System.out.println(articleVendusUtilisateur.getUser().getUsername());
+
+            System.out.println("coucou");
+
+        }
     }
 
     public Utilisateur login(String pseudo, String password) throws BLLException {
@@ -59,11 +85,11 @@ public class SecurityService {
     private void checkAddUtilisateur(Utilisateur utilisateur, String passwordConf) throws BLLException {
         BLLException bll = new BLLException("Utilisateur non trouvé!");
         Utilisateur utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getUsername());
-        if (utilisateurCheck != null){
+        if (utilisateurCheck != null) {
             bll.ajouterErreur("Le pseudo est déjà pris!");
         }
         utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getEmail());
-        if (utilisateurCheck != null){
+        if (utilisateurCheck != null) {
             bll.ajouterErreur("L'Email est déjà pris!");
         }
         checkFiled(utilisateur.getUsername(), "Pseudo", bll);
@@ -88,11 +114,11 @@ public class SecurityService {
             bll.ajouterErreur("Le mot de passe est eronné!");
         }
         utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getUsername());
-        if (utilisateurCheck != null && !utilisateurCheck.getUsername().equals(utilisateurC.getUsername())){
+        if (utilisateurCheck != null && !utilisateurCheck.getUsername().equals(utilisateurC.getUsername())) {
             bll.ajouterErreur("Le pseudo est déjà pris!");
         }
         utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getEmail());
-        if (utilisateurCheck != null && !utilisateurCheck.getEmail().equals(utilisateurC.getEmail())){
+        if (utilisateurCheck != null && !utilisateurCheck.getEmail().equals(utilisateurC.getEmail())) {
             bll.ajouterErreur("L'Email est déjà pris!");
         }
         checkFiled(utilisateur.getUsername(), "Pseudo", bll);
@@ -154,7 +180,7 @@ public class SecurityService {
             bll.ajouterErreur("Erreur Cookie");
             throw bll;
         }
-        if (!utilisateur.getPassword().equals(cookieCPass)){
+        if (!utilisateur.getPassword().equals(cookieCPass)) {
             bll.ajouterErreur("Erreur Cookie");
             throw bll;
         }
