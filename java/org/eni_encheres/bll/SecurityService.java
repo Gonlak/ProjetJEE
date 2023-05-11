@@ -51,19 +51,22 @@ public class SecurityService {
         System.out.println(utilisateurC.getNo_user());
         articleVendusUtilisateurs = DAOFactory.getArticleVenduDAO().selectAllByID(utilisateurC.getNo_user());
         System.out.println(articleVendusUtilisateurs);
-        checkDeleteUser(article_vendusAllData, articleVendusUtilisateurs);
+        checkDeleteUser(article_vendusAllData, articleVendusUtilisateurs, utilisateurC);
 
         //DAOFactory.getUtilisateurDAO().delete(utilisateurC.getNo_user());
     }
 
-    private void checkDeleteUser(List<Article_Vendu> article_vendusAllData, List<Article_Vendu> articleVendusUtilisateurs) {
+    private void checkDeleteUser(List<Article_Vendu> article_vendusAllData, List<Article_Vendu> articleVendusUtilisateurs, Utilisateur utilisateurC) {
         for (Article_Vendu articleVendu : article_vendusAllData) {
-            System.out.println(articleVendu.getUser().getNo_user());
+            if (articleVendu.getUser().getNo_user() == utilisateurC.getNo_user() && articleVendu.getSale_status() == 1) {
+                DAOFactory.getArticleVenduDAO().selectAllData();
+            }
         }
         for (Article_Vendu articleVendusUtilisateur : articleVendusUtilisateurs) {
-            //System.out.println(articleVendusUtilisateur.getUser().getUsername());
+            if (articleVendusUtilisateur.getSale_status() == 1)
+                //System.out.println(articleVendusUtilisateur.getUser().getUsername());
 
-            System.out.println("coucou");
+                System.out.println("coucou");
 
         }
     }
