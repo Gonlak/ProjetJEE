@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.attribute.standard.JobMessageFromOperator;
+
 import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Categorie;
 import org.eni_encheres.bo.Enchere;
@@ -50,7 +52,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     private final static String SELECT_ALL_ARTICLE = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS U on U.no_utilisateur = av.no_utilisateur;";
 
-    private final static String SELECT_BY_ID = "SELECT *"
+    private final static String SELECT_BY_ID_ENCHER = "SELECT *"
     		+ "FROM RETRAITS r "
     		+ "INNER JOIN ARTICLES_VENDUS av "
     		+ "on r.no_article = av.no_article "
@@ -66,13 +68,13 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             + "prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES(?,?,?,?,?,?,?,?,?);";
     
 
-	  private final static String SELECT_USERNAME_MO = "SELECT umo.pseudo FROM UTILISATEURS umo " 
-			  										 + "INNER JOIN ENCHERES e " 
-			  										 + "on e.no_utilisateur = umo.no_utilisateur INNER JOIN UTILISATEURS uv "
-			  										 + "on e.no_utilisateur = uv.no_utilisateur INNER JOIN ARTICLES_VENDUS av "
-			  										 + "on e.no_article = av.no_article "
-			  										 + "WHERE av.no_article = ? AND montant_enchere = (SELECT max(montant_enchere) FROM ENCHERES WHERE no_article = ?);";
-	
+//	  private final static String SELECT_USERNAME_MO = "SELECT umo.pseudo FROM UTILISATEURS umo " 
+//			  										 + "INNER JOIN ENCHERES e " 
+//			  										 + "on e.no_utilisateur = umo.no_utilisateur INNER JOIN UTILISATEURS uv "
+//			  										 + "on e.no_utilisateur = uv.no_utilisateur INNER JOIN ARTICLES_VENDUS av "
+//			  										 + "on e.no_article = av.no_article "
+//			  										 + "WHERE av.no_article = ? AND montant_enchere = (SELECT max(montant_enchere) FROM ENCHERES WHERE no_article = ?);";
+	  private final static String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur WHERE no_article = ?;";
 	 
 
     @Override
@@ -191,9 +193,53 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     }
 
     @Override
-    public Article_Vendu selectById(int id) {
+    public Article_Vendu selectByIdEnchere(int id) {
     	try (Connection connection = ConnectionProvider.getConnection()) {
     		List<Enchere> encheres = new ArrayList<>();
+    		
+    		PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_ID_ENCHER);
+            pStmt.setInt(1, id);
+            ResultSet rs = pStmt.executeQuery();
+            if(rs.next()) {
+            	return new Article_Vendu(rs.getInt("no_article"),
+                        rs.getString("nom_article"),
+                        rs.getString("description"),
+                        rs.getDate("date_debut_encheres"),
+                        rs.getDate("date_fin_encheres"),
+                        rs.getInt("prix_initial"),
+                        rs.getInt("prix_vente"),
+                        rs.getInt("etat_vente"),
+            			new Utilisateur(rs.getInt("no_utilisateur"),
+            					rs.getString("pseudo"),
+            					rs.getString("nom"),
+            					rs.getString("prenom"),
+            					rs.getString("email"),
+            					rs.getString("telephone"),
+            					rs.getString("rue"),
+            					rs.getString("code_postal"),
+            					rs.getString("ville"),
+            					rs.getString("mot_de_passe"),
+            					rs.getInt("credit"),
+            					rs.getBoolean("administrateur")),
+            				new Categorie(
+                                rs.getInt("no_categorie"),
+                                rs.getString("libelle")),
+            						encheres,
+            								new Retrait(rs.getString("rue"),
+            											rs.getString("code_postal"),
+            											rs.getString("ville")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    @Override
+    public Article_Vendu selectById(int id) {
+    	try (Connection connection = ConnectionProvider.getConnection()) {
+    		
     		
     		PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_ID);
             pStmt.setInt(1, id);
@@ -207,18 +253,18 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
                         rs.getInt("prix_initial"),
                         rs.getInt("prix_vente"),
                         rs.getInt("etat_vente"),
-            			new Utilisateur(rs.getString("pseudo"),
-                                rs.getString("rue"),
-                                rs.getString("code_postal"),
-                                rs.getString("ville"),
-                                rs.getInt("credit")),
-            				new Categorie(
-                                rs.getInt("no_categorie"),
-                                rs.getString("libelle")),
-            						encheres,
-            								new Retrait(rs.getString("rue"),
-            											rs.getString("code_postal"),
-            											rs.getString("ville")));
+            			new Utilisateur(rs.getInt("no_utilisateur"),
+            					rs.getString("pseudo"),
+            					rs.getString("nom"),
+            					rs.getString("prenom"),
+            					rs.getString("email"),
+            					rs.getString("telephone"),
+            					rs.getString("rue"),
+            					rs.getString("code_postal"),
+            					rs.getString("ville"),
+            					rs.getString("mot_de_passe"),
+            					rs.getInt("credit"),
+            					rs.getBoolean("administrateur")));          		
             }
 
         } catch (SQLException e) {

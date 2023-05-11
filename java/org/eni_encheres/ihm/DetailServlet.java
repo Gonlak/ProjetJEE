@@ -40,7 +40,7 @@ public class DetailServlet extends HttpServlet {
 		List<Article_Vendu> articlesData = Article_VenduManager.getInstance().getAllArticlesData();
 		List<Utilisateur> utilisateursData = UtilisateurManager.getInstance().getAllUtilisateur();
 		Utilisateur utilisateur = UtilisateurManager.getInstance().getUtilisateurMo(id);
-		System.out.println(utilisateur);
+		System.out.println(utilisateur); 
 		List<Enchere> encheres = EnchereManager.getInstance().getAllEnchere();
 
 		// Créer une HashMap pour stocker l'article qui vas utiliser le No_article pour
@@ -55,10 +55,11 @@ public class DetailServlet extends HttpServlet {
 		// Créer une liste à partir des valeurs de la HashMap
 		List<Article_Vendu> articleTotal = new ArrayList<>(maxAuctionMap.values());
 
-		request.setAttribute("articleVendeur", articlesData);
+		request.setAttribute("articleVendeur", article);
 		
 		article = maxAuctionMap.get(article.getNo_article());
 
+		
 		request.setAttribute("article", article);
 		request.setAttribute("utilisateurData", utilisateursData);
 		request.setAttribute("utilisateur", utilisateur);
