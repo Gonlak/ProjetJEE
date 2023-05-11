@@ -44,6 +44,24 @@ public class Utilisateur {
         this.encheres = encheres;
     }
 
+    public Utilisateur(int no_user, String username, String lastname, String firstname, String email,
+                       String phone_number, String street, String zip_code, String town, String password, int credit,
+                       Boolean administrator, List<Article_Vendu> articles) {
+        this.no_user = no_user;
+        this.username = username;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.street = street;
+        this.zip_code = zip_code;
+        this.town = town;
+        this.password = password;
+        this.credit = credit;
+        this.administrator = administrator;
+        this.articles = articles;
+    }
+
     public Utilisateur(String username, String lastname, String firstname, String email, String phone_number,
                        String street, String zip_code, String town, String password, int credit, Boolean administrator,
                        List<Article_Vendu> articles,List<Enchere> encheres) {

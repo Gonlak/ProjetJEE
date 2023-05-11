@@ -48,10 +48,11 @@ public class HomeServlet extends HttpServlet {
                 String cookieCPass = valeurs[1];
 
                 Utilisateur utilisateurC = SecurityService.getInstance().cookieC(cookieCID, cookieCPass);
+                session.setAttribute("utilisateurC", utilisateurC);
                 request.setAttribute("utilisateurC", utilisateurC);
-
             } else {
                 Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
+                session.setAttribute("utilisateurC", utilisateurC);
                 request.setAttribute("utilisateurC", utilisateurC);
             }
         } catch (BLLException e) {
