@@ -9,6 +9,8 @@
     List<Article_Vendu> articlesData = (List<Article_Vendu>) request.getAttribute("articlesData");
     List<Article_Vendu> articles = (List<Article_Vendu>) request.getAttribute("articles");
     List<Categorie> categories = (List<Categorie>) request.getAttribute("Categories");
+    String selection = (String) request.getAttribute("selection");
+    String enchereOuverte = (String)request.getAttribute("enchereOuverte");
 %>
 
 
@@ -68,8 +70,8 @@
             <div class="row mt-3">
        			<div class="col-4">
        			<!-- Groupe de boutons radios achats -->
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="selection" value="achats" id="radioAchats">
+					<div class="form-check achats">
+						<input class="form-check-input" type="radio" name="selection" value="achats" onchange="change(event);" id="radioAchats">
 						 	<label class="form-check-label" for="radioAchats">
 								Achats
 							</label>
@@ -95,8 +97,8 @@
 				</div>
 				<div class="col-4">
 				<!-- Groupe de boutons pour ventes -->
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="selection" value="ventes" id="radioVentes">
+					<div class="form-check ventes">
+						<input class="form-check-input" type="radio" name="selection" onchange="change(event);" value="ventes" id="radioVentes">
 						 	<label class="form-check-label" for="radioVentes">
 								Mes ventes
 							</label>
@@ -186,9 +188,95 @@
     		<% } %>
                 <!-- fin boucle -->
             </div>
+            
+            <!-- Affichage selection Achats -->
+            <div class="row ">
+            <% if (enchereOuverte.equals("enchereOuverte")) { %>
+	            <% if (articles != null && !articles.isEmpty() ) { %>
+	                <%
+	                    for (Article_Vendu article : articles) {
+	                        int noArticle = article.getNo_article();
+	                        Article_Vendu vendeurArticle = null;
+	                %>
+					 
+	                <div class="col-4">
+	                    <div class="card mb-3" style="max-width: 540px;">
+	                        <div class="row g-0">
+	                            <div class="col-md-4">
+	                                <img src="assets/img/radio.jpg" class="img-fluid rounded-start"
+	                          
+	                                     alt="...">
+	                            </div>
+	                            <div class="col-md-8">
+	                                <div class="card-body">
+	                                    <h5 class="card-title"><%=article.getArticleName()%>
+	                                    </h5>
+	                                     <% if (article.getEncheres() != null) { %>
+	                                    <p class="card-text">Prix : <%=(article.getEnchersMax(article.getNo_article())>0)? article.getEnchersMax(article.getNo_article()): article.getOriginal_price()%>
+	                                     points </p>
+	                                     <% } %>
+	                                    <p class="card-text">
+	                                        Fin de l'enchère :
+	                                        <%=article.getEnd_auction_date()%>
+	                                    </p>
+	                                    <p class="card-text">
+	                                        Vendeur :
+	                                        <% // Affichage du vendeur
+	                                            for (Article_Vendu article_vendu : articles) {
+	                                                if (article_vendu.getNo_article() == noArticle) {
+	                                                    vendeurArticle = article_vendu;
+	                                                    break;
+	                                                }
+	                                            }
+	                                            if (vendeurArticle != null) {
+	                                        %>
+	                                        <a href="<%= request.getContextPath()%>/profil/<%=vendeurArticle.getUser().getUsername()%>"><%=vendeurArticle.getUser().getUsername()%>
+	                                        </a>
+	                                        <% } %>
+	                                    </p>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <% } %>	
+	                <% } else { %>	
+	        	<div>
+	        	<p>Aucun article trouvé.</p>
+	        	</div>
+	    		<% } %>
+    		<% } %>
+                <!-- fin boucle -->
+            </div>
         </section>
     </main>
 </div>
-
+<script>
+    function change(e){
+        if(e.target.value==="ventes"){ 
+            disable(".achats input[type=checkbox]");
+        }else{
+            disable(".ventes input[type=checkbox]");
+        }
+        var parent = e.target.parentNode;
+        console.log(parent);
+        enable(parent);
+    }
+    
+    function disable(selector){
+        var listeChecks = document.querySelectorAll(selector);
+            listeChecks.forEach((value,index,array)=>{
+                value.disabled= true;
+                value.checked= false;
+        });     
+    }
+    
+    function enable(node){
+        var listeChecks = node.querySelectorAll("input[type=checkbox]");
+        listeChecks.forEach((value,index,array)=>{
+            value.disabled= false;          
+        }); 
+    }
+</script>
 </body>
 </html>

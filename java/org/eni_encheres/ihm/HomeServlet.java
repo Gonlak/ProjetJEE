@@ -83,8 +83,8 @@ public class HomeServlet extends HttpServlet {
         // Récupérer la valeur du bouton radio sélectionné
 	     String selection = request.getParameter("selection");
 	     String enchereOuverte = request.getParameter("enchereOuverte");
-         String enchereEnCours = request.getParameter("enchereEnCours");
-         String enchereRemportee = request.getParameter("enchereRemportee");
+//         String enchereEnCours = request.getParameter("enchereEnCours");
+//         String enchereRemportee = request.getParameter("enchereRemportee");
 	     
         if (request.getParameter("deco")!=null) {
             session.setAttribute("utilisateurC", null);
@@ -121,68 +121,68 @@ public class HomeServlet extends HttpServlet {
 	         }
 	     }
         
-	   //Filtre les articles en fonction des checkboxes
-	  // Vérifie si le bouton radio "Achats" est sélectionné
-	     if ("achats".equals(selection)) {
-	    	 if (enchereOuverte != null) {
-	    		 System.out.println(enchereOuverte);
-	    		
-	         	}
-	    	 
-	    	 if (enchereEnCours != null) {
-	        	 System.out.println(enchereEnCours);
-	        	// Effectue le traitement pour les enchères en cours
-	             // Récupére l'utilisateur connecté
-	             session = request.getSession();
-	             utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
-
-	             // Filtrer les articles en cours pour l'utilisateur connecté
-	             List<Article_Vendu> enchereEnCoursArticles = new ArrayList<>();
-//	             for (Article_Vendu article : articlesData) {
-//	            	 System.out.println("c bon");
-//	            	 System.out.println(article.getArticleName());
-//	            	 System.out.println(article.getUser().getNo_user()+" "+utilisateurC.getNo_user());
-//	            	 
+//	   //Filtre les articles en fonction des checkboxes
+//	  // Vérifie si le bouton radio "Achats" est sélectionné
+//	     if ("achats".equals(selection)) {
+//	    	 if (enchereOuverte != null) {
+//	    		 System.out.println(enchereOuverte);
+//	    		
+//	         	}
+//	    	 
+//	    	 if (enchereEnCours != null) {
+//	        	 System.out.println(enchereEnCours);
+//	        	// Effectue le traitement pour les enchères en cours
+//	             // Récupére l'utilisateur connecté
+//	             session = request.getSession();
+//	             utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
+//
+//	             // Filtrer les articles en cours pour l'utilisateur connecté
+//	             List<Article_Vendu> enchereEnCoursArticles = new ArrayList<>();
+////	             for (Article_Vendu article : articlesData) {
+////	            	 System.out.println("c bon");
+////	            	 System.out.println(article.getArticleName());
+////	            	 System.out.println(article.getUser().getNo_user()+" "+utilisateurC.getNo_user());
+////	            	 
+////					}
+//	             for (Article_Vendu article : allArticles) {
+//            		 System.out.println(article.getUser().getNo_user());
+//            		 for (Enchere enchere : encheres) {
+//						if (enchere.getUser() == article.getUser().getNo_user()) {
+//							System.out.println(enchere.getUser()+" "+article.getUser().getNo_user());
+//							enchereEnCoursArticles.add(article);
+//						}
 //					}
-	             for (Article_Vendu article : allArticles) {
-            		 System.out.println(article.getUser().getNo_user());
-            		 for (Enchere enchere : encheres) {
-						if (enchere.getUser() == article.getUser().getNo_user()) {
-							System.out.println(enchere.getUser()+" "+article.getUser().getNo_user());
-							enchereEnCoursArticles.add(article);
-						}
-					}
-	             }
-
-	             articles = enchereEnCoursArticles;
-				}
-	         
-	         if (enchereRemportee != null) {
-	        	 System.out.println(enchereRemportee);	
-				}
-	      // Vérifie si le bouton radio "Ventes" est sélectionné   
-	     }else if ("ventes".equals(selection)) {
-         // Récupérer les valeurs des cases à cocher pour les ventes
-	         String venteEnCours = request.getParameter("venteEnCours");
-	         String venteNonDebutee = request.getParameter("venteNonDebutee");
-	         String venteTerminee = request.getParameter("venteTerminee");
-	         
-	         if (venteEnCours != null) {
-	        	 System.out.println(venteEnCours);	
-				}
-	        
-	         if (venteNonDebutee != null) {
-	        	 System.out.println(venteNonDebutee);	
-				}
-	         
-	         if (venteTerminee != null) {
-	        	 System.out.println(venteTerminee);	
-				}
-	     }
+//	             }
+//
+//	             articles = enchereEnCoursArticles;
+//				}
+//	         
+//	         if (enchereRemportee != null) {
+//	        	 System.out.println(enchereRemportee);	
+//				}
+//	      // Vérifie si le bouton radio "Ventes" est sélectionné   
+//	     }else if ("ventes".equals(selection)) {
+//         // Récupérer les valeurs des cases à cocher pour les ventes
+//	         String venteEnCours = request.getParameter("venteEnCours");
+//	         String venteNonDebutee = request.getParameter("venteNonDebutee");
+//	         String venteTerminee = request.getParameter("venteTerminee");
+//	         
+//	         if (venteEnCours != null) {
+//	        	 System.out.println(venteEnCours);	
+//				}
+//	        
+//	         if (venteNonDebutee != null) {
+//	        	 System.out.println(venteNonDebutee);	
+//				}
+//	         
+//	         if (venteTerminee != null) {
+//	        	 System.out.println(venteTerminee);	
+//				}
+//	     }
 	     
 	     
-	     
-	     
+	    request.setAttribute(selection, articles); 
+	    request.setAttribute("enchereOuverte", enchereOuverte); 
         request.setAttribute("articles", articles);
         request.setAttribute("Categories", categories);
         request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
