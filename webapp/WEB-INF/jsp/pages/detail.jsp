@@ -9,6 +9,7 @@
     Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
    	List<Enchere> encheres = (List<Enchere>) request.getAttribute("encheres"); 
     Article_Vendu article = (Article_Vendu) request.getAttribute("article");
+    Article_Vendu articleVendeur = (Article_Vendu) request.getAttribute("articleVendeur");
 %>
 <!DOCTYPE html>
 <html>
@@ -64,7 +65,7 @@
              <p>Retrait : <%= article.getUser().getStreet() %> <%= article.getUser().getZipCode() %> <%= article.getUser().getTown() %></p>
             </div>
             <div class="mt-2">
-             <p>Vendeur : <%= article.getUser().getUsername() %></p>
+             <p>Vendeur : <%= articleVendeur.getUser().getUsername() %></p>
             </div>
             <div class="mt-2">
             	<label for="proposition" class="form-label mt-2">Ma proposition</label>

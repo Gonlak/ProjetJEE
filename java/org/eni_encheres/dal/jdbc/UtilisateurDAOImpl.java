@@ -14,15 +14,15 @@ import org.eni_encheres.dal.UtilisateurDAO;
 public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private final static String SELECT_ALL_UTILISATEUR = "SELECT * FROM UTILISATEURS;";
-	private final static String SELECT_USERNAME_MO = "select umo.pseudo "
-			+ "from ENCHERES e "
-			+ "inner join UTILISATEURS uv "
-			+ "on e.no_utilisateur = uv.no_utilisateur "
-			+ "inner join UTILISATEURS umo "
-			+ "on e.no_utilisateur = umo.no_utilisateur "
-			+ "inner join ARTICLES_VENDUS av "
-			+ "on e.no_article = av.no_article "
-			+ "where av.no_article = ? and montant_enchere = ( select max(montant_enchere) from ENCHERES where no_article = ?);";
+	
+	  private final static String SELECT_USERNAME_MO = "SELECT umo.pseudo, av.no_utilisateur, av.no_article "
+	  + "FROM UTILISATEURS umo INNER JOIN ENCHERES e "
+	  + "on e.no_utilisateur = umo.no_utilisateur INNER JOIN UTILISATEURS uv "
+	  + "on e.no_utilisateur = uv.no_utilisateur INNER JOIN ARTICLES_VENDUS av "
+	  + "on e.no_article = av.no_article "
+	  + "WHERE av.no_article = ? AND montant_enchere = (SELECT max(montant_enchere) FROM ENCHERES WHERE no_article = ?);"
+	  ;
+	 
 	private final static String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String SELECT_BY_ID = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
@@ -179,19 +179,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	public Utilisateur selectUsernameMo(int id) {
 		try(Connection cnx = ConnectionProvider.getConnection()){
 
-			List<Enchere> encheres = new ArrayList<>();
 			List<Article_Vendu> articles = new ArrayList<>();
-			
     		PreparedStatement pStmt = cnx.prepareStatement(SELECT_USERNAME_MO);
             pStmt.setInt(1,id);
+            pStmt.setInt(2,id);
             ResultSet rs = pStmt.executeQuery();
 			if(rs.next()) {
-				return new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"),
-						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"),
-						rs.getInt("credit"), rs.getBoolean("administrateur"),
-						articles,
-						encheres
+				return new Utilisateur(rs.getString("pseudo"),
+								articles
 						);
 			}
 		} catch (SQLException e) {

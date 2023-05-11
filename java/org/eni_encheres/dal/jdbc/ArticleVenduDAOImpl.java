@@ -65,7 +65,15 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     private final static String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, "
             + "prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES(?,?,?,?,?,?,?,?,?);";
     
-    
+
+	  private final static String SELECT_USERNAME_MO = "SELECT umo.pseudo FROM UTILISATEURS umo " 
+			  										 + "INNER JOIN ENCHERES e " 
+			  										 + "on e.no_utilisateur = umo.no_utilisateur INNER JOIN UTILISATEURS uv "
+			  										 + "on e.no_utilisateur = uv.no_utilisateur INNER JOIN ARTICLES_VENDUS av "
+			  										 + "on e.no_article = av.no_article "
+			  										 + "WHERE av.no_article = ? AND montant_enchere = (SELECT max(montant_enchere) FROM ENCHERES WHERE no_article = ?);";
+	
+	 
 
     @Override
     public List<Article_Vendu> selectByKeyWord(String key) {

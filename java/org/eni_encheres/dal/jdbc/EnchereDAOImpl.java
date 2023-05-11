@@ -16,8 +16,6 @@ import org.eni_encheres.dal.EnchereDAO;
 
 public class EnchereDAOImpl implements EnchereDAO {
 
-	private final static String SELECT_ALL_ENCHERES = " SELECT * FROM ENCHERES";
-	
 	@Override
 	public List<Enchere> selectByKeyWord(String key) {
 		return null;
@@ -25,18 +23,6 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	@Override
 	public List<Enchere> selectAll() {
-		try (Connection connection = ConnectionProvider.getConnection()) {
-			List<Enchere> encheres = new ArrayList<>();
-
-			Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(SELECT_ALL_ENCHERES);
-			while(rs.next()) {
-				encheres.add(new Enchere(rs.getInt("no_utilisateur"), rs.getInt("no_article"), rs.getDate("date_enchere"), rs.getInt("montant_enchere")));
-			}
-			return encheres;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
 

@@ -18,5 +18,4 @@ public interface ArticleVenduDAO extends DAO<Article_Vendu>{
 	void update(Article_Vendu article);
 
 	void delete(int id);
-
 }

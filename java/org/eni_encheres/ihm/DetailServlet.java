@@ -35,7 +35,7 @@ public class DetailServlet extends HttpServlet {
 		String params = request.getPathInfo();
 		int id = Integer.parseInt(params.substring(1));
 		Article_Vendu article = Article_VenduManager.getInstance().getArticle(id);
-		System.out.println(article);
+		System.out.println(article.getUser().getUsername());
 
 		List<Article_Vendu> articlesData = Article_VenduManager.getInstance().getAllArticlesData();
 		List<Utilisateur> utilisateursData = UtilisateurManager.getInstance().getAllUtilisateur();
@@ -55,12 +55,15 @@ public class DetailServlet extends HttpServlet {
 		// Créer une liste à partir des valeurs de la HashMap
 		List<Article_Vendu> articleTotal = new ArrayList<>(maxAuctionMap.values());
 
+		request.setAttribute("articleVendeur", articlesData);
+		
 		article = maxAuctionMap.get(article.getNo_article());
 
 		request.setAttribute("article", article);
 		request.setAttribute("utilisateurData", utilisateursData);
 		request.setAttribute("utilisateur", utilisateur);
 		request.setAttribute("encheres", encheres);
+		
 
 		List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
 		request.setAttribute("categories", categories);
