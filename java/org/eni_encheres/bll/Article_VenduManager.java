@@ -7,6 +7,7 @@ import org.eni_encheres.dal.DAOFactory;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Article_VenduManager {
     // Singleton
@@ -44,14 +45,15 @@ public class Article_VenduManager {
         DAOFactory.getArticleVenduDAO().insert(article_vendu);
     }
 
+
     private void verifAddArticle(Article_Vendu article_vendu) throws BLLException {
-        Date date = new Date(2000,1,1);
+        LocalDate dateDF = LocalDate.parse(("2000-01-01"));
+
         BLLException bll = new BLLException("Utilisateur non trouvé!");
 
         if (article_vendu.getCategories()==null){
             bll.ajouterErreur("Catégorie non sélectionné");
         }
-        System.out.println(article_vendu.getStart_auction_date().compareTo(date));
 
         checkFiled(article_vendu.getArticleName(), "Article", bll);
         checkFiled(article_vendu.getDescription(), "Description", bll);
@@ -59,12 +61,13 @@ public class Article_VenduManager {
         checkFiled(String.valueOf(article_vendu.getOriginal_price()), "Mise à prix", bll);
 
         checkFiled(String.valueOf(article_vendu.getStart_auction_date()), "Début de l'enchère", bll);
-        if (article_vendu.getStart_auction_date().compareTo(date)<=0){
+
+        if (article_vendu.getStart_auction_date().compareTo(dateDF)<=0){
             bll.ajouterErreur("sélectionner un date de début");
         }
 
         checkFiled(String.valueOf(article_vendu.getEnd_auction_date()), "Fin de l'enchère", bll);
-        if (article_vendu.getEnd_auction_date().compareTo(date)<=0){
+        if (article_vendu.getEnd_auction_date().compareTo(dateDF)<=0){
             bll.ajouterErreur("sélectionner un date de fin");
         }else if(article_vendu.getEnd_auction_date().compareTo(article_vendu.getStart_auction_date())<0){
             bll.ajouterErreur("la date de fin doit être avant la date de début");
@@ -87,4 +90,5 @@ public class Article_VenduManager {
             throw bll;
         }
     }
+
 }

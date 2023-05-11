@@ -2,12 +2,18 @@ package org.eni_encheres.bll;
 
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.eni_encheres.bll.exception.BLLException;
+import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Utilisateur;
 import org.eni_encheres.dal.DAOFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SecurityService {
@@ -27,17 +33,42 @@ public class SecurityService {
 
     public void editUser(Utilisateur utilisateur, String passwordModif, String passwordConf, Utilisateur utilisateurC) throws BLLException {
         checkEditUtilisateur(utilisateur, passwordModif, passwordConf, utilisateurC);
-        if (passwordModif != null){
+        if (passwordModif != null) {
             utilisateur.setPassword(BCrypt.withDefaults().hashToString(12, utilisateur.getPassword().toCharArray()));
             DAOFactory.getUtilisateurDAO().update(utilisateur, utilisateurC.getUsername());
-        }else {
+        } else {
             utilisateur.setPassword(BCrypt.withDefaults().hashToString(12, passwordModif.toCharArray()));
             DAOFactory.getUtilisateurDAO().update(utilisateur, utilisateurC.getUsername());
         }
     }
 
-    public void deleteUser(Utilisateur utilisateurC){
-        DAOFactory.getUtilisateurDAO().delete(utilisateurC.getNo_user());
+    public void deleteUser(Utilisateur utilisateurC) {
+        List<Article_Vendu> article_vendusAllData = new ArrayList<>();
+        List<Article_Vendu> articleVendusUtilisateurs = new ArrayList<>();
+        //récupérer tous les articles de l'utilisateur pour vérifier si il n'y a pas un enchère en cours ou qu'il a enchérie sur un enchere
+        article_vendusAllData = DAOFactory.getArticleVenduDAO().selectAllData();
+        System.out.println(article_vendusAllData);
+        System.out.println(utilisateurC.getNo_user());
+        articleVendusUtilisateurs = DAOFactory.getArticleVenduDAO().selectAllByID(utilisateurC.getNo_user());
+        System.out.println(articleVendusUtilisateurs);
+        checkDeleteUser(article_vendusAllData, articleVendusUtilisateurs, utilisateurC);
+
+        //DAOFactory.getUtilisateurDAO().delete(utilisateurC.getNo_user());
+    }
+
+    private void checkDeleteUser(List<Article_Vendu> article_vendusAllData, List<Article_Vendu> articleVendusUtilisateurs, Utilisateur utilisateurC) {
+        for (Article_Vendu articleVendu : article_vendusAllData) {
+            if (articleVendu.getUser().getNo_user() == utilisateurC.getNo_user() && articleVendu.getSale_status() == 1) {
+                DAOFactory.getArticleVenduDAO().selectAllData();
+            }
+        }
+        for (Article_Vendu articleVendusUtilisateur : articleVendusUtilisateurs) {
+            if (articleVendusUtilisateur.getSale_status() == 1)
+                //System.out.println(articleVendusUtilisateur.getUser().getUsername());
+
+                System.out.println("coucou");
+
+        }
     }
 
     public Utilisateur login(String pseudo, String password) throws BLLException {
@@ -57,11 +88,11 @@ public class SecurityService {
     private void checkAddUtilisateur(Utilisateur utilisateur, String passwordConf) throws BLLException {
         BLLException bll = new BLLException("Utilisateur non trouvé!");
         Utilisateur utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getUsername());
-        if (utilisateurCheck != null){
+        if (utilisateurCheck != null) {
             bll.ajouterErreur("Le pseudo est déjà pris!");
         }
         utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getEmail());
-        if (utilisateurCheck != null){
+        if (utilisateurCheck != null) {
             bll.ajouterErreur("L'Email est déjà pris!");
         }
         checkFiled(utilisateur.getUsername(), "Pseudo", bll);
@@ -86,11 +117,11 @@ public class SecurityService {
             bll.ajouterErreur("Le mot de passe est eronné!");
         }
         utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getUsername());
-        if (utilisateurCheck != null && !utilisateurCheck.getUsername().equals(utilisateurC.getUsername())){
+        if (utilisateurCheck != null && !utilisateurCheck.getUsername().equals(utilisateurC.getUsername())) {
             bll.ajouterErreur("Le pseudo est déjà pris!");
         }
         utilisateurCheck = DAOFactory.getUtilisateurDAO().selectByUsername(utilisateur.getEmail());
-        if (utilisateurCheck != null && !utilisateurCheck.getEmail().equals(utilisateurC.getEmail())){
+        if (utilisateurCheck != null && !utilisateurCheck.getEmail().equals(utilisateurC.getEmail())) {
             bll.ajouterErreur("L'Email est déjà pris!");
         }
         checkFiled(utilisateur.getUsername(), "Pseudo", bll);
@@ -143,5 +174,26 @@ public class SecurityService {
         if (bll.getErreurs().size() > 0) {
             throw bll;
         }
+    }
+
+    public Utilisateur cookieC(String cookieCID, String cookieCPass) throws BLLException {
+        BLLException bll = new BLLException("Utilisateur non trouvé!");
+        Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().selectByUsername(cookieCID);
+        if (utilisateur == null) {
+            bll.ajouterErreur("Erreur Cookie");
+            throw bll;
+        }
+        if (!utilisateur.getPassword().equals(cookieCPass)) {
+            bll.ajouterErreur("Erreur Cookie");
+            throw bll;
+        }
+        messageError(bll);
+        return utilisateur;
+    }
+
+    public void cookieCDelete(HttpServletResponse response) {
+        Cookie cookieC = new Cookie("ProjetJEE", null);
+        cookieC.setMaxAge(0);
+        response.addCookie(cookieC);
     }
 }

@@ -20,6 +20,7 @@ public class EditProfileServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
         request.setAttribute("utilisateurC", utilisateurC);
+        System.out.println(utilisateurC.getNo_user());
 
         request.getRequestDispatcher("/WEB-INF/jsp/pages/editProfile.jsp").forward(request, response);
     }
@@ -30,8 +31,9 @@ public class EditProfileServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
 
-            if (request.getParameter("deco").equals("true")){
+            if (request.getParameter("deco")!=null){
                 session.setAttribute("utilisateurC", null);
+                SecurityService.getInstance().cookieCDelete(response);
                 response.sendRedirect(request.getContextPath());
                 return;
             }

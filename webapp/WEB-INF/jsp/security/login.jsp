@@ -33,10 +33,6 @@
                     <div class="col-5">
                         <label for="username">Identifiant :</label>
                     </div>
-                    <!--
-                        seb
-                        modification id username -> pseudo comme dans la bo, change type text en type password pour password et rajout de placeholder
-                        -->
                     <div class="col-5">
                         <input type="text" name="username" id="username" placeholder="pseudo"
                                value="<%=(username!=null)?username:""%>">
@@ -53,18 +49,14 @@
                 </div>
                 <div class="row row-form">
                     <div class="col-5">
-                        <!--
-                        Seb
-                        modif type button -> submit
-                        -->
                         <button type="submit" class="btn btn-success">Connexion</button>
                     </div>
                     <div class="col-5">
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value="true" id="check" name="check">
+                                    <label class="form-check-label" for="check">
                                         Se souvenir de moi
                                     </label>
                                 </div>

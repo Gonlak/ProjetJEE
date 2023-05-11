@@ -27,12 +27,20 @@ public class LoginServlet extends HttpServlet {
             // récup data dans le login.jsp
             String pseudo = request.getParameter("username");
             String password = request.getParameter("password");
+            boolean check = Boolean.parseBoolean(request.getParameter("check"));
             Utilisateur utilisateurC = SecurityService.getInstance().login(pseudo, password);
 
             // Création session
             HttpSession session = request.getSession();
             session.setAttribute("utilisateurC", utilisateurC);
-            
+
+            if (check){
+                Cookie cookieC = new Cookie("ProjetJEE",utilisateurC.getUsername()+":"+utilisateurC.getPassword());
+                cookieC.setMaxAge(60*60*24);
+                response.addCookie(cookieC);
+            }
+
+
             session.setMaxInactiveInterval(300);
 
             response.sendRedirect(request.getContextPath() + "/");

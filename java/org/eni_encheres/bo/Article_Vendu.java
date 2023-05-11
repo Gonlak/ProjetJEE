@@ -1,6 +1,7 @@
 package org.eni_encheres.bo;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,8 @@ public class Article_Vendu {
     private int no_article;
     private String article_name;
     private String description;
-    private Date start_auction_date;
-    private Date end_auction_date;
+    private LocalDate start_auction_date;
+    private LocalDate end_auction_date;
     private int original_price;
     private int sell_price;
     private int sale_status; //0 = terminé, 1 = en cours, 2 = annulé
@@ -24,8 +25,8 @@ public class Article_Vendu {
     public Article_Vendu() {
     }
 
-    public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
-                         Date end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
+    public Article_Vendu(int no_article, String article_name, String description, LocalDate start_auction_date,
+                         LocalDate end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
                          Categorie categories, List<Enchere> encheres, Retrait retrait) {
         this.no_article = no_article;
         this.article_name = article_name;
@@ -41,8 +42,8 @@ public class Article_Vendu {
         this.retrait = retrait;
     }
 
-    public Article_Vendu(String article_name, String description, Date start_auction_date,
-                         Date end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
+    public Article_Vendu(String article_name, String description, LocalDate start_auction_date,
+                         LocalDate end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
                          Categorie categories, List<Enchere> encheres, Retrait retrait) {
         this.article_name = article_name;
         this.description = description;
@@ -57,8 +58,8 @@ public class Article_Vendu {
         this.retrait = retrait;
     }
 
-    public Article_Vendu(String article_name, String description, Date start_auction_date,
-                         Date end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
+    public Article_Vendu(String article_name, String description, LocalDate start_auction_date,
+                         LocalDate end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
                          Categorie categories, Retrait retrait) {
         this.article_name = article_name;
         this.description = description;
@@ -72,8 +73,8 @@ public class Article_Vendu {
         this.retrait = retrait;
     }
 
-    public Article_Vendu(String article_name, String description, Date start_auction_date,
-                         Date end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
+    public Article_Vendu(String article_name, String description, LocalDate start_auction_date,
+                         LocalDate end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
                          Categorie categories) {
         this.article_name = article_name;
         this.description = description;
@@ -87,8 +88,8 @@ public class Article_Vendu {
     }
 
 
-    public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
-                         Date end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
+    public Article_Vendu(int no_article, String article_name, String description, LocalDate start_auction_date,
+                         LocalDate end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user,
                          Categorie categories, List<Enchere> encheres) {
         this.no_article = no_article;
         this.article_name = article_name;
@@ -103,8 +104,8 @@ public class Article_Vendu {
         this.encheres = encheres;
     }
 
-    public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
-                         Date end_auction_date, int original_price, int sell_price, int sale_status) {
+    public Article_Vendu(int no_article, String article_name, String description, LocalDate start_auction_date,
+                         LocalDate end_auction_date, int original_price, int sell_price, int sale_status) {
         this.no_article = no_article;
         this.article_name = article_name;
         this.description = description;
@@ -116,8 +117,8 @@ public class Article_Vendu {
     }
 
 
-    public Article_Vendu(int no_article, String article_name, String description, Date start_auction_date,
-                         Date end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user) {
+    public Article_Vendu(int no_article, String article_name, String description, LocalDate start_auction_date,
+                         LocalDate end_auction_date, int original_price, int sell_price, int sale_status, Utilisateur user) {
         this.no_article = no_article;
         this.article_name = article_name;
         this.description = description;
@@ -154,19 +155,19 @@ public class Article_Vendu {
         this.description = description;
     }
 
-    public Date getStart_auction_date() {
+    public LocalDate getStart_auction_date() {
         return start_auction_date;
     }
 
-    public void setStart_auction_date(Date start_auction_date) {
+    public void setStart_auction_date(LocalDate start_auction_date) {
         this.start_auction_date = start_auction_date;
     }
 
-    public Date getEnd_auction_date() {
+    public LocalDate getEnd_auction_date() {
         return end_auction_date;
     }
 
-    public void setEnd_auction_date(Date end_auction_date) {
+    public void setEnd_auction_date(LocalDate end_auction_date) {
         this.end_auction_date = end_auction_date;
     }
 

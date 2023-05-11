@@ -20,6 +20,7 @@ import org.eni_encheres.bll.CategorieManager;
 import org.eni_encheres.bll.EnchereManager;
 import org.eni_encheres.bll.UtilisateurManager;
 
+import org.eni_encheres.bll.SecurityService;
 import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Categorie;
 import org.eni_encheres.bo.Enchere;
@@ -40,7 +41,7 @@ public class DetailServlet extends HttpServlet {
 		List<Article_Vendu> articlesData = Article_VenduManager.getInstance().getAllArticlesData();
 		List<Utilisateur> utilisateursData = UtilisateurManager.getInstance().getAllUtilisateur();
 		Utilisateur utilisateur = UtilisateurManager.getInstance().getUtilisateurMo(id);
-		System.out.println(utilisateur); 
+		System.out.println(utilisateur);
 		List<Enchere> encheres = EnchereManager.getInstance().getAllEnchere();
 
 		// Créer une HashMap pour stocker l'article qui vas utiliser le No_article pour
@@ -56,15 +57,15 @@ public class DetailServlet extends HttpServlet {
 		List<Article_Vendu> articleTotal = new ArrayList<>(maxAuctionMap.values());
 
 		request.setAttribute("articleVendeur", article);
-		
+
 		article = maxAuctionMap.get(article.getNo_article());
 
-		
+
 		request.setAttribute("article", article);
 		request.setAttribute("utilisateurData", utilisateursData);
 		request.setAttribute("utilisateur", utilisateur);
 		request.setAttribute("encheres", encheres);
-		
+
 
 		List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
 		request.setAttribute("categories", categories);
@@ -77,15 +78,16 @@ public class DetailServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("utilisateurC", null);
+		//SecurityService.getInstance().cookieCDelete(response);
 		response.sendRedirect(request.getContextPath());
 
 		/*
 		 * try { int credit = Integer.valueOf(request.getParameter("proposition")); int
 		 * meilleurOffre = Integer.valueOf(request.getParameter("meilleurOffre"));
 		 * Utilisateur utilisateur = new Utilisateur(); utilisateur.setNo_user(credit);
-		 * 
+		 *
 		 * UtilisateurManager.getInstance().crediterUtilisateur(utilisateur, credit);
-		 * 
+		 *
 		 * if(credit > meilleurOffre) {
 		 * UtilisateurManager.getInstance().debiterUtilisateur(utilisateur, credit); }
 		 * System.err.println("Votre crédit est insuffisant pour faire une offre"); }

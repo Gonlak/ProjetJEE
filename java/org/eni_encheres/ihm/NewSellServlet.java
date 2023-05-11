@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.eni_encheres.bll.Article_VenduManager;
 import org.eni_encheres.bll.CategorieManager;
 import org.eni_encheres.bll.RetraitManager;
+import org.eni_encheres.bll.SecurityService;
 import org.eni_encheres.bll.exception.BLLException;
 import org.eni_encheres.bo.Article_Vendu;
 import org.eni_encheres.bo.Categorie;
@@ -49,6 +50,7 @@ public class NewSellServlet extends HttpServlet {
 
             if (request.getParameter("deco") != null) {
                 session.setAttribute("utilisateurC", null);
+                SecurityService.getInstance().cookieCDelete(response);
                 response.sendRedirect(request.getContextPath());
                 return;
             }
@@ -72,7 +74,7 @@ public class NewSellServlet extends HttpServlet {
 
             Categorie categorie = CategorieManager.getInstance().getCategorie(categoriePara);
 
-            Article_Vendu article_vendu = new Article_Vendu(article, description, Date.valueOf(debutenchere), Date.valueOf(finenchere), miseaprix, 0, 1, utilisateurC, categorie);
+            Article_Vendu article_vendu = new Article_Vendu(article, description, LocalDate.parse(debutenchere), LocalDate.parse(finenchere), miseaprix, 0, 1, utilisateurC, categorie);
             Article_VenduManager.getInstance().addArticle(article_vendu);
 
             if (article_vendu.getNo_article() > 0) {

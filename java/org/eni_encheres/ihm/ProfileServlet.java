@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.eni_encheres.bll.SecurityService;
 import org.eni_encheres.bll.UtilisateurManager;
 import org.eni_encheres.bo.Utilisateur;
 import org.eni_encheres.dal.DAOFactory;
@@ -33,6 +34,7 @@ public class ProfileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("utilisateurC", null);
+		SecurityService.getInstance().cookieCDelete(response);
 		response.sendRedirect(request.getContextPath());
 	}
 
