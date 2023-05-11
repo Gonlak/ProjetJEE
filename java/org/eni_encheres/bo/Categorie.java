@@ -9,7 +9,6 @@ public class Categorie {
 	private String libelle;
 	private List<Article_Vendu> articles;
 	
-	
 	//constructeurs
 	public Categorie() {}
 	
@@ -27,9 +26,8 @@ public class Categorie {
 	public Categorie(String libelle) {
 		this.libelle = libelle;
 	}
-	
+
 	public Categorie(int no_category, String libelle) {
-		super();
 		this.no_category = no_category;
 		this.libelle = libelle;
 	}

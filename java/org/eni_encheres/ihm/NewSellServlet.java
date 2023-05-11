@@ -17,9 +17,16 @@ import org.eni_encheres.bo.Retrait;
 import org.eni_encheres.bo.Utilisateur;
 
 import java.io.IOException;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+
+import java.util.List;
+
+import org.eni_encheres.bll.CategorieManager;
+import org.eni_encheres.bo.Categorie;
+
 
 @WebServlet("/nouvelle-vente")
 public class NewSellServlet extends HttpServlet {
@@ -30,11 +37,10 @@ public class NewSellServlet extends HttpServlet {
         Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
         request.setAttribute("utilisateurC", utilisateurC);
 
-        List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
-        request.setAttribute("Categories", categories);
+		List<Categorie> categories = CategorieManager.getInstance().getAllCategorie();
+		request.setAttribute("categories", categories);
+		request.getRequestDispatcher("/WEB-INF/jsp/pages/new_sell.jsp").forward(request, response);
 
-
-        request.getRequestDispatcher("/WEB-INF/jsp/pages/new_sell.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

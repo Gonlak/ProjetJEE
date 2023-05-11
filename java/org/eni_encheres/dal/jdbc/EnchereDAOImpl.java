@@ -4,7 +4,6 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +17,17 @@ import org.eni_encheres.dal.EnchereDAO;
 public class EnchereDAOImpl implements EnchereDAO {
 	
 	private static final String SELECT_ALL_AUCTIONS = "SELECT * FROM encheres;";
-	
+
 	
 	
 	@Override
 	public List<Enchere> selectByKeyWord(String key) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Enchere> selectAll() {
-		
+
 		try (Connection connection = ConnectionProvider.getConnection()) {
             List<Enchere> encheres = new ArrayList<>();
 

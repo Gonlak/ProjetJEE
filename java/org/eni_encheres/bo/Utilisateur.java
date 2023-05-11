@@ -134,6 +134,13 @@ public class Utilisateur {
 		this.username = username;
 	}
 
+	
+	public Utilisateur(String username, List<Article_Vendu> articles) {
+		super();
+		this.username = username;
+		this.articles = articles;
+	}
+
 	//getters et setters
     public int getNo_user() {
         return no_user;

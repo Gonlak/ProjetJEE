@@ -4,10 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eni_encheres.bo.Article_Vendu;
-import org.eni_encheres.bo.Categorie;
-import org.eni_encheres.bo.Enchere;
-import org.eni_encheres.bo.Utilisateur;
+import org.eni_encheres.bo.*;
 import org.eni_encheres.config.ConnectionProvider;
 import org.eni_encheres.dal.ArticleVenduDAO;
 
@@ -24,8 +21,21 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
     private final static String SELECT_ALL_ARTICLE = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS U on U.no_utilisateur = av.no_utilisateur;";
 
+    private final static String SELECT_BY_ID_ENCHER = "SELECT *"
+    		+ "FROM RETRAITS r "
+    		+ "INNER JOIN ARTICLES_VENDUS av "
+    		+ "on r.no_article = av.no_article "
+    		+ "INNER JOIN CATEGORIES c "
+    		+ "on av.no_categorie = c.no_categorie "
+    		+ "INNER JOIN ENCHERES e "
+    		+ "on av.no_article = e.no_article "
+    		+ "INNER JOIN UTILISATEURS u "
+    		+ "on e.no_utilisateur = u.no_utilisateur "
+    		+ "WHERE av.no_article = ?;";
+
     private final static String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, "
             + "prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente) VALUES(?,?,?,?,?,?,?,?,?);";
+
 
     private final static String SELECT_ALL_BY_ID = "select * from UTILISATEURS INNER JOIN ARTICLES_VENDUS AV on UTILISATEURS.no_utilisateur = AV.no_utilisateur where UTILISATEURS.no_utilisateur = ?;";
 
@@ -38,6 +48,20 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             + "inner join UTILISATEURS u "
             + "on av.no_utilisateur = u.no_utilisateur "
             + "WHERE nom_article LIKE ?;";
+//	  private final static String SELECT_USERNAME_MO = "SELECT umo.pseudo FROM UTILISATEURS umo "
+//			  										 + "INNER JOIN ENCHERES e "
+//			  										 + "on e.no_utilisateur = umo.no_utilisateur INNER JOIN UTILISATEURS uv "
+//			  										 + "on e.no_utilisateur = uv.no_utilisateur INNER JOIN ARTICLES_VENDUS av "
+//			  										 + "on e.no_article = av.no_article "
+//			  										 + "WHERE av.no_article = ? AND montant_enchere = (SELECT max(montant_enchere) FROM ENCHERES WHERE no_article = ?);";
+	  private final static String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur WHERE no_article = ?;";
+
+
+//    @Override
+//    public List<Article_Vendu> selectByKeyWord(String key) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 
     @Override
     public List<Article_Vendu> selectAll() {
@@ -180,8 +204,83 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
     }
 
     @Override
+    public Article_Vendu selectByIdEnchere(int id) {
+    	try (Connection connection = ConnectionProvider.getConnection()) {
+    		List<Enchere> encheres = new ArrayList<>();
+
+    		PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_ID_ENCHER);
+            pStmt.setInt(1, id);
+            ResultSet rs = pStmt.executeQuery();
+            if(rs.next()) {
+            	return new Article_Vendu(rs.getInt("no_article"),
+                        rs.getString("nom_article"),
+                        rs.getString("description"),
+                        rs.getDate("date_debut_encheres").toLocalDate(),
+                        rs.getDate("date_fin_encheres").toLocalDate(),
+                        rs.getInt("prix_initial"),
+                        rs.getInt("prix_vente"),
+                        rs.getInt("etat_vente"),
+            			new Utilisateur(rs.getInt("no_utilisateur"),
+            					rs.getString("pseudo"),
+            					rs.getString("nom"),
+            					rs.getString("prenom"),
+            					rs.getString("email"),
+            					rs.getString("telephone"),
+            					rs.getString("rue"),
+            					rs.getString("code_postal"),
+            					rs.getString("ville"),
+            					rs.getString("mot_de_passe"),
+            					rs.getInt("credit"),
+            					rs.getBoolean("administrateur")),
+            				new Categorie(
+                                rs.getInt("no_categorie"),
+                                rs.getString("libelle")),
+            						encheres,
+            								new Retrait(rs.getString("rue"),
+            											rs.getString("code_postal"),
+            											rs.getString("ville")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public Article_Vendu selectById(int id) {
-        // TODO Auto-generated method stub
+    	try (Connection connection = ConnectionProvider.getConnection()) {
+
+
+    		PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_ID);
+            pStmt.setInt(1, id);
+            ResultSet rs = pStmt.executeQuery();
+            if(rs.next()) {
+            	return new Article_Vendu(rs.getInt("no_article"),
+                        rs.getString("nom_article"),
+                        rs.getString("description"),
+                        rs.getDate("date_debut_encheres").toLocalDate(),
+                        rs.getDate("date_fin_encheres").toLocalDate(),
+                        rs.getInt("prix_initial"),
+                        rs.getInt("prix_vente"),
+                        rs.getInt("etat_vente"),
+            			new Utilisateur(rs.getInt("no_utilisateur"),
+            					rs.getString("pseudo"),
+            					rs.getString("nom"),
+            					rs.getString("prenom"),
+            					rs.getString("email"),
+            					rs.getString("telephone"),
+            					rs.getString("rue"),
+            					rs.getString("code_postal"),
+            					rs.getString("ville"),
+            					rs.getString("mot_de_passe"),
+            					rs.getInt("credit"),
+            					rs.getBoolean("administrateur")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -196,76 +295,5 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
         // TODO Auto-generated method stub
 
     }
-
-//	@Override
-//	public List<Article_Vendu> selectByKeyWordAndCategory(int noCategory, String key) {
-//		try (Connection connection = ConnectionProvider.getConnection()) {
-//	        List<Article_Vendu> articles = new ArrayList<>();
-//
-//	        PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_CATEGORY_AND_KEYWORD);
-//	        pStmt.setString(1, '%' + key + '%');
-//	        pStmt.setInt(2, noCategory);
-//	        
-//	        ResultSet resultSet = pStmt.executeQuery();
-//
-//	        while (resultSet.next()){
-//	        	articles.add(new Article_Vendu(resultSet.getInt("no_article"),
-//						                       resultSet.getString("nom_article"),
-//						                       resultSet.getString("description"),
-//						                       resultSet.getDate("date_debut_encheres"),
-//						                       resultSet.getDate("date_fin_encheres"),
-//						                       resultSet.getInt("prix_initial"),
-//						                       resultSet.getInt("prix_vente"),
-//						                       resultSet.getInt("etat_vente"),
-//                        new Utilisateur(resultSet.getString("pseudo"),
-//		                                resultSet.getString("rue"),
-//		                                resultSet.getString("code_postal"),
-//		                                resultSet.getString("ville"),
-//		                                resultSet.getInt("credit")
-//                                )));
-//	        }
-//	        return articles;
-//
-//	    } catch (SQLException e) {
-//	        e.printStackTrace();
-//	    }
-//	    return null;
-//	}
-
-
-//	@Override
-//	public List<Article_Vendu> selectByKewWord(String key) {
-//		try (Connection connection = ConnectionProvider.getConnection()) {
-//	        List<Article_Vendu> articles = new ArrayList<>();
-//
-//	        PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_KEYWORD);
-//	        pStmt.setString(1, '%' + key + '%');
-//	        
-//	        
-//	        ResultSet resultSet = pStmt.executeQuery();
-//
-//	        while (resultSet.next()){
-//	        	articles.add(new Article_Vendu(resultSet.getInt("no_article"),
-//						                       resultSet.getString("nom_article"),
-//						                       resultSet.getString("description"),
-//						                       resultSet.getDate("date_debut_encheres"),
-//						                       resultSet.getDate("date_fin_encheres"),
-//						                       resultSet.getInt("prix_initial"),
-//						                       resultSet.getInt("prix_vente"),
-//						                       resultSet.getInt("etat_vente"),
-//                        new Utilisateur(resultSet.getString("pseudo"),
-//		                                resultSet.getString("rue"),
-//		                                resultSet.getString("code_postal"),
-//		                                resultSet.getString("ville"),
-//		                                resultSet.getInt("credit")
-//                                )));
-//	        }
-//	        return articles;
-//
-//	    } catch (SQLException e) {
-//	        e.printStackTrace();
-//	    }
-//	    return null;
-//	}
 
 }

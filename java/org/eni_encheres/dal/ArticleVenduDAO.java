@@ -16,12 +16,13 @@ public interface ArticleVenduDAO extends DAO<Article_Vendu>{
 	List<Article_Vendu> selectAllByID(int id);
 
 	Article_Vendu selectById(int id);
+	Article_Vendu selectByIdEnchere(int id);
 
 	void update(Article_Vendu article);
 
 	void delete(int id);
 
 //	List<Article_Vendu> selectByKewWord(String keyword);
-	
+
 
 }

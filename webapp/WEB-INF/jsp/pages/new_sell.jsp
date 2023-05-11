@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
-    List<Categorie> categories = (List<Categorie>) request.getAttribute("Categories");
+    List<Categorie> categories = (List<Categorie>) request.getAttribute("categories");
     List<String> erreurs = (List<String>) request.getAttribute("erreurs");
 
     String article = request.getParameter("article");
@@ -16,8 +16,8 @@
     String street = request.getParameter("street");
     String zipcode = request.getParameter("zipecode");
     String town = request.getParameter("town");
-
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +28,7 @@
     <title>Nouvelle Vente</title>
 </head>
 <body>
+
 <header class="container-fluid row">
     <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
 </header>
@@ -63,7 +64,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="categorie" class="form-label mt-2">Catégorie :</label>
+                    <label for="categorie" class="form-label mt-2">CatÃ©gorie :</label>
                     <select class="form-select" name="categorie" id="categorie">
                         <option value="-1"></option>
                         <%
@@ -87,7 +88,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="debutenchere" class="form-label mt-2">Début de l'enchère :</label>
+                    <label for="debutenchere" class="form-label mt-2">DÃ©but de l'enchère :</label>
                     <input type="date" class="form-control" name="debutenchere" id="debutenchere"
                            value="<%=(debutenchere!=null)?debutenchere:""%>">
                 </div>
@@ -130,6 +131,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>
