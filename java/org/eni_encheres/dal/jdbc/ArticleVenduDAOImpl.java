@@ -4,10 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eni_encheres.bo.Article_Vendu;
-import org.eni_encheres.bo.Categorie;
-import org.eni_encheres.bo.Enchere;
-import org.eni_encheres.bo.Utilisateur;
+import org.eni_encheres.bo.*;
 import org.eni_encheres.config.ConnectionProvider;
 import org.eni_encheres.dal.ArticleVenduDAO;
 
@@ -60,11 +57,11 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 	  private final static String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur WHERE no_article = ?;";
 
 
-    @Override
-    public List<Article_Vendu> selectByKeyWord(String key) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+//    @Override
+//    public List<Article_Vendu> selectByKeyWord(String key) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 
     @Override
     public List<Article_Vendu> selectAll() {
@@ -218,8 +215,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             	return new Article_Vendu(rs.getInt("no_article"),
                         rs.getString("nom_article"),
                         rs.getString("description"),
-                        rs.getDate("date_debut_encheres"),
-                        rs.getDate("date_fin_encheres"),
+                        rs.getDate("date_debut_encheres").toLocalDate(),
+                        rs.getDate("date_fin_encheres").toLocalDate(),
                         rs.getInt("prix_initial"),
                         rs.getInt("prix_vente"),
                         rs.getInt("etat_vente"),
@@ -262,8 +259,8 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             	return new Article_Vendu(rs.getInt("no_article"),
                         rs.getString("nom_article"),
                         rs.getString("description"),
-                        rs.getDate("date_debut_encheres"),
-                        rs.getDate("date_fin_encheres"),
+                        rs.getDate("date_debut_encheres").toLocalDate(),
+                        rs.getDate("date_fin_encheres").toLocalDate(),
                         rs.getInt("prix_initial"),
                         rs.getInt("prix_vente"),
                         rs.getInt("etat_vente"),
