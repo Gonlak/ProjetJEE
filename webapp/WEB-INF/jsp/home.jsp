@@ -9,8 +9,6 @@
     List<Article_Vendu> articlesData = (List<Article_Vendu>) request.getAttribute("articlesData");
     List<Article_Vendu> articles = (List<Article_Vendu>) request.getAttribute("articles");
     List<Categorie> categories = (List<Categorie>) request.getAttribute("Categories");
-    String selection = (String) request.getAttribute("selection");
-    String enchereOuverte = (String)request.getAttribute("enchereOuverte");
 %>
 
 
@@ -189,65 +187,6 @@
                 <!-- fin boucle -->
             </div>
             
-            <!-- Affichage selection Achats -->
-            <div class="row ">
-            <% if (enchereOuverte.equals("enchereOuverte")) { %>
-	            <% if (articles != null && !articles.isEmpty() ) { %>
-	                <%
-	                    for (Article_Vendu article : articles) {
-	                        int noArticle = article.getNo_article();
-	                        Article_Vendu vendeurArticle = null;
-	                %>
-					 
-	                <div class="col-4">
-	                    <div class="card mb-3" style="max-width: 540px;">
-	                        <div class="row g-0">
-	                            <div class="col-md-4">
-	                                <img src="assets/img/radio.jpg" class="img-fluid rounded-start"
-	                          
-	                                     alt="...">
-	                            </div>
-	                            <div class="col-md-8">
-	                                <div class="card-body">
-	                                    <h5 class="card-title"><%=article.getArticleName()%>
-	                                    </h5>
-	                                     <% if (article.getEncheres() != null) { %>
-	                                    <p class="card-text">Prix : <%=(article.getEnchersMax(article.getNo_article())>0)? article.getEnchersMax(article.getNo_article()): article.getOriginal_price()%>
-	                                     points </p>
-	                                     <% } %>
-	                                    <p class="card-text">
-	                                        Fin de l'enchère :
-	                                        <%=article.getEnd_auction_date()%>
-	                                    </p>
-	                                    <p class="card-text">
-	                                        Vendeur :
-	                                        <% // Affichage du vendeur
-	                                            for (Article_Vendu article_vendu : articles) {
-	                                                if (article_vendu.getNo_article() == noArticle) {
-	                                                    vendeurArticle = article_vendu;
-	                                                    break;
-	                                                }
-	                                            }
-	                                            if (vendeurArticle != null) {
-	                                        %>
-	                                        <a href="<%= request.getContextPath()%>/profil/<%=vendeurArticle.getUser().getUsername()%>"><%=vendeurArticle.getUser().getUsername()%>
-	                                        </a>
-	                                        <% } %>
-	                                    </p>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <% } %>	
-	                <% } else { %>	
-	        	<div>
-	        	<p>Aucun article trouvé.</p>
-	        	</div>
-	    		<% } %>
-    		<% } %>
-                <!-- fin boucle -->
-            </div>
         </section>
     </main>
 </div>
