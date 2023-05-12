@@ -148,8 +148,8 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"><%=article.getArticleName()%>
-                                    </h5>
+                                    <a href="encheres/detail/<%= article.getNo_article()%>"><h5 class="card-title"><%=article.getArticleName()%>
+                                    </h5></a>
                                      <% if (article.getEncheres() != null) { %>
                                     <p class="card-text">Prix : <%=(article.getEnchersMax(article.getNo_article())>0)? article.getEnchersMax(article.getNo_article()): article.getOriginal_price()%>
                                      points </p>

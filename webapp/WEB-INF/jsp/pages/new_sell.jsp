@@ -46,7 +46,7 @@
 
     <div class="row">
         <div class="col-md-4 offset-md-1">
-            <img src="assets/img/chopper.jpg" class="img-thumbnail w-100" alt="...">
+            <img src="assets/img/newimage.png" class="img-thumbnail w-100" alt="...">
         </div>
 
         <div class="col-md-6">
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="debutenchere" class="form-label mt-2">DÃ©but de l'enchère :</label>
+                    <label for="debutenchere" class="form-label mt-2">Début de l'enchère :</label>
                     <input type="date" class="form-control" name="debutenchere" id="debutenchere"
                            value="<%=(debutenchere!=null)?debutenchere:""%>">
                 </div>

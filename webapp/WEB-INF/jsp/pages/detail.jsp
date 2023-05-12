@@ -84,7 +84,7 @@
                     <label for="proposition" class="form-label mt-2">Ma proposition</label>
                     <input type="number" class="form-control" name="proposition" id="proposition"
                            value="<%= article.getEnchersMax(article.getNo_article()) +1%>" min="<%= article.getEnchersMax(article.getNo_article()) +1 %>">
-                    <p>Vaut Crédit : <%=credit%></p>
+                    <p>Vos Crédits : <%=credit%></p>
                 </div>
                 <div class="mt-2">
                     <button type="submit" class="btn btn-success">Enchérir</button>
