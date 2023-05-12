@@ -79,6 +79,7 @@
                 <p>Vendeur : <%= articleVendeur.getUser().getUsername() %>
                 </p>
             </div>
+            <%if(utilisateurC.getNo_user() != articleVendeur.getUser().getNo_user()){%>
             <form action="" method="post">
                 <div class="mt-2">
                     <label for="proposition" class="form-label mt-2">Ma proposition</label>
@@ -90,6 +91,7 @@
                     <button type="submit" class="btn btn-success">Enchérir</button>
                 </div>
             </form>
+            <%}%>
         </div>
     </main>
 </div>

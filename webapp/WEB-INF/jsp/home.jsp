@@ -65,6 +65,7 @@
                     <button type="submit" class="btn btn-success">Rechercher</button>
                 </div>
             </div>
+                <%if(utilisateurC != null){%>
             <div class="row mt-3">
        			<div class="col-4">
        			<!-- Groupe de boutons radios achats -->
@@ -120,9 +121,8 @@
 						</div>
 					</div>
 				</div>
-				
             </div>
-            
+            <%}%>
             </form>
         </section>
 		

@@ -16,6 +16,7 @@ import java.io.IOException;
         },
         urlPatterns = {
                 "/modification",
+                "/encheres/detail/*",
                 "/nouvelle-vente"
         }
 )
