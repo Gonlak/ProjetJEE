@@ -10,7 +10,7 @@
 <%@ page import="org.eni_encheres.bo.Utilisateur" %>
 <% List<String> erreurs = (List<String>) request.getAttribute("erreurs");%>
 <%
-    /* Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC"); */
+    int credit = (int) request.getAttribute("credit");
 
     String pseudo = request.getParameter("pseudo");
     String nom = request.getParameter("nom");
@@ -197,7 +197,7 @@
                 </div>
                 <div class="row mb-4 mx-5">
                     <div class="col">
-                        <p>Credit : <%=utilisateurC.getCredit()%>
+                        <p>Credit : <%=credit%>
                         </p>
                     </div>
                     <div class="col">

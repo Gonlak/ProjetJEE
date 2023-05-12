@@ -17,6 +17,10 @@ public class EnchereDAOImpl implements EnchereDAO {
             + "INNER JOIN ARTICLES_VENDUS AV on AV.no_article = ENCHERES.no_article "
             + "WHERE AV.no_article = ?;";
 
+    private final static String INSERT_ENCHERE = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) "
+            + "VALUES(?,?,?,?);";
+    private final static String UPDATE_ENCHERE = "UPDATE ENCHERES set date_enchere=?, montant_enchere=? WHERE no_utilisateur=? AND no_article=?;";
+
     @Override
     public List<Enchere> selectByKeyWord(String key) {
         return null;
@@ -47,8 +51,27 @@ public class EnchereDAOImpl implements EnchereDAO {
 
     @Override
     public void insert(Enchere enchere) {
-        // TODO Auto-generated method stub
+        try (Connection connection = ConnectionProvider.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(INSERT_ENCHERE);
+            statement.setInt(1, enchere.getUser());
+            statement.setInt(2, enchere.getArticle());
+            statement.setDate(3, Date.valueOf(enchere.getAuctionDate()));
+            statement.setInt(4, enchere.getAuctionPrice());
+            statement.executeUpdate();
 
+        } catch (SQLException e) {
+            try (Connection connection = ConnectionProvider.getConnection()) {
+                PreparedStatement statement = connection.prepareStatement(UPDATE_ENCHERE);
+                statement.setDate(1, Date.valueOf(enchere.getAuctionDate()));
+                statement.setInt(2, enchere.getAuctionPrice());
+                statement.setInt(3, enchere.getUser());
+                statement.setInt(4, enchere.getArticle());
+                statement.executeUpdate();
+            } catch (SQLException a) {
+                System.out.println(">:(");
+                a.printStackTrace();
+            }
+        }
     }
 
     @Override
