@@ -115,7 +115,7 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                encheres.add(new Enchere(rs.getInt("no_utilisateur"), rs.getInt("no_article"), rs.getDate("date_enchere"), rs.getInt("montant_enchere")));
+                encheres.add(new Enchere(rs.getInt("no_utilisateur"), rs.getInt("no_article"), rs.getDate("date_enchere").toLocalDate(), rs.getInt("montant_enchere")));
                 articles.add(new Article_Vendu(
                         rs.getInt("no_article"),
                         rs.getString("nom_article"),

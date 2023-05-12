@@ -43,6 +43,11 @@ public class UtilisateurManager {
         DAOFactory.getUtilisateurDAO().insert(utilisateur);
     }
 
+    //delete user
+    public void deleteUser(int id) {
+        DAOFactory.getUtilisateurDAO().delete(id);
+    }
+
     //debiter un utilisateur
     public void debiterUtilisateur(Utilisateur id, int credit) {
     	DAOFactory.getUtilisateurDAO().debiter(id, credit);

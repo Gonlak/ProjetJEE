@@ -38,12 +38,22 @@ public class Article_VenduManager {
         return DAOFactory.getArticleVenduDAO().selectById(id);
     }
 
+    public Article_Vendu getArticleEnchereByID(int id){
+        return DAOFactory.getArticleVenduDAO().selectByIdEnchere(id);
+    }
+
+
     // ajoute un article
     public void addArticle(Article_Vendu article_vendu) throws BLLException {
         // check all fields
         verifAddArticle(article_vendu);
         DAOFactory.getArticleVenduDAO().insert(article_vendu);
     }
+
+    public List<Article_Vendu> getAllArticleByID(int id){
+        return DAOFactory.getArticleVenduDAO().selectAllByID(id);
+    }
+
 
 
     private void verifAddArticle(Article_Vendu article_vendu) throws BLLException {

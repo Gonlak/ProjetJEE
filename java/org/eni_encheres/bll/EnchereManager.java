@@ -37,4 +37,9 @@ public class EnchereManager {
         DAOFactory.getEnchereDAO().insert(enchere);
     }
 
+    //récupe tout les encher d'un article
+    public List<Enchere> getAllEncherByIDArticle(int id){
+        return DAOFactory.getEnchereDAO().selectAllByIdArticle(id);
+    }
+
 }

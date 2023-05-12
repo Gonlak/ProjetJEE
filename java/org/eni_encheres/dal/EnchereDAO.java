@@ -16,7 +16,9 @@ public interface EnchereDAO extends DAO<Enchere> {
 
 	Enchere selectById(int id);
 
-	void update(Enchere enchere);
+    List<Enchere> selectAllByIdArticle(int id);
+
+    void update(Enchere enchere);
 
 	void delete(int id);
 	

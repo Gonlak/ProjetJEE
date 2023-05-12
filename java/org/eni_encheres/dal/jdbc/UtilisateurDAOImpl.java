@@ -25,7 +25,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	private final static String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
-	private static final String SELECT_BY_ID = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
+	private static final String DELETE_BY_ID = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
 	private final static String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ?, administrateur = ? WHERE pseudo = ?;";
 	private final static String DEBITER_ACHETEUR = "UPDATE UTILISATEURS SET credit = credit - ? WHERE no_utilisateur = ?;";
@@ -127,7 +127,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	@Override
 	public void delete(int id) {
 		try (Connection connection = ConnectionProvider.getConnection()) {
-			PreparedStatement pStmt = connection.prepareStatement(SELECT_BY_ID);
+			PreparedStatement pStmt = connection.prepareStatement(DELETE_BY_ID);
 			pStmt.setInt(1, id);
 
 			pStmt.executeUpdate();

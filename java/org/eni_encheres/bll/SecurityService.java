@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.eni_encheres.bll.exception.BLLException;
 import org.eni_encheres.bo.Article_Vendu;
+import org.eni_encheres.bo.Enchere;
 import org.eni_encheres.bo.Utilisateur;
 import org.eni_encheres.dal.DAOFactory;
 
@@ -42,33 +43,43 @@ public class SecurityService {
         }
     }
 
-    public void deleteUser(Utilisateur utilisateurC) {
+    public void deleteUser(Utilisateur utilisateurC) throws BLLException {
         List<Article_Vendu> article_vendusAllData = new ArrayList<>();
         List<Article_Vendu> articleVendusUtilisateurs = new ArrayList<>();
-        //récupérer tous les articles de l'utilisateur pour vérifier si il n'y a pas un enchère en cours ou qu'il a enchérie sur un enchere
-        article_vendusAllData = DAOFactory.getArticleVenduDAO().selectAllData();
-        System.out.println(article_vendusAllData);
-        System.out.println(utilisateurC.getNo_user());
-        articleVendusUtilisateurs = DAOFactory.getArticleVenduDAO().selectAllByID(utilisateurC.getNo_user());
-        System.out.println(articleVendusUtilisateurs);
-        checkDeleteUser(article_vendusAllData, articleVendusUtilisateurs, utilisateurC);
 
-        //DAOFactory.getUtilisateurDAO().delete(utilisateurC.getNo_user());
+        //récupérer tous les articles de l'utilisateur pour vérifier si il n'y a pas un enchère en cours ou qu'il est le dernier a avoir enchérie sur un enchere
+        article_vendusAllData = Article_VenduManager.getInstance().getAllArticle();
+        System.out.println(article_vendusAllData);
+        articleVendusUtilisateurs = Article_VenduManager.getInstance().getAllArticleByID(utilisateurC.getNo_user());
+        checkDeleteUser(article_vendusAllData, articleVendusUtilisateurs, utilisateurC);
+        UtilisateurManager.getInstance().deleteUser(utilisateurC.getNo_user());
     }
 
-    private void checkDeleteUser(List<Article_Vendu> article_vendusAllData, List<Article_Vendu> articleVendusUtilisateurs, Utilisateur utilisateurC) {
+    private void checkDeleteUser(List<Article_Vendu> article_vendusAllData, List<Article_Vendu> articleVendusUtilisateurs, Utilisateur utilisateurC) throws BLLException {
+        BLLException bll = new BLLException("Utilisateur non suprimable!");
         for (Article_Vendu articleVendu : article_vendusAllData) {
-            if (articleVendu.getUser().getNo_user() == utilisateurC.getNo_user() && articleVendu.getSale_status() == 1) {
-                DAOFactory.getArticleVenduDAO().selectAllData();
+            //System.out.println("vérif article id : " + articleVendu.getNo_article());
+
+            int i = 0;
+            int id = 0;
+            for (Enchere enchere : EnchereManager.getInstance().getAllEncherByIDArticle(articleVendu.getNo_article())){
+                if(enchere.getAuctionPrice() > i){
+                    i = enchere.getAuctionPrice();
+                    id = enchere.getNoUtilisateur();
+                }
+            }
+            if (id == utilisateurC.getNo_user()){
+                System.out.println("un enchère en cours id:" + articleVendu.getNo_article());
+                bll.ajouterErreur("Vous avez enchérie sur "+ articleVendu.getArticleName());
             }
         }
         for (Article_Vendu articleVendusUtilisateur : articleVendusUtilisateurs) {
-            if (articleVendusUtilisateur.getSale_status() == 1)
-                //System.out.println(articleVendusUtilisateur.getUser().getUsername());
-
-                System.out.println("coucou");
-
+            if (articleVendusUtilisateur.getSale_status() == 1) {
+                System.out.println("artilce en cours de vente id : " + articleVendusUtilisateur.getNo_article());
+                bll.ajouterErreur("Vous avez un "+ articleVendusUtilisateur.getArticleName() + " en cours de vente");
+            }
         }
+        messageError(bll);
     }
 
     public Utilisateur login(String pseudo, String password) throws BLLException {

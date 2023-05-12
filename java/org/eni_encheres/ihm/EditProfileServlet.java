@@ -20,7 +20,6 @@ public class EditProfileServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Utilisateur utilisateurC = (Utilisateur) session.getAttribute("utilisateurC");
         request.setAttribute("utilisateurC", utilisateurC);
-        System.out.println(utilisateurC.getNo_user());
 
         request.getRequestDispatcher("/WEB-INF/jsp/pages/editProfile.jsp").forward(request, response);
     }
