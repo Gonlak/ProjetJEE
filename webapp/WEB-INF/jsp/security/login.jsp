@@ -23,7 +23,7 @@
 	<div class="container-fluid">
 		<div class="container">
 			<!-- formulaire de connexion -->
-			<main class="col-10 offset-2">
+			<main>
 				<form action="" method="post">
 					<div class="row row-form">
 						<% if (erreurs != null) for (String erreur : erreurs) { %>

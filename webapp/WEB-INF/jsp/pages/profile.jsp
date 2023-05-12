@@ -21,10 +21,14 @@ Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 		<%@ include file="/WEB-INF/jsp/parts/header.jsp"%>
 	</header>
 	<div class="container-fluid">
-
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h1>Mon profil</h1>
+			</div>
+		</div>
 		<main>
 			<!-- Section Affichage profil -->
-			<div class="row">
+			<div class="row mt-3">
 				<div class="float-start col"></div>
 				<div class="float-none col-2">
 					<div class="row col-sm">
@@ -80,7 +84,7 @@ Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 					</div>
 					<div class="row col-sm">
 
-						<div class="col"> 
+						<div class="col">
 							<p>Rue :</p>
 						</div>
 						<div class="col">

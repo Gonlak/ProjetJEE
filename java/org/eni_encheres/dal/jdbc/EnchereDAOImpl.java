@@ -28,7 +28,6 @@ public class EnchereDAOImpl implements EnchereDAO {
 
     @Override
     public List<Enchere> selectAll() {
-
         try (Connection connection = ConnectionProvider.getConnection()) {
             List<Enchere> encheres = new ArrayList<>();
 
@@ -48,7 +47,8 @@ public class EnchereDAOImpl implements EnchereDAO {
         }
         return null;
     }
-
+    
+    
     @Override
     public void insert(Enchere enchere) {
         try (Connection connection = ConnectionProvider.getConnection()) {
