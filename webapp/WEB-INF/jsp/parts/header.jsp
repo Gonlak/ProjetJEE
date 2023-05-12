@@ -3,7 +3,7 @@
 <%
 	Utilisateur utilisateurC = (Utilisateur) request.getAttribute("utilisateurC");
 %>
-<nav class="navbar bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
 
         <a href="<%= request.getContextPath()%>/" class="navbar-brand">ENI-Enchères</a>

@@ -164,7 +164,7 @@
                 </div>
                 <div class="col">
                     <div class="input-group mb-3 form-outline">
-                        <span class="input-group-text">Confirme :</span>
+                        <span class="input-group-text">Confirmer :</span>
                         <input
                                 type="password"
                                 class="form-control"

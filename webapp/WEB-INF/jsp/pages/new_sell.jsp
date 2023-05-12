@@ -46,7 +46,7 @@
 
     <div class="row">
         <div class="col-md-4 offset-md-1">
-            <img src="assets/img/newimage.png" class="img-thumbnail w-100" alt="...">
+            <img src="assets/img/newimage.png" class="img-thumbnail w-75" alt="...">
         </div>
 
         <div class="col-md-6">
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="categorie" class="form-label mt-2">CatÃ©gorie :</label>
+                    <label for="categorie" class="form-label mt-2">Catégorie :</label>
                     <select class="form-select" name="categorie" id="categorie">
                         <option value="-1"></option>
                         <%

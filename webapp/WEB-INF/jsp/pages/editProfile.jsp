@@ -33,8 +33,14 @@
 <header class="container-fluid row">
     <%@ include file="/WEB-INF/jsp/parts/header.jsp" %>
 </header>
-<div class="container-fluid text-center">
-    <main class="mx-5">
+
+<div class="container-fluid text-center mt-3">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Modification du profil</h1>
+        </div>
+    </div>
+    <main class="mt-2">
         <% if (erreurs != null) for (String erreur : erreurs) { %>
         <div class="alert alert-danger">
             <%= erreur %>
@@ -156,7 +162,7 @@
             <div class="row mb-4 mx-5">
                 <div class="col">
                     <div class="input-group mb-3 form-outline">
-                        <span class="input-group-text">Mot de passe:</span>
+                        <span class="input-group-text">Nouveau mot de passe:</span>
                         <input
                                 type="password"
                                 class="form-control"
@@ -173,7 +179,7 @@
             <div class="row mb-4 mx-5">
                 <div class="col">
                     <div class="input-group mb-3 form-outline">
-                        <span class="input-group-text">Confirme :</span>
+                        <span class="input-group-text">Mot de passe actuel :</span>
                         <input
                                 type="password"
                                 class="form-control"
@@ -185,7 +191,7 @@
                 </div>
                 <div class="col">
                     <div class="input-group mb-3 form-outline">
-                        <span class="input-group-text">Confirme :</span>
+                        <span class="input-group-text">Confirmer :</span>
                         <input
                                 type="password"
                                 class="form-control"
@@ -195,14 +201,14 @@
                         />
                     </div>
                 </div>
-                <div class="row mb-4 mx-5">
+                <div class="row mb-4">
                     <div class="col">
                         <p>Credit : <%=credit%>
                         </p>
                     </div>
                     <div class="col">
                     </div>
-                    <div class="row mb-4 mx-5">
+                    <div class="row mb-4">
                         <div class="col">
                             <button type="submit" name="btn" value="1" class="btn btn-primary">Enregistrer</button>
                         </div>
